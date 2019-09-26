@@ -6,12 +6,9 @@ namespace Library.Files
     public class WriteShipping {
 
         public class Itau {
-<<<<<<< HEAD
 
             Banks.Itau BancoItau = new Banks.Itau();
 
-=======
->>>>>>> a6ad0e09c755e3afc4672a750d4e55f094fdcedc
             public String WriteHeaderFile(HeaderRemessaCNAB240 Header) {
                 String Result = "";
                 String EmpresaNome = Header.EmpresaCedente.Nome;
@@ -139,9 +136,9 @@ namespace Library.Files
                     File = File.WriteInLine(30, 36, "0000000"); // COMPLEMENTO DE REGISTROS
                     File = File.WriteInLine(37, 41, Header.ClienteSacado.ContaBancaria.Conta); // NR. DA CONTA DEBITADA
                     File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
-                    File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Conta); // DIGITO VERIFICADOR DA AG/CONTA
+                    File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Header.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.WriteInLine(74, 88, Header.EmpresaCedente.ContaBancaria.Conta); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA
+                    File = File.WriteInLine(74, 88, "9988772".AddEmptyLine(74,88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, "DDMMAAAA"); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
@@ -152,9 +149,9 @@ namespace Library.Files
                     File = File.RightEmptyLine(163, 177); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
                     File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
                     File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO
-                    File = File.LeftEmptyLine(197, 212); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
-                    File = File.WriteInLine(213, 216, "Deb Autor".AddEmptyLine(213,216)); // COMPLEMENTO DE REGISTRO | BRANCO
-                    File = File.WriteInLine(217, 230, Header.ClienteSacado.CPF); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
+                    File = File.WriteInLine(197, 212, "Deb Autor".AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
+                    File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
+                    File = File.WriteInLine(217, 230, Header.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                     File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO | BRANCOS
 
                     Result = File;

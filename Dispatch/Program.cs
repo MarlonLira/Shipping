@@ -79,7 +79,7 @@ namespace Dispatch
             var Shipping = new String[3];
             Shipping[0] = HeaderFile;
             Shipping[1] = HeaderAllotment;
-            Shipping[3] = HeaderDetails;
+            Shipping[2] = HeaderDetails;
 
 
             StringBuilder StringB = new StringBuilder();
