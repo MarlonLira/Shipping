@@ -16,8 +16,26 @@ namespace Dispatch
 
             Itau Banco = new Itau();
 
+            Endereco Endereco = new Endereco() {
+                Nome= "Estr. do Arraial",
+                CEP= "52051380",
+                Cidade = "Recife",
+                Numero = 2262,
+                EstadoSigla = "PE",
+                Tipo = "Academia"
+            };
+
+            Endereco Endereco2 = new Endereco() {
+                Nome = "Estr. do Arraial",
+                CEP = "52051380",
+                Cidade = "Recife",
+                Numero = 22,
+                EstadoSigla = "PE",
+                Tipo = "Casa"
+            };
+
             ContaBancaria ContaBancaria = new ContaBancaria() {
-                Conta = "79659-6",
+                Conta = "79659",
                 Digito = "6",
                 AgenciaBancaria = new AgenciaBancaria() {
                     Agencia = "9632",
@@ -39,13 +57,15 @@ namespace Dispatch
                 Nome = "HI ACADEMIA",
                 Codigo = "9092409100012",
                 Digito = "9",
-                ContaBancaria = ContaBancaria
+                ContaBancaria = ContaBancaria,
+                Endereco = Endereco
             };
 
             var Cliente = new Cliente() {
                 ContaBancaria = ContaBancariaCliente,
                 CPF = "09855664580",
-                Nome = "Arthur Polegadas"
+                Nome = "Arthur Polegadas",
+                Endereco = Endereco2
             };
 
             var CNB240 = new HeaderRemessaCNAB240(Empresa, Cliente, 1);
@@ -62,7 +82,7 @@ namespace Dispatch
             StringBuilder StringB = new StringBuilder();
 
             foreach (String File in Shipping) {
-                StringB.Append(File);
+                StringB.AppendLine(File);
             }
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
