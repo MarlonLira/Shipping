@@ -161,52 +161,6 @@ namespace Library.Files
 
                 return Result;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            public String WriteTrailerFile(HeaderRemessaCNAB240 Header) {
-                String Result = "";
-                String EmpresaNome = Header.EmpresaCedente.Nome;
-
-                if (EmpresaNome.Length > 30) {
-                    EmpresaNome = EmpresaNome.Substring(0, 30);
-                }
-
-                var File = new String(' ', 240);
-
-                try {
-
-                    File = File.WriteInLine(1, 3, "341"); // CÓDIGO BANCO NA COMPENSAÇÃO
-                    File = File.WriteInLine(4, 7, "9999"); // LOTE IDENTIFICAÇÃO DE SERVIÇO 
-                    File = File.WriteInLine(8, 8, "9"); // REGISTRO TRAILER DE ARQUIVO 
-                    File = File.LeftEmptyLine(9, 17); //COMPLEMENTO DE REGISTRO - BRANCOS
-                    File = File.WriteInLine(18, 23, "A"); // QTDE LOTES DO ARQUIVO
-                    File = File.WriteInLine(24, 29, "10".AddEmptyLine(24, 29)); // QTDE REGISTROS DO ARQUIVO 
-                    File = File.LeftEmptyLine(30, 240); // CÓDIGO DA CÂMARA DE COMPENSAÇÃO
-
-                    Result = File;
-
-                } catch {
-                    throw;
-                }
-
-                return Result;
-            }
         }
     }
 }
