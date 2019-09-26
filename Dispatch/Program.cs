@@ -1,5 +1,5 @@
 ﻿using Library.Arquivos.CNAB240.Remessa;
-using Library.Bancos.Itau;
+using Library.Banks;
 using Library.Commons;
 using Library.Files;
 using System;
@@ -54,10 +54,13 @@ namespace Dispatch
 
             var HeaderFile = Itau.WriteHeaderFile(CNB240);
             var HeaderAllotment = Itau.WriteHeaderAllotment(CNB240);
+            var HeaderDetails = Itau.WriteHeaderDetails(CNB240);
 
-            var Shipping = new String[2];
+            var Shipping = new String[3];
             Shipping[0] = HeaderFile;
             Shipping[1] = HeaderAllotment;
+            Shipping[3] = HeaderDetails;
+
 
             StringBuilder StringB = new StringBuilder();
 

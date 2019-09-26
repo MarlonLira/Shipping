@@ -7,6 +7,8 @@ namespace Library.Files
 
         public class Itau {
 
+            Banks.Itau BancoItau = new Banks.Itau();
+
             public String WriteHeaderFile(HeaderRemessaCNAB240 Header) {
                 String Result = "";
                 String EmpresaNome = Header.EmpresaCedente.Nome;
@@ -106,6 +108,60 @@ namespace Library.Files
                 return Result;
             }
 
+
+            public String WriteHeaderDetails(HeaderRemessaCNAB240 Header) {
+                String Result = "";
+                String EmpresaNome = Header.EmpresaCedente.Nome;
+
+                if (EmpresaNome.Length > 30) {
+                    EmpresaNome = EmpresaNome.Substring(0, 30);
+                }
+
+                var File = new String(' ', 240);
+
+                try { 
+
+
+                    File = File.WriteInLine(1, 3, "341"); // CÓDIGO BANCO NA COMPENSAÇÃO
+                    File = File.WriteInLine(4, 7, "0001"); // LOTE IDENTIFICAÇÃO DE SERVIÇO
+                    File = File.WriteInLine(8, 8, "3"); // REGISTRO DETALHE DE LOTE
+                    File = File.WriteInLine(9, 13, "00001"); // Nº SEQUENCIAL REGISTRO NO LOTE
+                    File = File.WriteInLine(14, 14, "A"); // CÓDIGO SEGMENTO REG. DETALHE 
+                    File = File.WriteInLine(15, 17, "000"); // CÓDIGO DA INSTRUÇÃO PARA MOVIMENTO | 000 = inclusão de debito | 999 = exlusão de debito
+                    File = File.WriteInLine(18, 20, "000"); // CÓDIGO DA CÂMARA DE COMPENSAÇÃO
+                    File = File.WriteInLine(21, 23, "341"); // CÓDIGO DO BANCO
+                    File = File.WriteInLine(24, 24, "0"); // COMPLEMENTO DE REGISTROS
+                    File = File.WriteInLine(25, 28, Header.ClienteSacado.ContaBancaria.AgenciaBancaria.Agencia); // Nº. AGÊNCIA DEBITADA
+                    File = File.RightEmptyLine(29, 29); // COMPLEMENTO DE REGISTROS | BRANCOS
+                    File = File.WriteInLine(30, 36, "0000000"); // COMPLEMENTO DE REGISTROS
+                    File = File.WriteInLine(37, 41, Header.ClienteSacado.ContaBancaria.Conta); // NR. DA CONTA DEBITADA
+                    File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
+                    File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Conta); // DIGITO VERIFICADOR DA AG/CONTA
+                    File = File.WriteInLine(44, 73, Header.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
+                    File = File.WriteInLine(74, 88, Header.EmpresaCedente.ContaBancaria.Conta); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA
+                    File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
+                    File = File.WriteInLine(94, 101, "DDMMAAAA"); // DATA PARA O LANÇAMENTO DO DÉBITO 
+                    File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
+                    File = File.WriteInLine(105, 119, "5".AddEmptyLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF | IOF
+                    File = File.WriteInLine(120, 134, "99,99".AddEmptyLine(120, 134)); // VALOR DO LANÇAMENTO PARA DÉBITO
+                    File = File.RightEmptyLine(135, 154); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
+                    File = File.RightEmptyLine(155, 162); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO. 
+                    File = File.RightEmptyLine(163, 177); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
+                    File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
+                    File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO
+                    File = File.LeftEmptyLine(197, 212); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
+                    File = File.WriteInLine(213, 216, "Deb Autor".AddEmptyLine(213,216)); // COMPLEMENTO DE REGISTRO | BRANCO
+                    File = File.WriteInLine(217, 230, Header.ClienteSacado.CPF); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
+                    File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO | BRANCOS
+
+                    Result = File;
+
+                } catch {
+                    throw;
+                }
+
+                return Result;
+            }
         }
     }
 }

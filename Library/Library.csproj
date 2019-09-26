@@ -48,7 +48,7 @@
     <Compile Include="Commons\Endereco.cs" />
     <Compile Include="Files\CNAB240\Remessa\HeaderRemessaCNAB240.cs" />
     <Compile Include="Banks\Banco.cs" />
-    <Compile Include="Banks\Itau\Itau.cs" />
+    <Compile Include="Banks\Itau.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Files\WriteShipping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
