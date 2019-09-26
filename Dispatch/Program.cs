@@ -3,6 +3,7 @@ using Library.Banks;
 using Library.Commons;
 using Library.Files;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Dispatch
@@ -68,25 +69,90 @@ namespace Dispatch
                 Endereco = Endereco2
             };
 
-            var CNB240 = new HeaderRemessaCNAB240(Empresa, Cliente, 1);
+            List<Cliente> Clientes = new List<Cliente>() {
+                new Cliente() {
+                    CPF = "09266587450",
+                    Nome = "Maria Benta",
+                    Endereco = new Endereco() {
+                        CEP = "541253680",
+                        Cidade = "Recife",
+                        Nome = "Dinopolis Arruda",
+                        EstadoSigla = "PE",
+                        Numero = 1025,
+                        Tipo = "Rua"
+                    },
+                    ContaBancaria = new ContaBancaria() {
+                        Conta = "78586",
+                        Digito = "7",
+                        AgenciaBancaria = new AgenciaBancaria() {
+                            Agencia = "9633",
+                            Digito = "3"
+                        }
+                    }
+                },
+                new Cliente() {
+                    CPF = "09266587450",
+                    Nome = "Bernadino Pessoa",
+                    Endereco = new Endereco() {
+                        CEP = "548553680",
+                        Cidade = "Recife",
+                        Nome = "Aleixinho",
+                        EstadoSigla = "PE",
+                        Numero = 105,
+                        Tipo = "Rua"
+                    },
+                    ContaBancaria = new ContaBancaria() {
+                        Conta = "98582",
+                        Digito = "7",
+                        AgenciaBancaria = new AgenciaBancaria() {
+                            Agencia = "9699",
+                            Digito = "3"
+                        }
+                    }
+                },
+                new Cliente() {
+                    CPF = "09266587450",
+                    Nome = "Zumira Bernardo",
+                    Endereco = new Endereco() {
+                        CEP = "547253880",
+                        Cidade = "Recife",
+                        Nome = "Arrudandalia",
+                        EstadoSigla = "PE",
+                        Numero = 102,
+                        Tipo = "Rua"
+                    },
+                    ContaBancaria = new ContaBancaria() {
+                        Conta = "78886",
+                        Digito = "7",
+                        AgenciaBancaria = new AgenciaBancaria() {
+                            Agencia = "8733",
+                            Digito = "3"
+                        }
+                    }
+                }
+            };
+            Clientes.Add(Cliente);
+
+            var CNB240 = new HeaderRemessaCNAB240(Empresa, Cliente, 10);
 
             var Itau = new WriteShipping.Itau();
+            String Result;
 
-            var HeaderFile = Itau.WriteHeaderFile(CNB240);
-            var HeaderAllotment = Itau.WriteHeaderAllotment(CNB240);
-            var HeaderDetails = Itau.WriteHeaderDetails(CNB240);
-            var TrailerAllotment = Itau.WriteTrailerAllotment(CNB240);
+            Result = Itau.WriteHeaderFile(CNB240);
+            foreach (Cliente FoundClient in Clientes) {
+                CNB240 = new HeaderRemessaCNAB240(Empresa, FoundClient, 10);
+                Result += "|" + Itau.WriteHeaderAllotment(CNB240);
+                Result += "|" + Itau.WriteHeaderDetails(CNB240);
+                Result += "|" + Itau.WriteTrailerAllotment(CNB240);
+            }
 
-            var Shipping = new String[4];
-            Shipping[0] = HeaderFile;
-            Shipping[1] = HeaderAllotment;
-            Shipping[2] = HeaderDetails;
-            Shipping[3] = TrailerAllotment;
+            Result += "|" + Itau.WriteTrailerFile(CNB240);
 
+            String [] ResultPart = Result.Split('|');
 
             StringBuilder StringB = new StringBuilder();
 
-            foreach (String File in Shipping) {
+            foreach (String File in ResultPart) {
                 StringB.AppendLine(File);
             }
 
@@ -95,7 +161,8 @@ namespace Dispatch
             var nomeArquivo = string.Format("{0}{1}{2}{3}{4}{5}{6}", Banco.Codigo, "-", Banco.Nome, "_", data, @"_HEADER", ".txt");
             var arquivo = new System.IO.StreamWriter(path + @"\" + nomeArquivo, true);
             arquivo.Write(StringB);
-
+            Console.WriteLine(StringB);
+            Console.ReadKey();
             arquivo.Close();
         }
     }
