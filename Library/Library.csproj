@@ -45,6 +45,7 @@
     <Compile Include="Commons\Cliente.cs" />
     <Compile Include="Commons\ContaBancaria.cs" />
     <Compile Include="Commons\Empresa.cs" />
+    <Compile Include="Commons\Endereco.cs" />
     <Compile Include="Files\CNAB240\Remessa\HeaderRemessaCNAB240.cs" />
     <Compile Include="Banks\Banco.cs" />
     <Compile Include="Banks\Itau\Itau.cs" />
