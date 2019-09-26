@@ -75,11 +75,13 @@ namespace Dispatch
             var HeaderFile = Itau.WriteHeaderFile(CNB240);
             var HeaderAllotment = Itau.WriteHeaderAllotment(CNB240);
             var HeaderDetails = Itau.WriteHeaderDetails(CNB240);
+            var TrailerAllotment = Itau.WriteTrailerAllotment(CNB240);
 
-            var Shipping = new String[3];
+            var Shipping = new String[4];
             Shipping[0] = HeaderFile;
             Shipping[1] = HeaderAllotment;
             Shipping[2] = HeaderDetails;
+            Shipping[3] = TrailerAllotment;
 
 
             StringBuilder StringB = new StringBuilder();
