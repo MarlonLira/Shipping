@@ -6,9 +6,12 @@ namespace Library.Files
     public class WriteShipping {
 
         public class Itau {
+<<<<<<< HEAD
 
             Banks.Itau BancoItau = new Banks.Itau();
 
+=======
+>>>>>>> a6ad0e09c755e3afc4672a750d4e55f094fdcedc
             public String WriteHeaderFile(HeaderRemessaCNAB240 Header) {
                 String Result = "";
                 String EmpresaNome = Header.EmpresaCedente.Nome;
@@ -70,7 +73,7 @@ namespace Library.Files
                 try {
 
                     File = File.WriteInLine(1, 3, "341"); // CODIGO BANCARIO
-                    File = File.WriteInLine(4, 7, "0000"); // CODIGO DO LOTE
+                    File = File.WriteInLine(4, 7, "0000"); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                     File = File.WriteInLine(8, 8, "1"); // REGISTRO DO HEADER DO LOTE
                     File = File.WriteInLine(9, 9, "D"); // TIPO DA OPERAÇÃO
                     File = File.WriteInLine(10, 11, "05"); // FORMA DE LANÇAMENTO
@@ -90,12 +93,12 @@ namespace Library.Files
                     File = File.WriteInLine(72, 72, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA. De quem ? Empresa ou Cliente?
                     File = File.WriteInLine(73, 102, Header.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.RightEmptyLine(103, 142); // BRANCOS
-                    File = File.RightEmptyLine(143, 172); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
-                    File = File.WriteInLine(173, 177, "1"); //  NÚMERO DO LOCAL
-                    File = File.WriteInLine(178, 192, "DDMMAAAA"); //  CASA, APTO, SALA, ETC... 
-                    File = File.WriteInLine(193, 212, "HHMMSS"); // NOME DA CIDADE
-                    File = File.WriteInLine(213, 220, ""); // CEP
-                    File = File.WriteInLine(221, 222, "040"); // SIGLA DO ESTADO 
+                    File = File.WriteInLine(143, 172, Header.EmpresaCedente.Endereco.Nome.AddEmptyLine(143,172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
+                    File = File.WriteInLine(173, 177, Header.EmpresaCedente.Endereco.Numero.AddEmptyLine(173, 177)); //  NÚMERO DO LOCAL
+                    File = File.WriteInLine(178, 192, Header.EmpresaCedente.Endereco.Tipo.AddEmptyLine(178,192)); //  CASA, APTO, SALA, ETC... 
+                    File = File.WriteInLine(193, 212, Header.EmpresaCedente.Endereco.Cidade.AddEmptyLine(193, 212)); // NOME DA CIDADE
+                    File = File.WriteInLine(213, 220, Header.EmpresaCedente.Endereco.CEP.AddEmptyLine(213, 220)); // CEP
+                    File = File.WriteInLine(221, 222, Header.EmpresaCedente.Endereco.EstadoSigla); // SIGLA DO ESTADO 
                     File = File.LeftEmptyLine(223, 230); // BRANCOS
                     File = File.LeftEmptyLine(231, 240); // BRANCOS
 
@@ -169,11 +172,11 @@ namespace Library.Files
 public static class Write
 {
 
-    public static String WriteInLine(this String Content, Int32 FromLine, Int32 ToLine, String Value) {
+    public static String WriteInLine(this String Content, Int32 FromLine, Int32 ToLine, Object Value) {
         Int32 Start = FromLine - 1;
-
+        String StringValue = Convert.ToString(Value);
         var SizeOfLine = ToLine - Start;
-        if (Value.Length != SizeOfLine) {
+        if (StringValue.Length != SizeOfLine) {
             throw new Exception("Shipping: Valor a Preencher: " + Value +
                                 " é diferente do tamanho do preenchimento informado. Posição inicial: " + FromLine +
                                 " até " + ToLine);
@@ -182,14 +185,15 @@ public static class Write
         // 1º remove
         Content = Content.Remove(Start, ToLine - FromLine);
         // 2º insere
-        Content = Content.Insert(Start, Value);
+        Content = Content.Insert(Start, StringValue);
 
         return Content;
     }
 
-    public static String RightEmptyLine(this String Content, Int32 FromLine, Int32 ToLine) {
+    public static String RightEmptyLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
+        String Content = Convert.ToString(ContentEdit);
 
         // 1º remove
         Content = Content.Remove(Start, ToLine - FromLine);
@@ -199,9 +203,10 @@ public static class Write
         return Content;
     }
 
-    public static String LeftEmptyLine(this String Content, Int32 FromLine, Int32 ToLine) {
+    public static String LeftEmptyLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
+        String Content = Convert.ToString(ContentEdit);
 
         // 1º remove
         Content = Content.Remove(Start, ToLine - FromLine);
@@ -211,7 +216,8 @@ public static class Write
         return Content;
     }
 
-    public static String AddZeroLine(this String Content, Int32 FromLine, Int32 ToLine) {
+    public static String AddZeroLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
+        String Content = Convert.ToString(ContentEdit);
         FromLine = FromLine + Content.Length;
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
@@ -220,7 +226,8 @@ public static class Write
         return Content;
     }
 
-    public static String AddZeroLeftLine(this String Content, Int32 FromLine, Int32 ToLine) {
+    public static String AddZeroLeftLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
+        String Content = Convert.ToString(ContentEdit);
         FromLine = FromLine + Content.Length;
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
@@ -229,7 +236,8 @@ public static class Write
         return Content;
     }
 
-    public static String AddEmptyLine(this String Content, Int32 FromLine, Int32 ToLine) {
+    public static String AddEmptyLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
+        String Content = Convert.ToString(ContentEdit);
         FromLine = FromLine + Content.Length;
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
@@ -237,7 +245,6 @@ public static class Write
 
         return Content;
     }
-
 }
 
 

@@ -12,6 +12,7 @@ namespace Library.Commons
         public Int32 Numero { get; set; }
         public String Tipo { get; set; }
         public String CEP { get; set; }
+        public String Cidade { get; set; }
         public String EstadoSigla { get; set; }
     }
 }
