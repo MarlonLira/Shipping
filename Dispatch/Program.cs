@@ -3,6 +3,7 @@ using Library.Bancos.Itau;
 using Library.Commons;
 using Library.Files;
 using System;
+using System.Text;
 
 namespace Dispatch
 {
@@ -51,16 +52,24 @@ namespace Dispatch
 
             var Itau = new WriteShipping.Itau();
 
-            var WriteLine = Itau.WriteHeader(CNB240);
+            var HeaderFile = Itau.WriteHeaderFile(CNB240);
+            var HeaderAllotment = Itau.WriteHeaderAllotment(CNB240);
+
+            var Shipping = new String[2];
+            Shipping[0] = HeaderFile;
+            Shipping[1] = HeaderAllotment;
+
+            StringBuilder StringB = new StringBuilder();
+
+            foreach (String File in Shipping) {
+                StringB.Append(File);
+            }
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
             var data = DateTime.Now.ToString("d").Replace("/", "");
-
             var nomeArquivo = string.Format("{0}{1}{2}{3}{4}{5}{6}", Banco.Codigo, "-", Banco.Nome, "_", data, @"_HEADER", ".txt");
-
             var arquivo = new System.IO.StreamWriter(path + @"\" + nomeArquivo, true);
-            arquivo.Write(WriteLine);
+            arquivo.Write(StringB);
 
             arquivo.Close();
         }

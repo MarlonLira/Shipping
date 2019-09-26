@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Library.Commons
 {
-    public class Cliente
+    public class Endereco
     {
         public String Nome { get; set; }
-        public String CPF { get; set; }
-        public Endereco Endereco { get; set; }
-        public ContaBancaria ContaBancaria { get; set; }
+        public Int32 Numero { get; set; }
+        public String Tipo { get; set; }
+        public String CEP { get; set; }
+        public String EstadoSigla { get; set; }
     }
 }
