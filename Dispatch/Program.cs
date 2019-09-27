@@ -56,7 +56,7 @@ namespace Dispatch
             var Empresa = new Empresa() {
                 CNPJ = "09055417000126",
                 Nome = "HI ACADEMIA",
-                Codigo = "9092409100012",
+                Codigo = "50070",
                 Digito = "9",
                 ContaBancaria = ContaBancaria,
                 Endereco = Endereco
