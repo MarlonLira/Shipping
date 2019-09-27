@@ -1,16 +1,21 @@
 ﻿using Library.Arquivos.CNAB240.Remessa;
+using Library.Commons;
 using System;
+using static Library.Commons.Empresa;
 
 namespace Library.Files
 {
-    public class WriteShipping {
+    public class WriteShipping
+    {
 
-        public class Itau {
+        public class Itau
+        {
 
             Banks.Itau BancoItau = new Banks.Itau();
             String DataAtual = DateTime.UtcNow.AddHours(-3).ToShortDateString();
             String HoraAtual = DateTime.UtcNow.AddHours(-3).ToLongTimeString();
             String DataCobranca = DateTime.UtcNow.AddMonths(2).ToShortDateString();
+            Empresa Empresa = new Empresa();
 
             public String WriteHeaderFile(HeaderRemessaCNAB240 Header) {
                 String Result = "";
@@ -30,7 +35,7 @@ namespace Library.Files
                     File = File.RightEmptyLine(9, 17); // BRANCOS
                     File = File.WriteInLine(18, 18, "2"); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                     File = File.WriteInLine(19, 32, Header.EmpresaCedente.CNPJ); //  NÚMERO DO CNPJ/CPF DA EMPRESA
-                    File = File.WriteInLine(33, 45, Header.EmpresaCedente.Codigo.AddZeroLeftLine(33,45)); // CÓDIGO DO CONVÊNIO NO BANCO 
+                    File = File.WriteInLine(33, 45, Header.EmpresaCedente.Codigo.AddZeroLeftLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO 
                     File = File.RightEmptyLine(46, 52); // BRANCOS 
                     File = File.AddZeroRightLine(53, 53); // ZERO
                     File = File.WriteInLine(54, 57, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Agencia); // AGENCIA REFERENTE CONVÊNIO ASSINADO 
@@ -93,9 +98,9 @@ namespace Library.Files
                     File = File.WriteInLine(72, 72, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
                     File = File.WriteInLine(73, 102, Header.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.RightEmptyLine(103, 142); // BRANCOS
-                    File = File.WriteInLine(143, 172, Header.EmpresaCedente.Endereco.Nome.AddEmptyLine(143,172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
+                    File = File.WriteInLine(143, 172, Header.EmpresaCedente.Endereco.Nome.AddEmptyLine(143, 172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
                     File = File.WriteInLine(173, 177, Header.EmpresaCedente.Endereco.Numero.AddEmptyLine(173, 177)); //  NÚMERO DO LOCAL
-                    File = File.WriteInLine(178, 192, Header.EmpresaCedente.Endereco.Tipo.AddEmptyLine(178,192)); //  CASA, APTO, SALA, ETC... 
+                    File = File.WriteInLine(178, 192, Header.EmpresaCedente.Endereco.Tipo.AddEmptyLine(178, 192)); //  CASA, APTO, SALA, ETC... 
                     File = File.WriteInLine(193, 212, Header.EmpresaCedente.Endereco.Cidade.AddEmptyLine(193, 212)); // NOME DA CIDADE
                     File = File.WriteInLine(213, 220, Header.EmpresaCedente.Endereco.CEP.AddEmptyLine(213, 220)); // CEP
                     File = File.WriteInLine(221, 222, Header.EmpresaCedente.Endereco.EstadoSigla); // SIGLA DO ESTADO 
@@ -121,7 +126,7 @@ namespace Library.Files
 
                 var File = new String(' ', 240);
 
-                try { 
+                try {
 
 
                     File = File.WriteInLine(1, 3, "341"); // CÓDIGO BANCO NA COMPENSAÇÃO
@@ -140,17 +145,50 @@ namespace Library.Files
                     File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
                     File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Header.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.WriteInLine(74, 88, "9988772".AddEmptyLine(74,88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA | -->Alterar<--
+                    File = File.WriteInLine(74, 88, "9988772".AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA | -->Alterar<--
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, DataCobranca.Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
-                    File = File.WriteInLine(105, 119, "5".AddZeroLeftLine(105,119)); // QUANTIDADE DA MOEDA OU IOF | IOF
+                    File = File.WriteInLine(105, 119, "5".AddZeroLeftLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF | IOF
                     File = File.WriteInLine(120, 134, "99,99".AddEmptyLine(120, 134)); // VALOR DO LANÇAMENTO PARA DÉBITO | -->Alterar<--
                     File = File.RightEmptyLine(135, 154); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
                     File = File.RightEmptyLine(155, 162); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO. 
                     File = File.RightEmptyLine(163, 177); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
-                    File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
-                    File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+
+                    switch (Header.EmpresaCedente.Mora) {
+                        case MoraTipo.Isento: {
+
+                                File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
+                                File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+
+                                break;
+                            }
+                        case MoraTipo.JurosSimples: {
+
+                                //12 caracteres antes da ,
+                                //5 caracteres após a ,
+
+                                
+
+                                File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
+                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatarJuros()); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+
+                                break;
+                            }
+                            case MoraTipo.IDA: {
+
+                                File = File.WriteInLine(178, 179, "03"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
+                                File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+
+                                break;
+                            }
+
+                        default:
+                            throw new Exception("Falta informar o Mora.");
+                            break;
+                    }
+
+                    
                     File = File.WriteInLine(197, 212, "Deb Autor".AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C -->Alterar<--
                     File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.WriteInLine(217, 230, Header.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
@@ -287,15 +325,21 @@ public static class Write
         return Content;
     }
 
-    public static String AddZeroRightLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
-        Int32 Start = FromLine - 1;
-        var SizeOfLine = ToLine - Start;
+    public static String AddZeroRightLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine, Boolean File = true) {
         String Content = Convert.ToString(ContentEdit);
-
-        // 1º remove
-        Content = Content.Remove(Start, ToLine - FromLine);
-        // 2º insere
-        Content = Content.Insert(Start, string.Empty.PadRight(SizeOfLine, '0'));
+        if (File) {
+            Int32 Start = FromLine - 1;
+            var SizeOfLine = ToLine - Start;
+            // 1º remove
+            Content = Content.Remove(Start, ToLine - FromLine);
+            // 2º insere
+            Content = Content.Insert(Start, string.Empty.PadRight(SizeOfLine, '0'));
+        } else {
+            FromLine = FromLine + Content.Length;
+            Int32 Start = FromLine - 1;
+            var SizeOfLine = ToLine - Start;
+            Content = Content + new string('0', SizeOfLine);
+        }
 
         return Content;
     }
@@ -318,6 +362,18 @@ public static class Write
         Content += new string(' ', SizeOfLine);
 
         return Content;
+    }
+
+    public static String FormatarJuros (this Single ContentEdit) {
+        String Juros = Convert.ToString(ContentEdit);
+        String[] JurosPart = Juros.Split(',');
+        String JurosAntesVirgula = new String(' ', 12);
+        String JurosAposVirgula = new String(' ', 5);
+        JurosAntesVirgula = JurosAntesVirgula.WriteInLine(1, 12, JurosPart[0].AddZeroLeftLine(1, 12));
+        JurosAposVirgula = JurosAposVirgula.WriteInLine(1, 5, JurosPart[1].AddZeroRightLine(1, 5, false));
+        String JurosFormatado = JurosAntesVirgula.Trim() + JurosAposVirgula.Trim();
+
+        return JurosFormatado;
     }
 }
 

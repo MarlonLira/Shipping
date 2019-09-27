@@ -5,6 +5,7 @@ using Library.Files;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Library.Commons.Empresa;
 
 namespace Dispatch
 {
@@ -58,6 +59,8 @@ namespace Dispatch
                 Nome = "HI ACADEMIA",
                 Codigo = "50070",
                 Digito = "9",
+                Juros = 2.54f,
+                Mora = MoraTipo.JurosSimples,
                 ContaBancaria = ContaBancaria,
                 Endereco = Endereco
             };
