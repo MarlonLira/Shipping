@@ -5,22 +5,22 @@ using Library.Commons;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Library.Commons.Cliente;
 using static Library.Commons.Empresa;
 
 namespace Dispatch
 {
-    class Program
-    {
+    class Program {
         static void Main(string[] args) {
 
-            
+
             //const int numeroRegistro = 1;
 
             Itau Banco = new Itau();
 
             Endereco Endereco = new Endereco() {
-                Nome= "Estr. do Arraial",
-                CEP= "52051380",
+                Nome = "Estr. do Arraial",
+                CEP = "52051380",
                 Cidade = "Recife",
                 Numero = 2262,
                 EstadoSigla = "PE",
@@ -60,23 +60,35 @@ namespace Dispatch
                 Codigo = "50070",
                 Digito = "9",
                 OrigemDebito = "1524526352",
-                ValorIDA = 500.10f,
-                Mora = MoraTipo.IDA,
+                Juros = 1.5f,
+                Mora = MoraTipo.JurosSimples,
+                RetencaoIOF = IOF.Com,
+                PctIOF = 20f,
                 ContaBancaria = ContaBancaria,
                 Endereco = Endereco
             };
 
             var Cliente = new Cliente() {
                 ContaBancaria = ContaBancariaCliente,
-                CPF = "09855664580",
+                CPF = "09665664580",
                 Nome = "Arthur Polegadas",
+                CobrancaAgendada = new List<Cobranca>() {
+                    new Cobranca { Descricao = "Parcela" , Valor = 1014f }
+                },
+                QtdRegsLote = 3,
                 Endereco = Endereco2
             };
 
             List<Cliente> Clientes = new List<Cliente>() {
                 new Cliente() {
-                    CPF = "09266587450",
+                    CPF = "09266777450",
                     Nome = "Maria Benta",
+                    CobrancaAgendada = new List<Cobranca>() {
+                        new Cobranca { Descricao = "Taxa" , Valor = 19.99f },
+                        new Cobranca { Descricao = "Parcela" , Valor = 114f }
+                    },
+                    ValorAgendado = 114f,
+                    QtdRegsLote = 3,
                     Endereco = new Endereco() {
                         CEP = "541253680",
                         Cidade = "Recife",
@@ -95,8 +107,15 @@ namespace Dispatch
                     }
                 },
                 new Cliente() {
-                    CPF = "09266587450",
+                    CPF = "09266544450",
                     Nome = "Bernadino Pessoa",
+                    CobrancaAgendada = new List<Cobranca>() {
+                        new Cobranca { Descricao = "Taxa" , Valor = 29.99f },
+                        new Cobranca { Descricao = "Parcela" , Valor = 99f }
+                    },
+                    ValorAgendado = 99f,
+                    QtdRegsLote = 3,
+                    
                     Endereco = new Endereco() {
                         CEP = "548553680",
                         Cidade = "Recife",
@@ -115,8 +134,15 @@ namespace Dispatch
                     }
                 },
                 new Cliente() {
-                    CPF = "09266587450",
+                    CPF = "09266511450",
                     Nome = "Zumira Bernardo",
+                    CobrancaAgendada = new List<Cobranca>() {
+                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 69f }
+                    },
+                    ValorAgendado = 69f,
+                    QtdRegsLote = 3,
+                    
                     Endereco = new Endereco() {
                         CEP = "547253880",
                         Cidade = "Recife",
@@ -136,8 +162,9 @@ namespace Dispatch
                 }
             };
             Clientes.Add(Cliente);
-            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
 
+            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
+			
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var data = DateTime.Now.ToString("d").Replace("/", "");
             var nomeArquivo = string.Format("{0}{1}{2}{3}{4}{5}{6}", Banco.Codigo, "-", Banco.Nome, "_", data, @"_HEADER", ".txt");

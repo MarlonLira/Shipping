@@ -8,4 +8,9 @@ namespace Library.Banks {
         public String LocalPagamento { get; protected set; }
         public String Moeda { get; protected set; }
     }
+
+    public class Debito
+    {
+
+    }
 }

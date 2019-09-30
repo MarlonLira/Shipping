@@ -26,14 +26,18 @@ namespace Dispatch.Commons.Shipping
                             File = Itau.WriteHeaderFile(CNB240);
                             foreach (Cliente FoundClient in ClientesSacados) {
                                 CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, 10);
-                                foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
+                                foreach (Cliente.Cobranca Cobranca in FoundClient.CobrancaAgendada) {
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
                                     File += "|" + Itau.WriteHeaderAllotment(CNB240);
                                     File += "|" + Itau.WriteHeaderDetails(CNB240);
                                     File += "|" + Itau.WriteTrailerAllotment(CNB240);
                                 }
-                                
+
                             }
+                            CNB240.Registros = new Registro() {
+                                TotalQtdLotes = ClientesSacados.Count,
+                                TotalQtdRegs = 2 + (2 * ClientesSacados.Count) + (2 * ClientesSacados.Count)
+                            };
                             File += "|" + Itau.WriteTrailerFile(CNB240);
 
                             FilePart = File.Split('|');

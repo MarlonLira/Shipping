@@ -12,6 +12,11 @@ namespace Library.Commons
 
         }
 
+        public enum IOF {
+            Sem,
+            Com
+        }
+
         public String Nome { get; set; }
         public String CNPJ { get; set; }
         public Endereco Endereco { get; set; }
@@ -23,5 +28,9 @@ namespace Library.Commons
         public Single Juros { get; set; }
         public Single ValorIDA { get; set; }
         public MoraTipo Mora { get; set; }
+
+        public IOF RetencaoIOF { get; set; }
+        public Single PctIOF { get; set; }
+
     }
 }
