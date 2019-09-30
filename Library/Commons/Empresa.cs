@@ -18,7 +18,10 @@ namespace Library.Commons
         public String Codigo { get; set; }
         public String Digito { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
+
+        public String OrigemDebito { get; set; }
         public Single Juros { get; set; }
+        public Single ValorIDA { get; set; }
         public MoraTipo Mora { get; set; }
     }
 }
