@@ -149,12 +149,12 @@ namespace Library.Files {
                     switch (Header.EmpresaCedente.RetencaoIOF) {
                         case IOF.Sem: {
                                 File = File.AddZeroRightLine(105, 119); // QUANTIDADE DA MOEDA OU IOF | IOF
-                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatarValoresEmReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
+                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
                                 break;
                             }
                         case IOF.Com: {
-                                File = File.WriteInLine(105, 119, Header.EmpresaCedente.PctIOF.CalculaIOF(Header.ClienteSacado.ValorAgendado).AddZeroLeftLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF | IOF
-                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatarValoresEmReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
+                                File = File.WriteInLine(105, 119, Header.EmpresaCedente.PctIOF.CalculateIOF(Header.ClienteSacado.ValorAgendado).AddZeroLeftLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF | IOF
+                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
                                 break;
                             }
                     }
@@ -177,14 +177,14 @@ namespace Library.Files {
                         case MoraTipo.JurosSimples: {
 
                                 File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
-                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatarValoresEmReal(12,5)); // VALOR DO ENCARGO P/ DIA DE ATRASO
+                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatValuesInReal(12,5)); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
                             }
                         case MoraTipo.IDA: {
 
                                 File = File.WriteInLine(178, 179, "03"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
-                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.ValorIDA.FormatarValoresEmReal(15,2)); // VALOR DO ENCARGO P/ DIA DE ATRASO
+                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.ValorIDA.FormatValuesInReal(15,2)); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
                             }
@@ -226,7 +226,7 @@ namespace Library.Files {
                     File = File.WriteInLine(8, 8, "5"); // REGISTRO DETALHE DE LOTE
                     File = File.RightEmptyLine(9, 17); // COMPLEMENTO | BRANCOS
                     File = File.WriteInLine(18, 23, Header.ClienteSacado.QtdRegsLote.AddZeroLeftLine(18,23)); // QTDE REGISTROS DO LOTE
-                    File = File.WriteInLine(24, 41, Header.ClienteSacado.ValorTotal.FormatarValoresEmReal(16,2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
+                    File = File.WriteInLine(24, 41, Header.ClienteSacado.ValorTotal.FormatValuesInReal(16,2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
                     File = File.WriteInLine(42, 59, "5".AddEmptyLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE -->Alterar<--
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO | BRANCO
@@ -368,7 +368,7 @@ public static class Write {
         return Content;
     }
 
-    public static String FormatarValoresEmReal(this Single contentEdit, Int32 casasAntesVirgula, Int32 casasPosVirgula) {
+    public static String FormatValuesInReal(this Single contentEdit, Int32 casasAntesVirgula, Int32 casasPosVirgula) {
         String Valor = Convert.ToString(contentEdit);
         String[] ValorPart = Valor.Split(',');
 
@@ -388,7 +388,7 @@ public static class Write {
         return ValorEmRealFormatado;
     }
 
-    public static String CalculaIOF (this Single content, Single valor) {
+    public static String CalculateIOF (this Single content, Single valor) {
         String valorFormatado = Convert.ToString(content * (valor/100));
         valorFormatado = valorFormatado.Replace(",", "");
 
