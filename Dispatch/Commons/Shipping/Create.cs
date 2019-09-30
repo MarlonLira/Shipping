@@ -17,6 +17,7 @@ namespace Dispatch.Commons.Shipping
             String[] FilePart; 
             
             try {
+                EmpresaCedente.Verificar();
                 Result = new StringBuilder();
                 var Itau = new WriteShipping.Itau();
                 var CNB240 = new RemessaCNAB240(EmpresaCedente);
@@ -26,15 +27,15 @@ namespace Dispatch.Commons.Shipping
                             //Init Header File
                             File = Itau.WriteHeaderFile(CNB240);
                             foreach (Cliente FoundClient in ClientesSacados) {
-                                CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, 10);
+                                FoundClient.Verificar();
+                                CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, 1);
                                 //Init Header Allotment
                                 File += "|" + Itau.WriteHeaderAllotment(CNB240);
                                 foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
-                                    if (Cobranca.Data == default(DateTime)) {
-                                        throw new Exception("Erro: A data da cobrança do cliente " + FoundClient.Nome + " não foi informada!");
-                                    }
+                                    Cobranca.Verificar();
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
                                     CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
+
                                     //Details
                                     File += "|" + Itau.WriteHeaderDetails(CNB240);
                                 }

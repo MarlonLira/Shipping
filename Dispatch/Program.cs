@@ -50,7 +50,7 @@ namespace Dispatch
                 CPF = "09665664580",
                 Nome = "Arthur Polegadas",
                 CobrancaAgendada = new List<Cobranca>() {
-                    new Cobranca { Descricao = "Parcela" , Valor = 1014f }
+                    new Cobranca { Descricao = "Parcela" , Valor = 1014f, Data = Convert.ToDateTime("25/01/2020") }
                 },
                 QtdRegsLote = 3,
                 ContaBancaria = new ContaBancaria() {
@@ -71,13 +71,49 @@ namespace Dispatch
                 }
             };
 
+            var Cliente2 = new Cliente() {
+                CPF = "09177350480",
+                Nome = "Marlon Lira",
+                CobrancaAgendada = new List<Cobranca>() {
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/01/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/02/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/03/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/04/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/05/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/06/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/07/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/08/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/09/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/10/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/11/2020"), PctIOF = 0.8f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/12/2020"), PctIOF = 0.8f }
+                },
+                QtdRegsLote = 3,
+                ContaBancaria = new ContaBancaria() {
+                    Conta = "58765",
+                    Digito = "9",
+                    AgenciaBancaria = new AgenciaBancaria() {
+                        Agencia = "6985",
+                        Digito = "3"
+                    },
+                },
+                Endereco = new Endereco() {
+                    Nome = "R. Democrito de Souza Filho",
+                    CEP = "54150080",
+                    Cidade = "Jaboatão",
+                    Numero = 187,
+                    EstadoSigla = "PE",
+                    Tipo = "Casa"
+                }
+            };
+
             List<Cliente> Clientes = new List<Cliente>() {
                 new Cliente() {
                     CPF = "09266777450",
                     Nome = "Maria Benta",
                     CobrancaAgendada = new List<Cobranca>() {
-                        new Cobranca { Descricao = "Taxa" , Valor = 19.99f },
-                        new Cobranca { Descricao = "Parcela" , Valor = 114f }
+                        new Cobranca { Descricao = "Taxa" , Valor = 19.99f, Data = Convert.ToDateTime("25/09/2019"), PctIOF = 0.1f },
+                        new Cobranca { Descricao = "Parcela" , Valor = 114f, Data = Convert.ToDateTime("25/10/2019"), PctIOF = 0.1f }
                     },
                     ValorAgendado = 114f,
                     QtdRegsLote = 3,
@@ -102,8 +138,8 @@ namespace Dispatch
                     CPF = "09266544450",
                     Nome = "Bernadino Pessoa",
                     CobrancaAgendada = new List<Cobranca>() {
-                        new Cobranca { Descricao = "Taxa" , Valor = 29.99f },
-                        new Cobranca { Descricao = "Parcela" , Valor = 99f }
+                        new Cobranca { Descricao = "Taxa" , Valor = 29.99f, Data = Convert.ToDateTime("25/07/2019")},
+                        new Cobranca { Descricao = "Parcela" , Valor = 99f, Data = Convert.ToDateTime("25/08/2020") }
                     },
                     ValorAgendado = 99f,
                     QtdRegsLote = 3,
@@ -129,8 +165,8 @@ namespace Dispatch
                     CPF = "09266511450",
                     Nome = "Zumira Bernardo",
                     CobrancaAgendada = new List<Cobranca>() {
-                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 69f }
+                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f, Data = Convert.ToDateTime("07/05/2020") },
+                    new Cobranca { Descricao = "Parcela" , Valor = 69f, Data = Convert.ToDateTime("07/04/2020")}
                     },
                     ValorAgendado = 69f,
                     QtdRegsLote = 3,
@@ -156,8 +192,8 @@ namespace Dispatch
                     CPF = "09266511450",
                     Nome = "Carlos Eduardo",
                     CobrancaAgendada = new List<Cobranca>() {
-                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 79f }
+                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f, Data = Convert.ToDateTime("12/12/2020")},
+                    new Cobranca { Descricao = "Parcela" , Valor = 79f, Data = Convert.ToDateTime("01/11/2019")}
                     },
                     ValorAgendado = 69f,
                     QtdRegsLote = 3,
@@ -181,6 +217,7 @@ namespace Dispatch
                 }
             };
             Clientes.Add(Cliente);
+            Clientes.Add(Cliente2);
 
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
 			
