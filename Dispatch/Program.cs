@@ -1,7 +1,7 @@
-﻿using Library.Arquivos.CNAB240.Remessa;
+﻿using Dispatch.Commons.Banks;
+using Dispatch.Commons.Shipping;
 using Library.Banks;
 using Library.Commons;
-using Library.Files;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -136,29 +136,7 @@ namespace Dispatch
                 }
             };
             Clientes.Add(Cliente);
-
-            var CNB240 = new HeaderRemessaCNAB240(Empresa, Cliente, 10);
-
-            var Itau = new WriteShipping.Itau();
-            String Result;
-
-            Result = Itau.WriteHeaderFile(CNB240);
-            foreach (Cliente FoundClient in Clientes) {
-                CNB240 = new HeaderRemessaCNAB240(Empresa, FoundClient, 10);
-                Result += "|" + Itau.WriteHeaderAllotment(CNB240);
-                Result += "|" + Itau.WriteHeaderDetails(CNB240);
-                Result += "|" + Itau.WriteTrailerAllotment(CNB240);
-            }
-
-            Result += "|" + Itau.WriteTrailerFile(CNB240);
-
-            String [] ResultPart = Result.Split('|');
-
-            StringBuilder StringB = new StringBuilder();
-
-            foreach (String File in ResultPart) {
-                StringB.AppendLine(File);
-            }
+            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var data = DateTime.Now.ToString("d").Replace("/", "");
