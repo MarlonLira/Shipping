@@ -59,8 +59,9 @@ namespace Dispatch
                 Nome = "HI ACADEMIA",
                 Codigo = "50070",
                 Digito = "9",
-                Juros = 2.54f,
-                Mora = MoraTipo.JurosSimples,
+                OrigemDebito = "1524526352",
+                ValorIDA = 500.10f,
+                Mora = MoraTipo.IDA,
                 ContaBancaria = ContaBancaria,
                 Endereco = Endereco
             };

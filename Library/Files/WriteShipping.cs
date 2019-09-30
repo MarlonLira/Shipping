@@ -145,7 +145,7 @@ namespace Library.Files
                     File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
                     File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Header.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.WriteInLine(74, 88, "9988772".AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA | -->Alterar<--
+                    File = File.WriteInLine(74, 88, Header.EmpresaCedente.OrigemDebito.AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA | -->Alterar<--
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, DataCobranca.Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
@@ -158,7 +158,7 @@ namespace Library.Files
                     switch (Header.EmpresaCedente.Mora) {
                         case MoraTipo.Isento: {
 
-                                File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
+                                File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
                                 File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
@@ -170,15 +170,15 @@ namespace Library.Files
 
                                 
 
-                                File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
+                                File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
                                 File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatarJuros()); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
                             }
                             case MoraTipo.IDA: {
 
-                                File = File.WriteInLine(178, 179, "03"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
-                                File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+                                File = File.WriteInLine(178, 179, "03"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
+                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.ValorIDA.FormatarIDA()); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
                             }
@@ -373,5 +373,17 @@ public static class Write
         String JurosFormatado = JurosAntesVirgula.Trim() + JurosAposVirgula.Trim();
 
         return JurosFormatado;
+    }
+
+    public static String FormatarIDA(this Single ContentEdit) {
+        String ValorEmReal = Convert.ToString(ContentEdit);
+        String[] JurosPart = ValorEmReal.Split(',');
+        String ValorAntesVirgula = new String(' ', 15);
+        String ValorAposVirgula = new String(' ', 2);
+        ValorAntesVirgula = ValorAntesVirgula.WriteInLine(1, 15, JurosPart[0].AddZeroLeftLine(1, 15));
+        ValorAposVirgula = ValorAposVirgula.WriteInLine(1, 2, JurosPart[1].AddZeroRightLine(1, 2, false));
+        String ValorEmRealFormatado = ValorAntesVirgula.Trim() + ValorAposVirgula.Trim();
+
+        return ValorEmRealFormatado;
     }
 }
