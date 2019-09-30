@@ -12,7 +12,7 @@ namespace Dispatch.Commons.Shipping
     public static class Create
     {
         public static StringBuilder Shipping(Empresa EmpresaCedente, List<Cliente> ClientesSacados, Bank CodigoBancario) {
-            String File = "";
+            String File;
             StringBuilder Result;
             String[] FilePart; 
             
@@ -23,25 +23,31 @@ namespace Dispatch.Commons.Shipping
 
                 switch (CodigoBancario) {
                     case Bank.Itau: {
+                            //Init Header File
                             File = Itau.WriteHeaderFile(CNB240);
                             foreach (Cliente FoundClient in ClientesSacados) {
                                 CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, 10);
-                                foreach (Cliente.Cobranca Cobranca in FoundClient.CobrancaAgendada) {
+                                //Init Header Allotment
+                                File += "|" + Itau.WriteHeaderAllotment(CNB240);
+                                foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
+                                    if (Cobranca.Data == default(DateTime)) {
+                                        throw new Exception("Erro: A data da cobrança do cliente " + FoundClient.Nome + " não foi informada!");
+                                    }
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
-                                    File += "|" + Itau.WriteHeaderAllotment(CNB240);
+                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
+                                    //Details
                                     File += "|" + Itau.WriteHeaderDetails(CNB240);
-                                    File += "|" + Itau.WriteTrailerAllotment(CNB240);
                                 }
-
+                                //Close Header Allotment
+                                File += "|" + Itau.WriteTrailerAllotment(CNB240);
                             }
                             CNB240.Registros = new Registro() {
                                 TotalQtdLotes = ClientesSacados.Count,
                                 TotalQtdRegs = 2 + (2 * ClientesSacados.Count) + (2 * ClientesSacados.Count)
                             };
+                            //Close Header File
                             File += "|" + Itau.WriteTrailerFile(CNB240);
-
                             FilePart = File.Split('|');
-
                             foreach (String FoundFile in FilePart) {
                                 Result.AppendLine(FoundFile);
                             }
@@ -72,7 +78,6 @@ namespace Dispatch.Commons.Shipping
             } catch {
                 throw;
             }
-
             return Result;
         }
     }

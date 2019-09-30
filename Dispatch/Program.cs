@@ -35,14 +35,13 @@ namespace Dispatch
 
             var Empresa = new Empresa() {
                 CNPJ = "09055417000126",
-                Nome = "HI ACADEMIA",
+                Nome = "CENTRO DE EST E FISIO INSPIRACAO",
                 Codigo = "50070",
                 Digito = "9",
-                OrigemDebito = "1524526352",
                 Juros = 1.5f,
                 Mora = MoraTipo.JurosSimples,
                 RetencaoIOF = IOF.Com,
-                PctIOF = 20f,
+                PctIOF = 3.4f,
                 ContaBancaria = ContaBancaria,
                 Endereco = Endereco
             };

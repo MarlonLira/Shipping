@@ -11,10 +11,9 @@ namespace Library.Files
             Banks.Itau BancoItau = new Banks.Itau();
             String DataAtual = DateTime.UtcNow.AddHours(-3).ToShortDateString();
             String HoraAtual = DateTime.UtcNow.AddHours(-3).ToLongTimeString();
-            String DataCobranca = DateTime.UtcNow.AddMonths(2).ToShortDateString();
 
             public String WriteHeaderFile(RemessaCNAB240 Header) {
-                String Result = "";
+                String Result;
                 String EmpresaNome = Header.EmpresaCedente.Nome;
 
                 if (EmpresaNome.Length > 30) {
@@ -39,7 +38,7 @@ namespace Library.Files
                     File = File.AddZeroRightLine(59, 65); // ZEROS
                     File = File.WriteInLine(66, 70, Header.EmpresaCedente.ContaBancaria.Conta); // NÚMERO DA C/C DO CLIENTE
                     File = File.RightEmptyLine(71, 71); // BRANCOS
-                    File = File.WriteInLine(72, 72, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
+                    File = File.WriteInLine(72, 72, Header.EmpresaCedente.ContaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
                     File = File.WriteInLine(73, 102, Header.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.WriteInLine(103, 132, "BANCO ITAU".AddEmptyLine(103, 132)); // NOME DO BANCO
                     File = File.RightEmptyLine(133, 142); // BRANCOS
@@ -57,12 +56,11 @@ namespace Library.Files
                 } catch {
                     throw;
                 }
-
                 return Result;
             }
 
             public String WriteHeaderAllotment(RemessaCNAB240 Header) {
-                String Result = "";
+                String Result;
                 String EmpresaNome = Header.EmpresaCedente.Nome;
 
                 if (EmpresaNome.Length > 30) {
@@ -91,7 +89,7 @@ namespace Library.Files
                     File = File.AddZeroRightLine(59, 65); // ZEROS
                     File = File.WriteInLine(66, 70, Header.EmpresaCedente.ContaBancaria.Conta); // NÚMERO DA C/C DO CLIENTE
                     File = File.RightEmptyLine(71, 71); // BRANCOS
-                    File = File.WriteInLine(72, 72, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
+                    File = File.WriteInLine(72, 72, Header.EmpresaCedente.ContaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
                     File = File.WriteInLine(73, 102, Header.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.RightEmptyLine(103, 142); // BRANCOS
                     File = File.WriteInLine(143, 172, Header.EmpresaCedente.Endereco.Nome.AddEmptyLine(143, 172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
@@ -108,12 +106,11 @@ namespace Library.Files
                 } catch {
                     throw;
                 }
-
                 return Result;
             }
 
             public String WriteHeaderDetails(RemessaCNAB240 Header) {
-                String Result = "";
+                String Result;
                 String EmpresaNome = Header.EmpresaCedente.Nome;
 
                 if (EmpresaNome.Length > 30) {
@@ -123,7 +120,6 @@ namespace Library.Files
                 var File = new String(' ', 240);
 
                 try {
-
 
                     File = File.WriteInLine(1, 3, "341"); // CÓDIGO BANCO NA COMPENSAÇÃO
                     File = File.WriteInLine(4, 7, "0001"); // LOTE IDENTIFICAÇÃO DE SERVIÇO
@@ -141,9 +137,9 @@ namespace Library.Files
                     File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
                     File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Header.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.WriteInLine(74, 88, Header.EmpresaCedente.OrigemDebito.AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA
+                    File = File.LeftEmptyLine(74, 88); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
-                    File = File.WriteInLine(94, 101, DataCobranca.Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
+                    File = File.WriteInLine(94, 101, Header.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")) ; // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
 
                     switch (Header.EmpresaCedente.RetencaoIOF) {
@@ -159,40 +155,30 @@ namespace Library.Files
                             }
                     }
 
-
-
-
                     File = File.RightEmptyLine(135, 154); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
                     File = File.RightEmptyLine(155, 162); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO. 
                     File = File.RightEmptyLine(163, 177); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
 
                     switch (Header.EmpresaCedente.Mora) {
                         case MoraTipo.Isento: {
-
                                 File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
                                 File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO
-
                                 break;
                             }
                         case MoraTipo.JurosSimples: {
-
                                 File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
                                 File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatValuesInReal(12,5)); // VALOR DO ENCARGO P/ DIA DE ATRASO
-
                                 break;
                             }
                         case MoraTipo.IDA: {
-
                                 File = File.WriteInLine(178, 179, "03"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
                                 File = File.WriteInLine(180, 196, Header.EmpresaCedente.ValorIDA.FormatValuesInReal(15,2)); // VALOR DO ENCARGO P/ DIA DE ATRASO
-
                                 break;
                             }
 
                         default:
                             throw new Exception("Falta informar o Mora.");
                     }
-
 
                     File = File.WriteInLine(197, 212, "Deb Autor".AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C -->Alterar<--
                     File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
@@ -209,7 +195,7 @@ namespace Library.Files
             }
 
             public String WriteTrailerAllotment(RemessaCNAB240 Header) {
-                String Result = "";
+                String Result;
                 String EmpresaNome = Header.EmpresaCedente.Nome;
 
                 if (EmpresaNome.Length > 30) {
@@ -219,7 +205,6 @@ namespace Library.Files
                 var File = new String(' ', 240);
 
                 try {
-
 
                     File = File.WriteInLine(1, 3, "341"); // CÓDIGO BANCO NA COMPENSAÇÃO
                     File = File.WriteInLine(4, 7, "0001"); // LOTE IDENTIFICAÇÃO DE SERVIÇO
@@ -241,7 +226,7 @@ namespace Library.Files
             }
 
             public String WriteTrailerFile(RemessaCNAB240 Header) {
-                String Result = "";
+                String Result;
                 String EmpresaNome = Header.EmpresaCedente.Nome;
 
                 if (EmpresaNome.Length > 30) {
@@ -279,10 +264,14 @@ public static class Write {
         Int32 Start = FromLine - 1;
         String StringValue = Convert.ToString(Value);
         var SizeOfLine = ToLine - Start;
+
         if (StringValue.Length != SizeOfLine) {
-            throw new Exception("Shipping: Valor a Preencher: " + Value +
-                                " é diferente do tamanho do preenchimento informado. Posição inicial: " + FromLine +
-                                " até " + ToLine);
+            StringValue = StringValue.Substring(0, SizeOfLine);
+            if (StringValue.Length != SizeOfLine) {
+                throw new Exception("Shipping: Valor a Preencher: " + Value +
+                                    " é diferente do tamanho do preenchimento informado. Posição inicial: " + FromLine +
+                                    " até " + ToLine);
+            }
         }
 
         // 1º remove
@@ -324,7 +313,7 @@ public static class Write {
         FromLine = FromLine + Content.Length;
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
-        Content += new string('0', SizeOfLine);
+        Content += SizeOfLine < 0 ? String.Empty : new string('0', SizeOfLine);
 
         return Content;
     }
@@ -353,7 +342,7 @@ public static class Write {
         FromLine = FromLine + Content.Length;
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
-        Content = new string('0', SizeOfLine) + Content;
+        Content = SizeOfLine < 0 ? Content : new string('0', SizeOfLine) + Content;
 
         return Content;
     }
@@ -363,7 +352,7 @@ public static class Write {
         FromLine = FromLine + Content.Length;
         Int32 Start = FromLine - 1;
         var SizeOfLine = ToLine - Start;
-        Content += new string(' ', SizeOfLine);
+        Content += SizeOfLine < 0 ? String.Empty : new string(' ', SizeOfLine);
 
         return Content;
     }
@@ -384,7 +373,6 @@ public static class Write {
         }
 
         String ValorEmRealFormatado = ValorAntesVirgula.Trim() + ValorAposVirgula.Trim();
-
         return ValorEmRealFormatado;
     }
 

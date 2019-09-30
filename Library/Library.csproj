@@ -47,6 +47,7 @@
     <Compile Include="Banks\Santander.cs" />
     <Compile Include="Commons\AgenciaBancaria.cs" />
     <Compile Include="Commons\Cliente.cs" />
+    <Compile Include="Commons\Cobranca.cs" />
     <Compile Include="Commons\ContaBancaria.cs" />
     <Compile Include="Commons\Empresa.cs" />
     <Compile Include="Commons\Endereco.cs" />
