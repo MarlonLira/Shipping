@@ -47,6 +47,27 @@ namespace Dispatch.Commons.Shipping
                             }
                             break;
                         }
+                    case Bank.Bradesco: {
+                            throw new Exception("O banco ainda não foi implementado!");
+                            break;
+                        }
+                    case Bank.Brasil: {
+                            throw new Exception("O banco ainda não foi implementado!");
+                            break;
+                        }
+                    case Bank.Caixa: {
+                            throw new Exception("O banco ainda não foi implementado!");
+                            break;
+                        }
+                    case Bank.Santander: {
+                            throw new Exception("O banco ainda não foi implementado!");
+                            break;
+                        }
+                    default: {
+                            throw new Exception("O banco não foi encontrado!");
+                            break;
+                        }
+
                 }
             } catch {
                 throw;
