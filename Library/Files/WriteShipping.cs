@@ -159,7 +159,7 @@ namespace Library.Files
                         case MoraTipo.Isento: {
 
                                 File = File.WriteInLine(178, 179, "00"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
-                                File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+                                File = File.WriteInLine(180, 196, "00000000000000000"); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
                             }
@@ -171,7 +171,7 @@ namespace Library.Files
                                 
 
                                 File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso) | -->Alterar<--
-                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatarJuros()); // VALOR DO ENCARGO P/ DIA DE ATRASO -->Alterar<--
+                                File = File.WriteInLine(180, 196, Header.EmpresaCedente.Juros.FormatarJuros()); // VALOR DO ENCARGO P/ DIA DE ATRASO
 
                                 break;
                             }
@@ -185,7 +185,6 @@ namespace Library.Files
 
                         default:
                             throw new Exception("Falta informar o Mora.");
-                            break;
                     }
 
                     
@@ -376,5 +375,3 @@ public static class Write
         return JurosFormatado;
     }
 }
-
-
