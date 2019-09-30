@@ -212,7 +212,7 @@ namespace Library.Files
                     File = File.RightEmptyLine(9, 17); // COMPLEMENTO | BRANCOS
                     File = File.WriteInLine(18, 23, Header.ClienteSacado.QtdRegsLote.AddZeroLeftLine(18,23)); // QTDE REGISTROS DO LOTE
                     File = File.WriteInLine(24, 41, Header.ClienteSacado.ValorTotal.FormatValuesInReal(16,2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
-                    File = File.WriteInLine(42, 59, "5".AddEmptyLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE -->Alterar<--
+                    File = File.WriteInLine(42, 59, Header.ClienteSacado.ValorMoedaTotal.FormatValuesInReal(13,5).AddZeroLeftLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO | BRANCO
 

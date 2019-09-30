@@ -17,10 +17,41 @@ namespace Library.Commons
                 Single Result = 0;
                 if (CobrancaAgendada != null) {
                     foreach (Cobranca Cobranca in CobrancaAgendada) {
-                        Result = Result + Cobranca.Valor;
+                        Result += Cobranca.Valor;
                     }
                 }
                 return Result;
+            }
+        }
+        public Single ValorMoedaTotal {
+            get {
+                Single Result = 0;
+                if (CobrancaAgendada != null) {
+                    foreach (Cobranca Cobranca in CobrancaAgendada) {
+                        Result += (Cobranca.Valor * Cobranca.PctIOF);
+                    }
+                }
+                return Result;
+            }
+        }
+
+        public void Verificar() {
+            String Error = String.Empty;
+            if (String.IsNullOrEmpty(Nome)) {
+                Error += "O nome do cliente não foi informado!";
+                this.Nome = "[nome não informado]";
+            }
+            if (String.IsNullOrEmpty(CPF)) {
+                Error += "O CPF do cliente " + Nome +" não foi informado!";
+            }
+            if (Endereco == null) {
+                Error += "O endereço do cliente " + Nome + " não foi informado!";
+            }
+            if (ContaBancaria == null) {
+                Error += "A conta bancaria do cliente " + Nome + " não foi informado!";
+            }
+            if (!String.IsNullOrEmpty(Error)) {
+                throw new Exception(Error);
             }
         }
     }
