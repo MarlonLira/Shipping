@@ -1,9 +1,9 @@
-﻿using Library.Arquivos.CNAB240.Remessa;
-using Library.Commons;
-using System;
+﻿using System;
+using Library.Arquivos.CNAB240.Remessa;
 using static Library.Commons.Empresa;
 
-namespace Library.Files {
+namespace Library.Files
+{
     public class WriteShipping {
 
         public class Itau {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dispatch.Commons.Banks
+﻿namespace Dispatch.Commons.Banks
 {
     public class Bancos
     {
@@ -14,6 +8,9 @@ namespace Dispatch.Commons.Banks
     public enum Bank
     {
         Itau = 341,
-        Caixa = 104
+        Caixa = 104,
+        Santander = 033,
+        Brasil = 001,
+        Bradesco = 237
     }
 }

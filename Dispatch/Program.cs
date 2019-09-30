@@ -13,9 +13,6 @@ namespace Dispatch
     class Program {
         static void Main(string[] args) {
 
-
-            //const int numeroRegistro = 1;
-
             Itau Banco = new Itau();
 
             Endereco Endereco = new Endereco() {
@@ -27,29 +24,11 @@ namespace Dispatch
                 Tipo = "Academia"
             };
 
-            Endereco Endereco2 = new Endereco() {
-                Nome = "Estr. do Arraial",
-                CEP = "52051380",
-                Cidade = "Recife",
-                Numero = 22,
-                EstadoSigla = "PE",
-                Tipo = "Casa"
-            };
-
             ContaBancaria ContaBancaria = new ContaBancaria() {
                 Conta = "79659",
                 Digito = "6",
                 AgenciaBancaria = new AgenciaBancaria() {
                     Agencia = "9632",
-                    Digito = "2"
-                }
-            };
-
-            ContaBancaria ContaBancariaCliente = new ContaBancaria() {
-                Conta = "28170",
-                Digito = "7",
-                AgenciaBancaria = new AgenciaBancaria() {
-                    Agencia = "6942",
                     Digito = "2"
                 }
             };
@@ -69,14 +48,28 @@ namespace Dispatch
             };
 
             var Cliente = new Cliente() {
-                ContaBancaria = ContaBancariaCliente,
                 CPF = "09665664580",
                 Nome = "Arthur Polegadas",
                 CobrancaAgendada = new List<Cobranca>() {
                     new Cobranca { Descricao = "Parcela" , Valor = 1014f }
                 },
                 QtdRegsLote = 3,
-                Endereco = Endereco2
+                ContaBancaria = new ContaBancaria() {
+                    Conta = "28170",
+                    Digito = "7",
+                    AgenciaBancaria = new AgenciaBancaria() {
+                        Agencia = "6942",
+                        Digito = "2"
+                    },
+                },
+                Endereco = new Endereco() {
+                    Nome = "Estr. do Arraial",
+                    CEP = "52051380",
+                    Cidade = "Recife",
+                    Numero = 22,
+                    EstadoSigla = "PE",
+                    Tipo = "Casa"
+                }
             };
 
             List<Cliente> Clientes = new List<Cliente>() {
@@ -157,6 +150,33 @@ namespace Dispatch
                         AgenciaBancaria = new AgenciaBancaria() {
                             Agencia = "8733",
                             Digito = "3"
+                        }
+                    }
+                },
+                new Cliente() {
+                    CPF = "09266511450",
+                    Nome = "Carlos Eduardo",
+                    CobrancaAgendada = new List<Cobranca>() {
+                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f },
+                    new Cobranca { Descricao = "Parcela" , Valor = 79f }
+                    },
+                    ValorAgendado = 69f,
+                    QtdRegsLote = 3,
+
+                    Endereco = new Endereco() {
+                        CEP = "547253880",
+                        Cidade = "Recife",
+                        Nome = "Varzea",
+                        EstadoSigla = "PE",
+                        Numero = 850,
+                        Tipo = "Rua"
+                    },
+                    ContaBancaria = new ContaBancaria() {
+                        Conta = "65286",
+                        Digito = "8",
+                        AgenciaBancaria = new AgenciaBancaria() {
+                            Agencia = "8223",
+                            Digito = "9"
                         }
                     }
                 }

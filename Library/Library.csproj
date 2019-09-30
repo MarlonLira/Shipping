@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banks\Bradesco.cs" />
+    <Compile Include="Banks\Brasil.cs" />
+    <Compile Include="Banks\Caixa.cs" />
+    <Compile Include="Banks\Santander.cs" />
     <Compile Include="Commons\AgenciaBancaria.cs" />
     <Compile Include="Commons\Cliente.cs" />
     <Compile Include="Commons\ContaBancaria.cs" />
