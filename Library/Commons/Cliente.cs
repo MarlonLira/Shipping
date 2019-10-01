@@ -11,7 +11,8 @@ namespace Library.Commons
         public List<Cobranca> CobrancaAgendada { get; set; }
         public Single ValorAgendado { get; set; }
         public DateTime DataCobranca { get; set; }
-        public Int32 QtdRegsLote { get; set; }
+        public Single ValorMoeda { get; set; }
+        public Int32 QtdRegsLote { get { return CobrancaAgendada == null? 0 : 2 + CobrancaAgendada.Count; } }
         public Single ValorTotal {
             get {
                 Single Result = 0;

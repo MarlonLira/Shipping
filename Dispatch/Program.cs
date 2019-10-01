@@ -23,8 +23,7 @@ namespace Dispatch
                 Digito = "9",
                 Juros = 1.5f,
                 Mora = MoraTipo.JurosSimples,
-                RetencaoIOF = IOF.Com,
-                PctIOF = 3.4f,
+                RetencaoIOF = IOF.Sem,
                 ContaBancaria = new ContaBancaria()
                 {
                     Conta = "79659",
@@ -52,7 +51,6 @@ namespace Dispatch
                 CobrancaAgendada = new List<Cobranca>() {
                     new Cobranca { Descricao = "Parcela" , Valor = 1014f, Data = Convert.ToDateTime("25/01/2020") }
                 },
-                QtdRegsLote = 3,
                 ContaBancaria = new ContaBancaria() {
                     Conta = "28170",
                     Digito = "7",
@@ -75,20 +73,19 @@ namespace Dispatch
                 CPF = "09177350480",
                 Nome = "Marlon Lira",
                 CobrancaAgendada = new List<Cobranca>() {
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/01/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/02/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/03/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/04/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/05/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/06/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/07/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/08/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/09/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/10/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/11/2020"), PctIOF = 0.8f },
-                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/12/2020"), PctIOF = 0.8f }
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/01/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/02/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/03/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/04/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/05/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/06/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/07/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/08/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/09/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/10/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/11/2020"), PctIOF = 0.4f},
+                    new Cobranca { Descricao = "Parcela" , Valor = 59.9f, Data = Convert.ToDateTime("25/12/2020"), PctIOF = 0.4f}
                 },
-                QtdRegsLote = 3,
                 ContaBancaria = new ContaBancaria() {
                     Conta = "58765",
                     Digito = "9",
@@ -115,8 +112,6 @@ namespace Dispatch
                         new Cobranca { Descricao = "Taxa" , Valor = 19.99f, Data = Convert.ToDateTime("25/09/2019"), PctIOF = 0.1f },
                         new Cobranca { Descricao = "Parcela" , Valor = 114f, Data = Convert.ToDateTime("25/10/2019"), PctIOF = 0.1f }
                     },
-                    ValorAgendado = 114f,
-                    QtdRegsLote = 3,
                     Endereco = new Endereco() {
                         CEP = "541253680",
                         Cidade = "Recife",
@@ -141,9 +136,6 @@ namespace Dispatch
                         new Cobranca { Descricao = "Taxa" , Valor = 29.99f, Data = Convert.ToDateTime("25/07/2019")},
                         new Cobranca { Descricao = "Parcela" , Valor = 99f, Data = Convert.ToDateTime("25/08/2020") }
                     },
-                    ValorAgendado = 99f,
-                    QtdRegsLote = 3,
-                    
                     Endereco = new Endereco() {
                         CEP = "548553680",
                         Cidade = "Recife",
@@ -168,9 +160,6 @@ namespace Dispatch
                     new Cobranca { Descricao = "Taxa" , Valor = 19.90f, Data = Convert.ToDateTime("07/05/2020") },
                     new Cobranca { Descricao = "Parcela" , Valor = 69f, Data = Convert.ToDateTime("07/04/2020")}
                     },
-                    ValorAgendado = 69f,
-                    QtdRegsLote = 3,
-                    
                     Endereco = new Endereco() {
                         CEP = "547253880",
                         Cidade = "Recife",
@@ -195,9 +184,6 @@ namespace Dispatch
                     new Cobranca { Descricao = "Taxa" , Valor = 19.90f, Data = Convert.ToDateTime("12/12/2020")},
                     new Cobranca { Descricao = "Parcela" , Valor = 79f, Data = Convert.ToDateTime("01/11/2019")}
                     },
-                    ValorAgendado = 69f,
-                    QtdRegsLote = 3,
-
                     Endereco = new Endereco() {
                         CEP = "547253880",
                         Cidade = "Recife",
@@ -220,15 +206,7 @@ namespace Dispatch
             Clientes.Add(Cliente2);
 
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
-			
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var data = DateTime.Now.ToString("d").Replace("/", "");
-            var nomeArquivo = string.Format("{0}{1}{2}{3}{4}{5}{6}", Banco.Codigo, "-", Banco.Nome, "_", data, @"_HEADER", ".txt");
-            var arquivo = new System.IO.StreamWriter(path + @"\" + nomeArquivo, true);
-            arquivo.Write(StringB);
-            Console.WriteLine(StringB);
-            Console.ReadKey();
-            arquivo.Close();
+            Create.TxtFile(StringB, Banco);
         }
     }
 }
