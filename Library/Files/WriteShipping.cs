@@ -141,20 +141,8 @@ namespace Library.Files
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, Header.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")) ; // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
-
-                    switch (Header.EmpresaCedente.RetencaoIOF) {
-                        case IOF.Sem: {
-                                File = File.AddZeroRightLine(105, 119); // QUANTIDADE DA MOEDA OU IOF | IOF
-                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
-                                break;
-                            }
-                        case IOF.Com: {
-                                File = File.WriteInLine(105, 119, Header.EmpresaCedente.PctIOF.CalculateIOF(Header.ClienteSacado.ValorAgendado).AddZeroLeftLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF | IOF
-                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
-                                break;
-                            }
-                    }
-
+                    File = File.WriteInLine(105, 119, Header.ClienteSacado.ValorMoeda.FormatValuesInReal(10, 5)); // QUANTIDADE DA MOEDA OU IOF | IOF
+                    File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
                     File = File.RightEmptyLine(135, 154); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
                     File = File.RightEmptyLine(155, 162); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO. 
                     File = File.RightEmptyLine(163, 177); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
@@ -357,8 +345,8 @@ public static class Write {
         return Content;
     }
 
-    public static String FormatValuesInReal(this Single contentEdit, Int32 casasAntesVirgula, Int32 casasPosVirgula) {
-        String Valor = Convert.ToString(contentEdit);
+    public static String FormatValuesInReal(this Single ContentEdit, Int32 casasAntesVirgula, Int32 casasPosVirgula) {
+        String Valor = Convert.ToString(ContentEdit);
         String[] ValorPart = Valor.Split(',');
 
         String ValorAntesVirgula = new String(' ', casasAntesVirgula);
@@ -375,12 +363,4 @@ public static class Write {
         String ValorEmRealFormatado = ValorAntesVirgula.Trim() + ValorAposVirgula.Trim();
         return ValorEmRealFormatado;
     }
-
-    public static String CalculateIOF (this Single content, Single valor) {
-        String valorFormatado = Convert.ToString(content * (valor/100));
-        valorFormatado = valorFormatado.Replace(",", "");
-
-        return valorFormatado;
-    }
-
 }
