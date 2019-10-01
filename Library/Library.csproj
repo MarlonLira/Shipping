@@ -51,6 +51,7 @@
     <Compile Include="Commons\ContaBancaria.cs" />
     <Compile Include="Commons\Empresa.cs" />
     <Compile Include="Commons\Endereco.cs" />
+    <Compile Include="Commons\Lote.cs" />
     <Compile Include="Commons\Registro.cs" />
     <Compile Include="Files\CNAB240\Remessa\RemessaCNAB240.cs" />
     <Compile Include="Banks\Banco.cs" />

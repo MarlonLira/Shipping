@@ -1,15 +1,19 @@
 ﻿using Library.Commons;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Library.Arquivos.CNAB240.Remessa {
-    public class RemessaCNAB240 {
-        public RemessaCNAB240(Empresa Empresa, Cliente Cliente, Int32 SequencialArquivo) {
+namespace Library.Files.CNAB240.Retorno {
+    public class RetornoCNAB240 {
+        public RetornoCNAB240(Empresa Empresa, Cliente Cliente, Int32 SequencialArquivo) {
             this.ClienteSacado = Cliente;
             this.EmpresaCedente = Empresa;
             this.SequencialNsa = SequencialArquivo;
         }
 
-        public RemessaCNAB240(Empresa Empresa) {
+        public RetornoCNAB240(Empresa Empresa) {
             this.EmpresaCedente = Empresa;
         }
 
@@ -28,4 +32,5 @@ namespace Library.Arquivos.CNAB240.Remessa {
         public string ReservadoEmpresa { get; set; }
         public string VersaoAplicativo { get; set; }
     }
+}
 }
