@@ -23,7 +23,6 @@ namespace Dispatch
                 Digito = "9",
                 Juros = 1.5f,
                 Mora = MoraTipo.JurosSimples,
-                RetencaoIOF = IOF.Sem,
                 ContaBancaria = new ContaBancaria()
                 {
                     Conta = "79659",
