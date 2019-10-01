@@ -140,20 +140,8 @@ namespace Library.Files {
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, Header.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
-
-                    switch (Header.EmpresaCedente.RetencaoIOF) {
-                        case IOF.Sem: {
-                                File = File.AddZeroRightLine(105, 119); // QUANTIDADE DA MOEDA OU IOF | IOF
-                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
-                                break;
-                            }
-                        case IOF.Com: {
-                                File = File.WriteInLine(105, 119, Header.EmpresaCedente.PctIOF.CalculateIOF(Header.ClienteSacado.ValorAgendado).AddZeroLeftLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF | IOF
-                                File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
-                                break;
-                            }
-                    }
-
+                    File = File.WriteInLine(105, 119, Header.ClienteSacado.ValorMoeda.FormatValuesInReal(10, 5)); // QUANTIDADE DA MOEDA OU IOF | IOF
+                    File = File.WriteInLine(120, 134, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
                     File = File.WriteInLine(135, 154, "345678901".AddEmptyLine(135,154)); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
                     File = File.WriteInLine(155, 162, DataAtual.Replace("/", "")); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO
                     File = File.WriteInLine(163, 177, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13,2)); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
