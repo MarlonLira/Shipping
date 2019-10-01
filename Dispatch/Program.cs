@@ -20,7 +20,7 @@ namespace Dispatch {
                 Convenio = "50070",
                 Digito = "9",
                 Juros = 1.5f,
-                IdentificadorExtrato = "",
+                IdentificadorExtrato = "HIX012",
                 Mora = MoraTipo.JurosSimples,
                 ContaBancaria = new ContaBancaria()
                 {
