@@ -29,7 +29,7 @@ namespace Library.Files {
                     File = File.RightEmptyLine(9, 17); // BRANCOS
                     File = File.WriteInLine(18, 18, "2"); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                     File = File.WriteInLine(19, 32, Header.EmpresaCedente.CNPJ); //  NÚMERO DO CNPJ/CPF DA EMPRESA
-                    File = File.WriteInLine(33, 45, Header.EmpresaCedente.Codigo.AddZeroLeftLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO 
+                    File = File.WriteInLine(33, 45, Header.EmpresaCedente.Codigo.AddEmptyLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO
                     File = File.RightEmptyLine(46, 52); // BRANCOS 
                     File = File.AddZeroRightLine(53, 53); // ZERO
                     File = File.WriteInLine(54, 57, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Agencia); // AGENCIA REFERENTE CONVÊNIO ASSINADO 
@@ -41,12 +41,12 @@ namespace Library.Files {
                     File = File.WriteInLine(73, 102, Header.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.WriteInLine(103, 132, "BANCO ITAU".AddEmptyLine(103, 132)); // NOME DO BANCO
                     File = File.RightEmptyLine(133, 142); // BRANCOS
-                    File = File.WriteInLine(143, 143, "1"); //  CÓDIGO REMESSA = 1/RETORNO = 2
+                    File = File.WriteInLine(143, 143, "2"); //  CÓDIGO REMESSA = 1/RETORNO = 2
                     File = File.WriteInLine(144, 151, DataAtual.Replace("/", "")); //  DATA DE GERAÇÃO DO ARQUIVO
                     File = File.WriteInLine(152, 157, HoraAtual.Replace(":", "")); // HORA DE GERAÇÃO DO ARQUIVO 
                     File = File.WriteInLine(158, 163, Convert.ToString(Header.SequencialNsa).AddZeroLeftLine(158, 163)); // NR. SEQUENCIAL DO ARQUIVO  
                     File = File.WriteInLine(164, 166, "040"); // NR. DA VERSÃO DO LAYOUT
-                    File = File.AddZeroRightLine(167, 171); // DENSIDADE DE GRAVAÇÃO DO ARQUIVO 
+                    File = File.AddZeroRightLine(167, 171); // DENSIDADE DE GRAVAÇÃO DO ARQUIVO | ZEROS
                     File = File.RightEmptyLine(172, 191); // PARA USO RESERVADO DO BANCO 
                     File = File.RightEmptyLine(192, 240); // BRANCOS
 
@@ -71,7 +71,7 @@ namespace Library.Files {
                 try {
 
                     File = File.WriteInLine(1, 3, "341"); // CODIGO BANCARIO
-                    File = File.AddZeroRightLine(4, 7); // LOTE IDENTIFICAÇÃO DE SERVIÇO
+                    File = File.WriteInLine(4, 7, "0001"); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                     File = File.WriteInLine(8, 8, "1"); // REGISTRO DO HEADER DO LOTE
                     File = File.WriteInLine(9, 9, "D"); // TIPO DA OPERAÇÃO
                     File = File.WriteInLine(10, 11, "05"); // FORMA DE LANÇAMENTO
@@ -80,7 +80,7 @@ namespace Library.Files {
                     File = File.RightEmptyLine(17, 17); // BRANCOS 
                     File = File.WriteInLine(18, 18, "2"); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                     File = File.WriteInLine(19, 32, Header.EmpresaCedente.CNPJ); // NÚMERO DO CNPJ/CPF DA EMPRESA
-                    File = File.WriteInLine(33, 45, Header.EmpresaCedente.Codigo.AddZeroLeftLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO 
+                    File = File.WriteInLine(33, 45, Header.EmpresaCedente.Codigo.AddZeroLeftLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO
                     File = File.RightEmptyLine(46, 52); // BRANCOS 
                     File = File.AddZeroRightLine(53, 53); // ZERO
                     File = File.WriteInLine(54, 57, Header.EmpresaCedente.ContaBancaria.AgenciaBancaria.Agencia); // NÚMERO AGÊNCIA MANTEDORA DA CONTA
@@ -98,7 +98,7 @@ namespace Library.Files {
                     File = File.WriteInLine(213, 220, Header.EmpresaCedente.Endereco.CEP.AddEmptyLine(213, 220)); // CEP
                     File = File.WriteInLine(221, 222, Header.EmpresaCedente.Endereco.EstadoSigla); // SIGLA DO ESTADO 
                     File = File.LeftEmptyLine(223, 230); // BRANCOS
-                    File = File.LeftEmptyLine(231, 240); // BRANCOS
+                    File = File.LeftEmptyLine(231, 240); // CÓDIGO OCORRÊNCIAS P/RETORNO -->Alterar<--
 
                     Result = File;
 
@@ -128,15 +128,15 @@ namespace Library.Files {
                     File = File.WriteInLine(15, 17, "000"); // CÓDIGO DA INSTRUÇÃO PARA MOVIMENTO | 000 = inclusão de debito | 999 = exlusão de debito
                     File = File.WriteInLine(18, 20, "000"); // CÓDIGO DA CÂMARA DE COMPENSAÇÃO
                     File = File.WriteInLine(21, 23, "341"); // CÓDIGO DO BANCO
-                    File = File.AddZeroRightLine(24, 24); // COMPLEMENTO DE REGISTROS
+                    File = File.AddZeroRightLine(24, 24); // COMPLEMENTO DE REGISTROS | ZERO
                     File = File.WriteInLine(25, 28, Header.ClienteSacado.ContaBancaria.AgenciaBancaria.Agencia); // Nº. AGÊNCIA DEBITADA
                     File = File.RightEmptyLine(29, 29); // COMPLEMENTO DE REGISTROS | BRANCOS
                     File = File.AddZeroRightLine(30, 36); // COMPLEMENTO DE REGISTROS | ZEROS
                     File = File.WriteInLine(37, 41, Header.ClienteSacado.ContaBancaria.Conta); // NR. DA CONTA DEBITADA
-                    File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
+                    File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS | BRANCO
                     File = File.WriteInLine(43, 43, Header.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Header.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.LeftEmptyLine(74, 88); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
+                    File = File.WriteInLine(74, 88, "7398481".AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, Header.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
@@ -154,9 +154,9 @@ namespace Library.Files {
                             }
                     }
 
-                    File = File.RightEmptyLine(135, 154); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
-                    File = File.RightEmptyLine(155, 162); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO. 
-                    File = File.RightEmptyLine(163, 177); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
+                    File = File.WriteInLine(135, 154, "345678901".AddEmptyLine(135,154)); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
+                    File = File.WriteInLine(155, 162, DataAtual.Replace("/", "")); //  DATA REAL DA EFETIVAÇÃO DO LANÇTO
+                    File = File.WriteInLine(163, 177, Header.ClienteSacado.ValorAgendado.FormatValuesInReal(13,2)); // VALOR REAL DA EFETIVAÇÃO DO LANÇTO.
 
                     switch (Header.EmpresaCedente.Mora) {
                         case MoraTipo.Isento: {
@@ -179,10 +179,10 @@ namespace Library.Files {
                             throw new Exception("Falta informar o Mora.");
                     }
 
-                    File = File.WriteInLine(197, 212, "Deb Autor".AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C -->Alterar<--
+                    File = File.WriteInLine(197, 212, "Deb Autor".AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
                     File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.WriteInLine(217, 230, Header.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
-                    File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO | BRANCOS
+                    File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO -->Alterar<--
 
                     Result = File;
 
@@ -213,7 +213,7 @@ namespace Library.Files {
                     File = File.WriteInLine(24, 41, Header.ClienteSacado.ValorTotal.FormatValuesInReal(16, 2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
                     File = File.WriteInLine(42, 59, Header.ClienteSacado.ValorMoedaTotal.FormatValuesInReal(13, 5).AddZeroLeftLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
-                    File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO | BRANCO
+                    File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO -->Alterar<--
 
                     Result = File;
 
@@ -242,7 +242,7 @@ namespace Library.Files {
                     File = File.LeftEmptyLine(9, 17); //COMPLEMENTO DE REGISTRO - BRANCOS
                     File = File.WriteInLine(18, 23, Header.Registros.TotalQtdLotes.AddZeroLeftLine(18, 23)); // QTDE LOTES DO ARQUIVO
                     File = File.WriteInLine(24, 29, Header.Registros.TotalQtdRegs.AddZeroLeftLine(24, 29)); // QTDE REGISTROS DO ARQUIVO
-                    File = File.LeftEmptyLine(30, 240); // COMPLEMENTO DE REGISTRO
+                    File = File.LeftEmptyLine(30, 240); // COMPLEMENTO DE REGISTRO | BRANCOS
 
                     Result = File;
 
