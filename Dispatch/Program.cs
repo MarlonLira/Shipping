@@ -15,25 +15,8 @@ namespace Dispatch
 
             Itau Banco = new Itau();
 
-            Endereco Endereco = new Endereco() {
-                Nome = "Estr. do Arraial",
-                CEP = "52051380",
-                Cidade = "Recife",
-                Numero = 2262,
-                EstadoSigla = "PE",
-                Tipo = "Academia"
-            };
-
-            ContaBancaria ContaBancaria = new ContaBancaria() {
-                Conta = "79659",
-                Digito = "6",
-                AgenciaBancaria = new AgenciaBancaria() {
-                    Agencia = "9632",
-                    Digito = "2"
-                }
-            };
-
-            var Empresa = new Empresa() {
+            var Empresa = new Empresa()
+            {
                 CNPJ = "09055417000126",
                 Nome = "CENTRO DE EST E FISIO INSPIRACAO",
                 Codigo = "50070",
@@ -42,8 +25,25 @@ namespace Dispatch
                 Mora = MoraTipo.JurosSimples,
                 RetencaoIOF = IOF.Com,
                 PctIOF = 3.4f,
-                ContaBancaria = ContaBancaria,
-                Endereco = Endereco
+                ContaBancaria = new ContaBancaria()
+                {
+                    Conta = "79659",
+                    Digito = "6",
+                    AgenciaBancaria = new AgenciaBancaria()
+                    {
+                        Agencia = "9632",
+                        Digito = "2"
+                    }
+                },
+                Endereco = new Endereco()
+                {
+                    Nome = "Estr. do Arraial",
+                    CEP = "52051380",
+                    Cidade = "Recife",
+                    Numero = 2262,
+                    EstadoSigla = "PE",
+                    Tipo = "Academia"
+                }
             };
 
             var Cliente = new Cliente() {
