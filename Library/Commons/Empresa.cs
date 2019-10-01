@@ -13,11 +13,11 @@ namespace Library.Commons
 
         public String Nome { get; set; }
         public String CNPJ { get; set; }
+        public String IdentificadorExtrato { get; set; } // Exemplo: HIX024, HI006
         public Endereco Endereco { get; set; }
-        public String Codigo { get; set; }
+        public String Convenio { get; set; }
         public String Digito { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
-        public String OrigemDebito { get; set; }
         public Single Juros { get; set; }
         public Single ValorIDA { get; set; }
         public MoraTipo Mora { get; set; }

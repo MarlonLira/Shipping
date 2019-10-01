@@ -17,9 +17,10 @@ namespace Dispatch {
             {
                 CNPJ = "09055417000126",
                 Nome = "CENTRO DE EST E FISIO INSPIRACAO",
-                Codigo = "50070",
+                Convenio = "50070",
                 Digito = "9",
                 Juros = 1.5f,
+                IdentificadorExtrato = "",
                 Mora = MoraTipo.JurosSimples,
                 ContaBancaria = new ContaBancaria()
                 {
@@ -154,7 +155,7 @@ namespace Dispatch {
                     CPF = "09266511450",
                     Nome = "Zumira Bernardo",
                     CobrancaAgendada = new List<Cobranca>() {
-                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f, Data = Convert.ToDateTime("07/05/2020") },
+                    new Cobranca { Descricao = "Taxa" , Valor = 19.90f, Data = Convert.ToDateTime("07/05/2020")},
                     new Cobranca { Descricao = "Parcela" , Valor = 69f, Data = Convert.ToDateTime("07/04/2020")}
                     },
                     Endereco = new Endereco() {
@@ -202,7 +203,7 @@ namespace Dispatch {
             Clientes.Add(Cliente);
             Clientes.Add(Cliente2);
 
-            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
+            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
             Create.TxtFile(StringB, Banco);
 
             //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341);

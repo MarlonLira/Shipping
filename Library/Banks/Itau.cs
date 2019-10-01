@@ -4,7 +4,7 @@
         public Itau() {
             Codigo = "341";
             Digito = "7";
-            Nome = "Itaú";
+            Nome = "BANCO ITAU";
             LocalPagamento = "Pagável em qualquer banco até o vencimento.";
             Moeda = "REA";
         }

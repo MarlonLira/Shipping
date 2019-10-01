@@ -12,7 +12,7 @@ namespace Dispatch.Commons.Shipping
 {
     public static class Create
     {
-        public static StringBuilder Shipping(Empresa EmpresaCedente, List<Cliente> ClientesSacados, Bank CodigoBancario) {
+        public static StringBuilder Shipping(Empresa EmpresaCedente, List<Cliente> ClientesSacados, Bank CodigoBancario, Int32 Sequencial) {
             String File;
             StringBuilder Result;
             String[] FilePart;
@@ -22,7 +22,7 @@ namespace Dispatch.Commons.Shipping
                 EmpresaCedente.Verificar();
                 Result = new StringBuilder();
                 var Itau = new WriteShipping.Itau();
-                var CNB240 = new RemessaCNAB240(EmpresaCedente);
+                var CNB240 = new RemessaCNAB240(EmpresaCedente, Sequencial);
 
                 switch (CodigoBancario) {
                     case Bank.Itau: {
@@ -30,11 +30,14 @@ namespace Dispatch.Commons.Shipping
                             File = Itau.WriteHeaderFile(CNB240);
                             foreach (Cliente FoundClient in ClientesSacados) {
                                 FoundClient.Verificar();
-                                CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, 1);
+                                CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, Sequencial);
+                                //CNB240.Registros = new Registro();
+                                CNB240.Registros.SequencialLote++;
                                 //Init Header Allotment
                                 File += "|" + Itau.WriteHeaderAllotment(CNB240);
                                 foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
                                     Cobranca.Verificar();
+                                    CNB240.Registros.SequencialDetalhe++;
                                     TotalRegCount++;
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
                                     CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
@@ -46,10 +49,9 @@ namespace Dispatch.Commons.Shipping
                                 //Close Header Allotment
                                 File += "|" + Itau.WriteTrailerAllotment(CNB240);
                             }
-                            CNB240.Registros = new Registro() {
-                                TotalQtdLotes = ClientesSacados.Count,
-                                TotalQtdRegs = 2 + (2 * ClientesSacados.Count) + TotalRegCount
-                            };
+                            CNB240.Registros.TotalQtdLotes = ClientesSacados.Count;
+                            CNB240.Registros.TotalQtdRegs = 2 + (2 * ClientesSacados.Count) + TotalRegCount;
+                           
                             //Close Header File
                             File += "|" + Itau.WriteTrailerFile(CNB240);
                             FilePart = File.Split('|');
@@ -86,7 +88,7 @@ namespace Dispatch.Commons.Shipping
             return Result;
         }
 
-        public static StringBuilder Return(Empresa EmpresaCedente, List<Cliente> ClientesSacados, Bank CodigoBancario) {
+        public static StringBuilder Return(Empresa EmpresaCedente, List<Cliente> ClientesSacados, Bank CodigoBancario, Int32 Sequencial) {
             String File;
             StringBuilder Result;
             String[] FilePart;
@@ -96,7 +98,7 @@ namespace Dispatch.Commons.Shipping
                 EmpresaCedente.Verificar();
                 Result = new StringBuilder();
                 var Itau = new WriteReturn.Itau();
-                var CNB240 = new RemessaCNAB240(EmpresaCedente);
+                var CNB240 = new RemessaCNAB240(EmpresaCedente, Sequencial);
 
                 switch (CodigoBancario) {
                     case Bank.Itau: {
@@ -104,11 +106,14 @@ namespace Dispatch.Commons.Shipping
                             File = Itau.WriteHeaderFile(CNB240);
                             foreach (Cliente FoundClient in ClientesSacados) {
                                 FoundClient.Verificar();
-                                CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, 1);
+                                CNB240 = new RemessaCNAB240(EmpresaCedente, FoundClient, Sequencial);
+                                //CNB240.Registros = new Registro();
+                                CNB240.Registros.SequencialLote++;
                                 //Init Header Allotment
                                 File += "|" + Itau.WriteHeaderAllotment(CNB240);
                                 foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
                                     Cobranca.Verificar();
+                                    CNB240.Registros.SequencialDetalhe++;
                                     TotalRegCount++;
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
                                     CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
@@ -169,7 +174,7 @@ namespace Dispatch.Commons.Shipping
             try {
                 Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 Date = DateTime.Now.ToString("d").Replace("/", "");
-                FileName = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", Banco.Codigo, "-", Banco.Nome, "_", Date, DateTime.Now.Ticks.ToString().Substring(1, 4), @"_HEADER", ".txt");
+                FileName = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", Banco.Codigo, "-", Banco.Nome, "_", Date, DateTime.Now.Ticks, @"_HEADER", ".txt");
                 File = new StreamWriter(Path + @"\" + FileName, true);
                 File.Write(Text);
                 Console.WriteLine("Arquivo foi gerado com sucesso, verifique a area de trabalho!");
