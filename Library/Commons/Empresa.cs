@@ -11,11 +11,6 @@ namespace Library.Commons
             IDA = 3
         }
 
-        public enum IOF {
-            Sem,
-            Com
-        }
-
         public String Nome { get; set; }
         public String CNPJ { get; set; }
         public Endereco Endereco { get; set; }
@@ -26,8 +21,6 @@ namespace Library.Commons
         public Single Juros { get; set; }
         public Single ValorIDA { get; set; }
         public MoraTipo Mora { get; set; }
-        public IOF RetencaoIOF { get; set; }
-        public Single PctIOF { get; set; }
         public void Verificar() {
             String Error = String.Empty;
             if (String.IsNullOrEmpty(CNPJ)) {
