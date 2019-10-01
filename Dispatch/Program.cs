@@ -5,11 +5,9 @@ using Library.Commons;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static Library.Commons.Cliente;
 using static Library.Commons.Empresa;
 
-namespace Dispatch
-{
+namespace Dispatch {
     class Program {
         static void Main(string[] args) {
 
@@ -206,6 +204,9 @@ namespace Dispatch
 
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341);
             Create.TxtFile(StringB, Banco);
+
+            //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341);
+            //Create.TxtFile(StringB2, Banco);
         }
     }
 }
