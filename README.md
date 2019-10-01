@@ -16,6 +16,9 @@ Este pacote consiste em um SDK em C# para a geração de arquivos de remessa par
 > Exemplo do código de geração do arquivo de remessa CNAB 240 pelo banco Itau.
 
 ```C#
+
+/* Lista da entidade Cliente
+ */
 List<Cliente> Clientes = new List<Cliente>() {
 new Cliente() {
     CPF = "09266777450",
@@ -43,35 +46,35 @@ new Cliente() {
   }
 }
 
- var Empresa = new Empresa()
-            {
-                CNPJ = "09055417000126",
-                Nome = "Empresa"
-                Codigo = "51840",
-                Digito = "9",
-                Juros = 0.5f,
-                Mora = MoraTipo.JurosSimples,
-                RetencaoIOF = IOF.Com,
-                ContaBancaria = ContaBancaria = new ContaBancaria()
-                {
-                    Conta = "68650",
-                    Digito = "6",
-                    AgenciaBancaria = new AgenciaBancaria()
-                    {
-                        Agencia = "9782",
-                        Digito = "2"
-                    }
-                },
-                Endereco = new Endereco()
-                {
-                    Nome = "Estr. do Arraial",
-                    CEP = "52051380",
-                    Cidade = "Recife",
-                    Numero = 862,
-                    EstadoSigla = "PE",
-                    Tipo = "Predio"
-                }
-            };
+/* Entidade Empresa
+ */
+ 
+ var Empresa = new Empresa() {
+    CNPJ = "09055417000126",
+    Nome = "Empresa"
+    Codigo = "51840",
+    Digito = "9",
+    Juros = 0.5f,
+    Mora = MoraTipo.JurosSimples,
+    RetencaoIOF = IOF.Com,
+    ContaBancaria = ContaBancaria = new ContaBancaria() {
+        Conta = "68650",
+        Digito = "6",
+        AgenciaBancaria = new AgenciaBancaria()
+        {
+            Agencia = "9782",
+            Digito = "2"
+        }
+    },
+    Endereco = new Endereco() {
+        Nome = "Estr. do Arraial",
+        CEP = "52051380",
+        Cidade = "Recife",
+        Numero = 862,
+        EstadoSigla = "PE",
+        Tipo = "Predio"
+    }
+};
             
 /* Método responsavel por gerar o arquivo de remessa, espera como parametro a entidade empresa,
  *  uma lista da entidade Cliente e o codigo do banco que será utilizado. O método retorna uma StringBuilder.
