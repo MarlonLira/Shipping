@@ -51,7 +51,7 @@ namespace Library.Files
                     File = File.RightEmptyLine(172, 191); // PARA USO RESERVADO DO BANCO 
                     File = File.RightEmptyLine(192, 240); // BRANCOS
 
-                    File = File.Substring(0, 240);
+                    if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
 
                 } catch {
@@ -102,7 +102,7 @@ namespace Library.Files
                     File = File.LeftEmptyLine(223, 230); // BRANCOS
                     File = File.LeftEmptyLine(231, 240); // BRANCOS
 
-                    File = File.Substring(0, 240);
+                    if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
 
                 } catch {
@@ -169,7 +169,7 @@ namespace Library.Files
                     File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                     File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO | BRANCOS
 
-                    File = File.Substring(0, 240);
+                    if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
 
                 } catch {
@@ -201,7 +201,7 @@ namespace Library.Files
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO | BRANCO
 
-                    File = File.Substring(0, 240);
+                    if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
 
                 } catch {
@@ -226,7 +226,7 @@ namespace Library.Files
                     File = File.WriteInLine(24, 29, Shipping.Registros.TotalQtdRegs.AddZeroLeftLine(24,29)); // QTDE REGISTROS DO ARQUIVO
                     File = File.LeftEmptyLine(30, 240); // COMPLEMENTO DE REGISTRO
 
-                    File = File.Substring(0, 240);
+                    if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
 
                 } catch {
@@ -242,13 +242,12 @@ namespace Library.Files
 
 public static class Write {
 
-    public static String WriteInLine(this String Content, Int32 FromLine, Int32 ToLine, Object Value) {
+    public static String WriteInLine(this String ContentEdit, Int32 FromLine, Int32 ToLine, Object Value) {
         Int32 Start = FromLine - 1;
         String StringValue = Convert.ToString(Value);
         var SizeOfLine = ToLine - Start;
 
         if (StringValue.Length != SizeOfLine) {
-            StringValue = StringValue.Substring(0, SizeOfLine);
             if (StringValue.Length != SizeOfLine) {
                 throw new Exception("Shipping: Valor a Preencher: " + Value +
                                     " é diferente do tamanho do preenchimento informado. Posição inicial: " + FromLine +
@@ -257,11 +256,11 @@ public static class Write {
         }
 
         // 1º remove
-        Content = Content.Remove(Start, ToLine - FromLine);
+        ContentEdit = ContentEdit.Remove(Start, SizeOfLine);
         // 2º insere
-        Content = Content.Insert(Start, StringValue);
-
-        return Content;
+        ContentEdit = ContentEdit.Insert(Start, StringValue);
+        
+        return ContentEdit;
     }
 
     public static String RightEmptyLine(this Object ContentEdit, Int32 FromLine, Int32 ToLine) {
@@ -270,10 +269,10 @@ public static class Write {
         String Content = Convert.ToString(ContentEdit);
 
         // 1º remove
-        Content = Content.Remove(Start, ToLine - FromLine);
+        Content = Content.Remove(Start, SizeOfLine);
         // 2º insere
         Content = Content.Insert(Start, string.Empty.PadRight(SizeOfLine, ' '));
-
+        
         return Content;
     }
 
@@ -283,7 +282,7 @@ public static class Write {
         String Content = Convert.ToString(ContentEdit);
 
         // 1º remove
-        Content = Content.Remove(Start, ToLine - FromLine);
+        Content = Content.Remove(Start, SizeOfLine);
         // 2º insere
         Content = Content.Insert(Start, string.Empty.PadLeft(SizeOfLine, ' '));
 
@@ -306,7 +305,7 @@ public static class Write {
             Int32 Start = FromLine - 1;
             var SizeOfLine = ToLine - Start;
             // 1º remove
-            Content = Content.Remove(Start, ToLine - FromLine);
+            Content = Content.Remove(Start, SizeOfLine);
             // 2º insere
             Content = Content.Insert(Start, string.Empty.PadRight(SizeOfLine, '0'));
         } else {
@@ -315,7 +314,6 @@ public static class Write {
             var SizeOfLine = ToLine - Start;
             Content = Content + new string('0', SizeOfLine);
         }
-
         return Content;
     }
 
