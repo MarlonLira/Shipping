@@ -2,7 +2,7 @@
 using Library.Commons;
 using System;
 
-namespace Dispatch.Commons.Shipping
+namespace Dispatch.Commons.Files
 {
     public static class Read {
         public static Retorno Return(String Path) {

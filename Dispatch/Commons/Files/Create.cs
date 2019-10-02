@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Dispatch.Commons.Shipping
+namespace Dispatch.Commons.Files
 {
     public static class Create
     {
