@@ -23,8 +23,8 @@ namespace Dispatch.Commons.Shipping {
 
         }
 
-        public static Return ReturnData(String Path) {
-            Return Data = new Return();
+        public static Retorno ReturnData(String Path) {
+            Retorno Data = new Retorno();
 
             String[] Retorno = ReturnTxtPart(Path);
             Int32 LastLine = Retorno.Length - 1;
@@ -39,7 +39,7 @@ namespace Dispatch.Commons.Shipping {
             return Data;
         }
 
-        private static void ControlHeaderFile(String HeaderFile, Return Data, Bank Banco) {
+        private static void ControlHeaderFile(String HeaderFile, Retorno Data, Bank Banco) {
 
             switch (Banco) {
                 case Bank.Itau: {
@@ -57,8 +57,6 @@ namespace Dispatch.Commons.Shipping {
                         Data.Empresa.ContaBancaria.Digito = HeaderFile.Substring(71, 1);
                         Data.Empresa.Nome = HeaderFile.Substring(71, 30).Trim();
                         Data.Banco.Nome = HeaderFile.Substring(72, 30).Trim();
-
-
 
                         break;
                     }

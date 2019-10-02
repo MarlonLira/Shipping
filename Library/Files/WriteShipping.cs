@@ -111,7 +111,7 @@ namespace Library.Files
                 return Result;
             }
 
-            public String WriteHeaderDetails(RemessaCNAB240 Shipping) {
+            public String WriteDetailsAllotment(RemessaCNAB240 Shipping) {
                 String Result;
                 var File = new String(' ', 240);
 

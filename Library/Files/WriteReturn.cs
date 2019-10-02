@@ -38,7 +38,7 @@ namespace Library.Files {
                     File = File.WriteInLine(66, 70, Shipping.EmpresaCedente.ContaBancaria.Conta); // NÚMERO DA C/C DO CLIENTE
                     File = File.RightEmptyLine(71, 71); // BRANCOS
                     File = File.WriteInLine(72, 72, Shipping.EmpresaCedente.ContaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
-                    File = File.WriteInLine(73, 102, Shipping.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
+                    File = File.WriteInLine(73, 102, EmpresaNome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.WriteInLine(103, 132, "BANCO ITAU".AddEmptyLine(103, 132)); // NOME DO BANCO
                     File = File.RightEmptyLine(133, 142); // BRANCOS
                     File = File.WriteInLine(143, 143, "2"); //  CÓDIGO REMESSA = 1/RETORNO = 2
@@ -90,7 +90,7 @@ namespace Library.Files {
                     File = File.WriteInLine(66, 70, Shipping.EmpresaCedente.ContaBancaria.Conta); // NÚMERO DA C/C DO CLIENTE
                     File = File.RightEmptyLine(71, 71); // BRANCOS
                     File = File.WriteInLine(72, 72, Shipping.EmpresaCedente.ContaBancaria.Digito); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
-                    File = File.WriteInLine(73, 102, Shipping.EmpresaCedente.Nome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
+                    File = File.WriteInLine(73, 102, EmpresaNome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.RightEmptyLine(103, 142); // BRANCOS
                     File = File.WriteInLine(143, 172, Shipping.EmpresaCedente.Endereco.Nome.AddEmptyLine(143, 172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
                     File = File.WriteInLine(173, 177, Shipping.EmpresaCedente.Endereco.Numero.AddEmptyLine(173, 177)); //  NÚMERO DO LOCAL

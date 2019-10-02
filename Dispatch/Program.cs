@@ -206,13 +206,13 @@ namespace Dispatch {
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
             Create.TxtFile(StringB, Banco);
 
-            //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
-            //Create.TxtFile(StringB2, Banco);
-<<<<<<< HEAD
+            StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
+            String FileName = Create.TxtFile(StringB2, Banco, false);
+            Retorno Result = Read.Return(@"C:\Users\Academia Brilhante\Desktop\" + FileName);
+            String a = "";
+            
 
-            ReadReturn.ReturnData(@"C:\Users\suporte\Desktop\Repo\RET341-Itaú_011020193705_HEADER.txt");
-=======
-            /*
+            /*RetriveLine
             String[] Texto = ReadReturn.ReturnTxtPart(@"C:\Users\suporte\Desktop\Repo\RET341-Itaú_011020193705_HEADER.txt");
             
             foreach(String line in Texto) {
@@ -221,7 +221,7 @@ namespace Dispatch {
 
             Console.ReadKey();
             */
->>>>>>> 9c16343b362b864cf24e916529f3a99dfaf9755e
+
         }
     }
 }
