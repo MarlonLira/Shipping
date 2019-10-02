@@ -52,16 +52,14 @@
     <Compile Include="Commons\Empresa.cs" />
     <Compile Include="Commons\Endereco.cs" />
     <Compile Include="Commons\Registro.cs" />
-    <Compile Include="Commons\Retorno.cs" />
     <Compile Include="Files\CNAB240\Remessa\RemessaCNAB240.cs" />
     <Compile Include="Banks\Banco.cs" />
     <Compile Include="Banks\Itau.cs" />
+    <Compile Include="Files\CNAB240\Retorno\RetornoCNAB240.cs" />
     <Compile Include="Files\WriteReturn.cs" />
     <Compile Include="Files\WriteShipping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Files\CNAB240\Retorno\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

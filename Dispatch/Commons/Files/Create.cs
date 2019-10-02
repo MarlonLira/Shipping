@@ -120,7 +120,7 @@ namespace Dispatch.Commons.Files
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
 
                                     //Details
-                                    File += "|" + Itau.WriteHeaderDetails(CNB240);
+                                    File += "|" + Itau.WriteDetailsAllotment(CNB240);
                                 }
                                 //Close Header Allotment
                                 File += "|" + Itau.WriteTrailerAllotment(CNB240);
