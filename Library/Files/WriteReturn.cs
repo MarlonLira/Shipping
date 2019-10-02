@@ -50,6 +50,7 @@ namespace Library.Files {
                     File = File.RightEmptyLine(172, 191); // PARA USO RESERVADO DO BANCO 
                     File = File.RightEmptyLine(192, 240); // BRANCOS
 
+                    File = File.Substring(0, 240);
                     Result = File;
 
                 } catch {
@@ -100,6 +101,7 @@ namespace Library.Files {
                     File = File.LeftEmptyLine(223, 230); // BRANCOS
                     File = File.LeftEmptyLine(231, 240); // CÓDIGO OCORRÊNCIAS P/RETORNO -->Alterar<--
 
+                    File = File.Substring(0, 240);
                     Result = File;
 
                 } catch {
@@ -172,6 +174,7 @@ namespace Library.Files {
                     File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                     File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO -->Alterar<--
 
+                    File = File.Substring(0, 240);
                     Result = File;
 
                 } catch {
@@ -203,6 +206,7 @@ namespace Library.Files {
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO -->Alterar<--
 
+                    File = File.Substring(0, 240);
                     Result = File;
 
                 } catch {
@@ -232,6 +236,7 @@ namespace Library.Files {
                     File = File.WriteInLine(24, 29, Shipping.Registros.TotalQtdRegs.AddZeroLeftLine(24, 29)); // QTDE REGISTROS DO ARQUIVO
                     File = File.LeftEmptyLine(30, 240); // COMPLEMENTO DE REGISTRO | BRANCOS
 
+                    File = File.Substring(0, 240);
                     Result = File;
 
                 } catch {
