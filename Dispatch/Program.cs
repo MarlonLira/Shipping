@@ -203,11 +203,13 @@ namespace Dispatch {
             Clientes.Add(Cliente);
             Clientes.Add(Cliente2);
 
-            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
-            Create.TxtFile(StringB, Banco);
+            //StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
+            //Create.TxtFile(StringB, Banco);
 
             //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
             //Create.TxtFile(StringB2, Banco);
+
+            ReadReturn.ReturnData(@"C:\Users\suporte\Desktop\Repo\RET341-Itaú_011020193705_HEADER.txt");
         }
     }
 }
