@@ -2,6 +2,7 @@
 using Dispatch.Commons.Files;
 using Library.Banks;
 using Library.Commons;
+using Library.Files.CNAB240.Retorno;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -208,7 +209,7 @@ namespace Dispatch {
 
             StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
             String FileName = Create.TxtFile(StringB2, Banco, false);
-            Retorno Result = Read.Return(@"C:\Users\Academia Brilhante\Desktop\" + FileName);
+            RetornoCNAB240 Result = Read.Return(@"C:\Users\Academia Brilhante\Desktop\" + FileName);
             String a = "";
             
 
