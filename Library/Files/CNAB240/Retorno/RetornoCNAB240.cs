@@ -42,6 +42,7 @@ namespace Library.Files.CNAB240.Retorno
         public HeaderAllotment() {
             this.Empresa = new Empresa();
             this.Empresa.ContaBancaria = new ContaBancaria();
+            this.Empresa.Endereco = new Endereco();
             this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
         }
     }
