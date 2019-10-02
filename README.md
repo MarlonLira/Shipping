@@ -17,7 +17,8 @@ Este pacote consiste em um SDK em C# para a geração de arquivos de remessa par
 
 ```C#
 
-/* Lista da entidade Cliente
+/* 
+ * Lista da entidade Cliente
  */
 List<Cliente> Clientes = new List<Cliente>() {
 new Cliente() {
@@ -46,7 +47,8 @@ new Cliente() {
   }
 }
 
-/* Entidade Empresa
+/*
+ * Entidade Empresa
  */
  
  var Empresa = new Empresa() {
@@ -56,7 +58,6 @@ new Cliente() {
     Digito = "9",
     Juros = 0.5f,
     Mora = MoraTipo.JurosSimples,
-    RetencaoIOF = IOF.Com,
     ContaBancaria = ContaBancaria = new ContaBancaria() {
         Conta = "68650",
         Digito = "6",
@@ -76,10 +77,12 @@ new Cliente() {
     }
 };
             
-/* Método responsavel por gerar o arquivo de remessa, espera como parametro a entidade empresa,
+/* 
+ * Método (Create.Shipping([Entidade empresa populada], [Lista de clientes], (Bank)[codigo do banco], [sequencial do arquivo]))
+ * responsavel por gerar o arquivo de remessa, espera como parametro a entidade empresa,
  *  uma lista da entidade Cliente e o codigo do banco que será utilizado. O método retorna uma StringBuilder.
  */
-var Result = Create.Shipping(Empresa, Clientes, (Bank)341);
+var Result = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
 
 ```
 ## Em Construção...
