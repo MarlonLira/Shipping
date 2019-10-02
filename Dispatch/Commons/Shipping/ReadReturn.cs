@@ -45,10 +45,21 @@ namespace Dispatch.Commons.Shipping {
                 case Bank.Itau: {
                         Data.Banco = new Itau();
                         Data.Empresa = new Empresa();
+                        Data.Empresa.ContaBancaria = new ContaBancaria();
+                        Data.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+
                         Data.Banco.Codigo = HeaderFile.Substring(0, 3);
                         Data.TipoInscricaoEmp = Convert.ToInt32(HeaderFile.Substring(17, 1));
-                        Data.Empresa.CNPJ = HeaderFile.Substring(18, (31 - 18));
+                        Data.Empresa.CNPJ = HeaderFile.Substring(18, 14);
                         Data.Empresa.Convenio = HeaderFile.Substring(32, 13).Trim();
+                        Data.Empresa.ContaBancaria.AgenciaBancaria.Agencia = HeaderFile.Substring(53, 4);
+                        Data.Empresa.ContaBancaria.Conta = HeaderFile.Substring(65, 5);
+                        Data.Empresa.ContaBancaria.Digito = HeaderFile.Substring(71, 1);
+                        Data.Empresa.Nome = HeaderFile.Substring(71, 30).Trim();
+                        Data.Banco.Nome = HeaderFile.Substring(72, 30).Trim();
+
+
+
                         break;
                     }
 
