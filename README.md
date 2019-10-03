@@ -25,23 +25,14 @@ new Cliente() {
     CPF = "09266777450",
     Nome = "Dona Maria",
     CobrancaAgendada = new List<Cobranca>() {
-        new Cobranca { Descricao = "Taxa" , Valor = 19.99f, Data = Convert.ToDateTime("25/09/2019"), PctIOF = 0.1f },
-        new Cobranca { Descricao = "Parcela" , Valor = 114f, Data = Convert.ToDateTime("25/10/2019"), PctIOF = 0.1f }
-    },
-    Endereco = new Endereco() {
-        CEP = "541253680",
-        Cidade = "Recife",
-        Nome = "Dinopolis Arruda",
-        EstadoSigla = "PE",
-        Numero = 1025,
-        Tipo = "Rua"
+        new Cobranca { Descricao = "Taxa" , Valor = 19.99f, Data = Convert.ToDateTime("25/09/2019"), PctIOF = 0.1f, NDocto = "080340000019900" },
+        new Cobranca { Descricao = "Parcela" , Valor = 114f, Data = Convert.ToDateTime("25/10/2019"), PctIOF = 0.1f, NDocto = "080340000019901" }
     },
     ContaBancaria = new ContaBancaria() {
         Conta = "78586",
         Digito = "7",
         AgenciaBancaria = new AgenciaBancaria() {
-            Agencia = "9633",
-            Digito = "3"
+            Agencia = "9633"
         }
     }
   }
@@ -63,8 +54,7 @@ new Cliente() {
         Digito = "6",
         AgenciaBancaria = new AgenciaBancaria()
         {
-            Agencia = "9782",
-            Digito = "2"
+            Agencia = "9782"
         }
     },
     Endereco = new Endereco() {
