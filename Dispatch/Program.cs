@@ -208,7 +208,7 @@ namespace Dispatch {
                     CPF = "02826059408",
                      Nome = "ALEXSANDRA V C S MEDEIROS",
                      CobrancaAgendada = new List<Cobranca>() {
-                         new Cobranca { Descricao = "CB - Teste" , Valor = 15f, Data = Convert.ToDateTime("05/10/2019"), NDocto = "080340000019900"},
+                         new Cobranca { Descricao = "CB - Teste" , Valor = 15f, Data = Convert.ToDateTime("03/10/2019"), NDocto = "080340000019900"},
                      },
                      ContaBancaria = new ContaBancaria() {
                          Conta = "09740",
