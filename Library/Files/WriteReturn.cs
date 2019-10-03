@@ -81,7 +81,7 @@ namespace Library.Files {
                     File = File.RightEmptyLine(17, 17); // BRANCOS 
                     File = File.WriteInLine(18, 18, "2"); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                     File = File.WriteInLine(19, 32, Shipping.EmpresaCedente.CNPJ); // NÚMERO DO CNPJ/CPF DA EMPRESA
-                    File = File.WriteInLine(33, 45, Shipping.EmpresaCedente.Convenio.AddZeroLeftLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO
+                    File = File.WriteInLine(33, 45, Shipping.EmpresaCedente.Convenio.AddEmptyLine(33, 45)); // CÓDIGO DO CONVÊNIO NO BANCO
                     File = File.RightEmptyLine(46, 52); // BRANCOS 
                     File = File.AddZeroRightLine(53, 53); // ZERO
                     File = File.WriteInLine(54, 57, Shipping.EmpresaCedente.ContaBancaria.AgenciaBancaria.Agencia); // NÚMERO AGÊNCIA MANTEDORA DA CONTA
@@ -140,7 +140,7 @@ namespace Library.Files {
                     File = File.WriteInLine(44, 73, Shipping.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
                     File = File.WriteInLine(74, 88, "7398481".AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
-                    File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
+                    File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
                     File = File.WriteInLine(105, 119, Shipping.ClienteSacado.ValorMoeda.FormatValuesInReal(10, 5)); // QUANTIDADE DA MOEDA OU IOF | IOF
                     File = File.WriteInLine(120, 134, Shipping.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO

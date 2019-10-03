@@ -2,6 +2,8 @@
 using Library.Commons;
 using Library.Files.CNAB240.Retorno;
 using System;
+using System.Collections.Generic;
+using static Library.Commons.Empresa;
 
 namespace Dispatch.Commons.Files
 {
@@ -64,7 +66,6 @@ namespace Dispatch.Commons.Files
                         Result.HeaderAllotment.Empresa.ContaBancaria.Conta = Line.RetriveOnLine(66, 70); // NÚMERO DA C/C DO CLIENTE
                         Result.HeaderAllotment.Empresa.ContaBancaria.Digito = Line.RetriveOnLine(72, 72); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
                         Result.HeaderAllotment.Empresa.Nome = Line.RetriveOnLine(73, 102); // NOME DA EMPRESA
-                        Result.HeaderAllotment.Banco.Nome = Line.RetriveOnLine(103, 132).Trim(); // NOME DO BANCO
                         Result.HeaderAllotment.Empresa.Endereco.Nome = Line.RetriveOnLine(143, 172).Trim(); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
                         Result.HeaderAllotment.Empresa.Endereco.Numero = Convert.ToInt32(Line.RetriveOnLine(173, 177)); //  NÚMERO DO LOCAL
                         Result.HeaderAllotment.Empresa.Endereco.Tipo = Line.RetriveOnLine(178, 192).Trim(); //  CASA, APTO, SALA, ETC... 
@@ -76,11 +77,43 @@ namespace Dispatch.Commons.Files
                         break;
                     }
                 case IsFile.DetailsAllotment: {
+                        Result.DetailsAllotment = new DetailsAllotment();
+                        Result.DetailsAllotment.Banco = new Itau(false);
+                        Cliente Cliente = new Cliente();
+                        Cliente.ContaBancaria = new ContaBancaria();
+                        Cliente.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+
+                        Result.DetailsAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
+                        Result.DetailsAllotment.SequencialDetalhe = Line.RetriveOnLine(9, 13); // Nº SEQUENCIAL REGISTRO NO LOTE
+                        Result.DetailsAllotment.CodigoIM = Line.RetriveOnLine(15, 17); // CÓDIGO DA INSTRUÇÃO PARA MOVIMENTO | 000 = inclusão de debito | 999 = exlusão de debito                        
+                        Cliente.ContaBancaria.AgenciaBancaria.Agencia = Line.RetriveOnLine(25, 28); // Nº. AGÊNCIA DEBITADA
+                        Cliente.ContaBancaria.Conta = Line.RetriveOnLine(37, 41); //
+                        Cliente.ContaBancaria.Digito = Line.RetriveOnLine(43, 43); //
+                        Cliente.Nome = Line.RetriveOnLine(44, 73).Trim(); //
+                        Cliente.DataCobranca = Line.RetriveOnLine(94, 101); //
+                        Result.DetailsAllotment.Banco.Moeda = Line.RetriveOnLine(102, 104); //
+                        Cliente.ValorMoeda = Convert.ToSingle(Line.RetriveOnLine(105, 119));
+                        Cliente.ValorAgendado = Convert.ToSingle(Line.RetriveOnLine(120, 134));
+                        Result.DetailsAllotment.DocumentoBanco = Line.RetriveOnLine(135, 154).Trim();
+                        Result.DetailsAllotment.DataGeracao = Line.RetriveOnLine(155, 162);
+                        Result.DetailsAllotment.Empresa.Mora = (MoraTipo) Convert.ToInt32(Line.RetriveOnLine(178, 179)); //
+                        Result.DetailsAllotment.Empresa.Juros = Convert.ToSingle(Line.RetriveOnLine(180, 196)); //
+                        Result.DetailsAllotment.Empresa.IdentificadorExtrato = Line.RetriveOnLine(197, 212).Trim(); //
+                        Cliente.CPF = Line.RetriveOnLine(217, 230).Trim(); //
+                        Result.DetailsAllotment.Cliente.Add(Cliente);
 
                         break;
                     }
                 case IsFile.TrailerAllotment: {
+                        Result.TrailerAllotment = new TrailerAllotment();
+                        Result.TrailerAllotment.Banco = new Itau(false);
+                        Cliente Cliente = new Cliente();
+                        Cliente.ContaBancaria = new ContaBancaria();
+                        Cliente.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
 
+                        Result.TrailerAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
+                        Result.TrailerAllotment.SequencialLote = Line.RetriveOnLine(4,7); //
+                        
                         break;
                     }
                 case IsFile.TrailerFile: {

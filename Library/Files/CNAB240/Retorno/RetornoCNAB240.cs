@@ -52,6 +52,7 @@ namespace Library.Files.CNAB240.Retorno
         public Empresa Empresa { get; set; }
         public dynamic Banco { get; set; }
         public String CodigoRR { get; set; }
+        public String CodigoIM { get; set; }
         public String DataGeracao { get; set; }
         public String HoraGeracao { get; set; }
         public Registro Registro { get; set; }
@@ -59,6 +60,7 @@ namespace Library.Files.CNAB240.Retorno
         public String SequencialLote { get; set; }
         public String SequencialDetalhe { get; set; }
         public String SequencialArquivo { get; set; }
+        public String DocumentoBanco { get; set; }
         public String[] Ocorrencias { get; set; } = new string[5];
         public Int32 TipoInscricaoEmp { get; set; }
 
