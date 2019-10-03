@@ -51,15 +51,10 @@ namespace Library.Files.CNAB240.Retorno
         public List<Cliente> Cliente { get; set; }
         public Empresa Empresa { get; set; }
         public dynamic Banco { get; set; }
-        public String CodigoRR { get; set; }
         public String CodigoIM { get; set; }
         public String DataGeracao { get; set; }
         public String HoraGeracao { get; set; }
-        public Registro Registro { get; set; }
-        public String VLayout { get; set; }
-        public String SequencialLote { get; set; }
         public String SequencialDetalhe { get; set; }
-        public String SequencialArquivo { get; set; }
         public String DocumentoBanco { get; set; }
         public String[] Ocorrencias { get; set; } = new string[5];
         public Int32 TipoInscricaoEmp { get; set; }
@@ -69,28 +64,18 @@ namespace Library.Files.CNAB240.Retorno
             this.Empresa.ContaBancaria = new ContaBancaria();
             this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
             this.Cliente = new List<Cliente>();
-            this.Registro = new Registro();
         }
     }
     public class TrailerAllotment {
         public List<Cliente> Cliente { get; set; }
-        public Empresa Empresa { get; set; }
         public dynamic Banco { get; set; }
-        public String CodigoRR { get; set; }
-        public String DataGeracao { get; set; }
-        public String HoraGeracao { get; set; }
         public Registro Registro { get; set; }
-        public String VLayout { get; set; }
+        public Single ValorDebitoTotal { get; set; }
+        public Single ValorMoedaTotal { get; set; }
         public String SequencialLote { get; set; }
-        public String SequencialDetalhe { get; set; }
-        public String SequencialArquivo { get; set; }
-        public String[] Ocorrencias { get; set; } = new string[5];
-        public Int32 TipoInscricaoEmp { get; set; }
+        public String Ocorrencias { get; set; }
 
         public TrailerAllotment() {
-            this.Empresa = new Empresa();
-            this.Empresa.ContaBancaria = new ContaBancaria();
-            this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
             this.Cliente = new List<Cliente>();
             this.Registro = new Registro();
         }

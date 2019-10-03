@@ -6,10 +6,10 @@ namespace Library.Commons
     public class Cliente {
         public String Nome { get; set; }
         public String CPF { get; set; }
-        public Endereco Endereco { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
         public List<Cobranca> CobrancaAgendada { get; set; }
         public Single ValorAgendado { get; set; }
+        public String NDocto { get; set; }
         public String DataCobranca { get; set; }
         public Single ValorMoeda { get; set; }
         public Int32 QtdRegsLote { get { return CobrancaAgendada == null? 0 : 2 + CobrancaAgendada.Count; } }
@@ -44,9 +44,6 @@ namespace Library.Commons
             }
             if (String.IsNullOrEmpty(CPF)) {
                 Error += "O CPF do cliente " + Nome +" não foi informado!";
-            }
-            if (Endereco == null) {
-                Error += "O endereço do cliente " + Nome + " não foi informado!";
             }
             if (ContaBancaria == null) {
                 Error += "A conta bancaria do cliente " + Nome + " não foi informado!";

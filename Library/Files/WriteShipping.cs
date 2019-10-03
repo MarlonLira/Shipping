@@ -94,7 +94,7 @@ namespace Library.Files
                     File = File.WriteInLine(73, 102, EmpresaNome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.RightEmptyLine(103, 142); // BRANCOS
                     File = File.WriteInLine(143, 172, Shipping.EmpresaCedente.Endereco.Nome.AddEmptyLine(143, 172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
-                    File = File.WriteInLine(173, 177, Shipping.EmpresaCedente.Endereco.Numero.AddEmptyLine(173, 177)); //  NÚMERO DO LOCAL
+                    File = File.WriteInLine(173, 177, Shipping.EmpresaCedente.Endereco.Numero.AddZeroLeftLine(173, 177)); //  NÚMERO DO LOCAL
                     File = File.WriteInLine(178, 192, Shipping.EmpresaCedente.Endereco.Tipo.AddEmptyLine(178, 192)); //  CASA, APTO, SALA, ETC... 
                     File = File.WriteInLine(193, 212, Shipping.EmpresaCedente.Endereco.Cidade.AddEmptyLine(193, 212)); // NOME DA CIDADE
                     File = File.WriteInLine(213, 220, Shipping.EmpresaCedente.Endereco.CEP.AddEmptyLine(213, 220)); // CEP
@@ -133,7 +133,7 @@ namespace Library.Files
                     File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
                     File = File.WriteInLine(43, 43, Shipping.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Shipping.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.LeftEmptyLine(74, 88); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
+                    File = File.WriteInLine(74, 88, Shipping.ClienteSacado.NDocto.AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
                     File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.Replace("/", "")) ; // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
@@ -164,9 +164,9 @@ namespace Library.Files
                             throw new Exception("Falta informar o Mora.");
                     }
 
-                    File = File.WriteInLine(197, 212, ("Deb Autor " + Shipping.EmpresaCedente.IdentificadorExtrato).AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C 
+                    File = File.LeftEmptyLine(197, 212); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C 
                     File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
-                    File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
+                    File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddZeroLeftLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                     File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO | BRANCOS
 
                     if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }

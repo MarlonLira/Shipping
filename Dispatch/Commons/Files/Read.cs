@@ -2,7 +2,6 @@
 using Library.Commons;
 using Library.Files.CNAB240.Retorno;
 using System;
-using System.Collections.Generic;
 using static Library.Commons.Empresa;
 
 namespace Dispatch.Commons.Files
@@ -85,7 +84,7 @@ namespace Dispatch.Commons.Files
 
                         Result.DetailsAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
                         Result.DetailsAllotment.SequencialDetalhe = Line.RetriveOnLine(9, 13); // Nº SEQUENCIAL REGISTRO NO LOTE
-                        Result.DetailsAllotment.CodigoIM = Line.RetriveOnLine(15, 17); // CÓDIGO DA INSTRUÇÃO PARA MOVIMENTO | 000 = inclusão de debito | 999 = exlusão de debito                        
+                        Result.DetailsAllotment.CodigoIM = Line.RetriveOnLine(15, 17);// 000 = inclusão de debito | 999 = exlusão de debito                        
                         Cliente.ContaBancaria.AgenciaBancaria.Agencia = Line.RetriveOnLine(25, 28); // Nº. AGÊNCIA DEBITADA
                         Cliente.ContaBancaria.Conta = Line.RetriveOnLine(37, 41); //
                         Cliente.ContaBancaria.Digito = Line.RetriveOnLine(43, 43); //
@@ -113,6 +112,11 @@ namespace Dispatch.Commons.Files
 
                         Result.TrailerAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
                         Result.TrailerAllotment.SequencialLote = Line.RetriveOnLine(4,7); //
+                        Result.TrailerAllotment.Registro.TotalQtdLotes = Convert.ToInt32(Line.RetriveOnLine(18, 23)); //QTDE REGISTROS DO LOTE
+                        Result.TrailerAllotment.ValorDebitoTotal = Convert.ToSingle(Line.RetriveOnLine(24, 41)); //SOMA VALOR DOS DÉBITOS DO LOTE
+                        Result.TrailerAllotment.ValorMoedaTotal = Convert.ToSingle(Line.RetriveOnLine(42, 59)); //SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
+                        Result.TrailerAllotment.ValorMoedaTotal = Convert.ToSingle(Line.RetriveOnLine(231, 240)); //CÓDIGOS OCORRÊNCIAS P/ RETORNO
+                        Result.TrailerAllotment.Cliente.Add(Cliente);
                         
                         break;
                     }
