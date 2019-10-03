@@ -42,6 +42,7 @@ namespace Dispatch.Commons.Files
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
                                     CNB240.ClienteSacado.DataCobranca = Cobranca.Data.ToShortDateString();
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
+                                    CNB240.ClienteSacado.NDocto = Cobranca.NDocto;
 
                                     //Details
                                     File += "|" + Itau.WriteDetailsAllotment(CNB240);
