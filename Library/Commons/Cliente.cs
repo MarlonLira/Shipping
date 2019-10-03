@@ -10,7 +10,7 @@ namespace Library.Commons
         public ContaBancaria ContaBancaria { get; set; }
         public List<Cobranca> CobrancaAgendada { get; set; }
         public Single ValorAgendado { get; set; }
-        public DateTime DataCobranca { get; set; }
+        public String DataCobranca { get; set; }
         public Single ValorMoeda { get; set; }
         public Int32 QtdRegsLote { get { return CobrancaAgendada == null? 0 : 2 + CobrancaAgendada.Count; } }
         public Single ValorTotal {

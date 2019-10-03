@@ -135,7 +135,7 @@ namespace Library.Files
                     File = File.WriteInLine(44, 73, Shipping.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
                     File = File.LeftEmptyLine(74, 88); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
-                    File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")) ; // DATA PARA O LANÇAMENTO DO DÉBITO 
+                    File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.Replace("/", "")) ; // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
                     File = File.WriteInLine(105, 119, Shipping.ClienteSacado.ValorMoeda.FormatValuesInReal(10, 5)); // QUANTIDADE DA MOEDA OU IOF | IOF
                     File = File.WriteInLine(120, 134, Shipping.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO

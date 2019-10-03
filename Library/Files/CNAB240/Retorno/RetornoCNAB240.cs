@@ -52,6 +52,7 @@ namespace Library.Files.CNAB240.Retorno
         public Empresa Empresa { get; set; }
         public dynamic Banco { get; set; }
         public String CodigoRR { get; set; }
+        public String CodigoIM { get; set; }
         public String DataGeracao { get; set; }
         public String HoraGeracao { get; set; }
         public Registro Registro { get; set; }
