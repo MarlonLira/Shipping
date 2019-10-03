@@ -6,7 +6,6 @@ namespace Library.Commons
     public class Cliente {
         public String Nome { get; set; }
         public String CPF { get; set; }
-        public Endereco Endereco { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
         public List<Cobranca> CobrancaAgendada { get; set; }
         public Single ValorAgendado { get; set; }

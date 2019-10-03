@@ -57,14 +57,6 @@ namespace Dispatch {
                         Digito = "2"
                     },
                 },
-                Endereco = new Endereco() {
-                    Nome = "Estr. do Arraial",
-                    CEP = "52051380",
-                    Cidade = "Recife",
-                    Numero = 22,
-                    EstadoSigla = "PE",
-                    Tipo = "Casa"
-                }
             };
 
             var Cliente2 = new Cliente() {
@@ -92,14 +84,6 @@ namespace Dispatch {
                         Digito = "3"
                     },
                 },
-                Endereco = new Endereco() {
-                    Nome = "R. Democrito de Souza Filho",
-                    CEP = "54150080",
-                    Cidade = "Jaboatão",
-                    Numero = 187,
-                    EstadoSigla = "PE",
-                    Tipo = "Casa"
-                }
             };
 
             /* List<Cliente> Clientes = new List<Cliente>() {
