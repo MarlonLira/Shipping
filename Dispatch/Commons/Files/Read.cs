@@ -2,6 +2,7 @@
 using Library.Commons;
 using Library.Files.CNAB240.Retorno;
 using System;
+using System.Collections.Generic;
 
 namespace Dispatch.Commons.Files
 {
@@ -64,7 +65,6 @@ namespace Dispatch.Commons.Files
                         Result.HeaderAllotment.Empresa.ContaBancaria.Conta = Line.RetriveOnLine(66, 70); // NÚMERO DA C/C DO CLIENTE
                         Result.HeaderAllotment.Empresa.ContaBancaria.Digito = Line.RetriveOnLine(72, 72); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
                         Result.HeaderAllotment.Empresa.Nome = Line.RetriveOnLine(73, 102); // NOME DA EMPRESA
-                        Result.HeaderAllotment.Banco.Nome = Line.RetriveOnLine(103, 132).Trim(); // NOME DO BANCO
                         Result.HeaderAllotment.Empresa.Endereco.Nome = Line.RetriveOnLine(143, 172).Trim(); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
                         Result.HeaderAllotment.Empresa.Endereco.Numero = Convert.ToInt32(Line.RetriveOnLine(173, 177)); //  NÚMERO DO LOCAL
                         Result.HeaderAllotment.Empresa.Endereco.Tipo = Line.RetriveOnLine(178, 192).Trim(); //  CASA, APTO, SALA, ETC... 
@@ -76,8 +76,34 @@ namespace Dispatch.Commons.Files
                         break;
                     }
                 case IsFile.DetailsAllotment: {
+                        Result.DetailsAllotment = new DetailsAllotment();
+                        Result.DetailsAllotment.Banco = new Itau(false);
+                        Result.DetailsAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
+                        Result.DetailsAllotment.SequencialDetalhe = Line.RetriveOnLine(9, 13); // Nº SEQUENCIAL REGISTRO NO LOTE
+                        Result.DetailsAllotment.CodigoIM = Line.RetriveOnLine(15, 17); // CÓDIGO DA INSTRUÇÃO PARA MOVIMENTO | 000 = inclusão de debito | 999 = exlusão de debito
+                        Cliente Cliente = new Cliente();
+                        Cliente.ContaBancaria.AgenciaBancaria.Agencia = Line.RetriveOnLine(25, 28); // Nº. AGÊNCIA DEBITADA
+                        Cliente.ContaBancaria.Conta = Line.RetriveOnLine(37, 41); //
+                        Cliente.ContaBancaria.Digito = Line.RetriveOnLine(43, 43); //
+                        Cliente.Nome = Line.RetriveOnLine(44, 73).Trim(); //
+                        Cliente.DataCobranca = Line.RetriveOnLine(94, 101); //
 
-                        break;
+
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.;
+                        //Result.DetailsAllotment.Cliente.Add();
+
+
+
+
+                        break;                      //break ta aqui
                     }
                 case IsFile.TrailerAllotment: {
 
