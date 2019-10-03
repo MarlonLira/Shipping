@@ -40,7 +40,7 @@ namespace Dispatch.Commons.Files
                                     CNB240.Registros.SequencialDetalhe++;
                                     TotalRegCount++;
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
-                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
+                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data.ToShortDateString();
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
 
                                     //Details
@@ -116,7 +116,7 @@ namespace Dispatch.Commons.Files
                                     CNB240.Registros.SequencialDetalhe++;
                                     TotalRegCount++;
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
-                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
+                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data.ToShortDateString();
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
 
                                     //Details

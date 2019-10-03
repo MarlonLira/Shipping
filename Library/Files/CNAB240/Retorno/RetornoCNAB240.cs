@@ -60,6 +60,7 @@ namespace Library.Files.CNAB240.Retorno
         public String SequencialLote { get; set; }
         public String SequencialDetalhe { get; set; }
         public String SequencialArquivo { get; set; }
+        public String DocumentoBanco { get; set; }
         public String[] Ocorrencias { get; set; } = new string[5];
         public Int32 TipoInscricaoEmp { get; set; }
 
