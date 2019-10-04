@@ -209,23 +209,15 @@ namespace Dispatch {
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
             Create.TxtFile(StringB, Banco);
 
-            /*
-            StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
-            String FileName = Create.TxtFile(StringB2, Banco, false);*/
 
-            //RetornoCNAB240 Result = Read.Return(@"C:\Users\Suporte\Desktop\" + FileName);
+            //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
+            //String FileName = Create.TxtFile(StringB2, Banco, false); */
+
+            // RetornoCNAB240 Result = Read.Return(@"C:\Users\Suporte\Desktop\" + FileName);
             //String a = ""; ???
-            
 
-            /*RetriveLine
-            String[] Texto = ReadReturn.ReturnTxtPart(@"C:\Users\suporte\Desktop\Repo\RET341-Itaú_011020193705_HEADER.txt");
-            
-            foreach(String line in Texto) {
-                Console.Write("Tamanho da linha: {0}\n{1}",line.Length, line);
-            }
 
-            Console.ReadKey();
-            */
+
 
         }
     }
