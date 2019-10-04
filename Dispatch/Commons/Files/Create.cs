@@ -189,7 +189,7 @@ namespace Dispatch.Commons.Files
             } catch {
                 throw;
             }
-            return FileName;
+            return (Path + @"\" + FileName);
         }
     }
 }

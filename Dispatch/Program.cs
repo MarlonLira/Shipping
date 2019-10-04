@@ -205,15 +205,15 @@ namespace Dispatch {
                 }
 
             };
-
+            /*
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
-            Create.TxtFile(StringB, Banco);
+            Create.TxtFile(StringB, Banco);*/
 
 
             StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
             String FileName = Create.TxtFile(StringB2, Banco, false);
 
-            RetornoCNAB240 Result = Read.Return(@"C:\Users\Suporte\Desktop\" + FileName);
+            RetornoCNAB240 Result = Read.Return(FileName);
 
         }
     }
