@@ -111,7 +111,7 @@ namespace Dispatch.Commons.Files
                                 //CNB240.Registros = new Registro();
                                 CNB240.Registros.SequencialLote++;
                                 //Init Header Allotment
-                                File += "|" + Itau.WriteHeaderAllotment(CNB240);
+                                File += "|" + Itau.WriteHeaderAllotment(CNB240, "0201IH");
                                 foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
                                     Cobranca.Verificar();
                                     CNB240.Registros.SequencialDetalhe++;
@@ -121,10 +121,10 @@ namespace Dispatch.Commons.Files
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
 
                                     //Details
-                                    File += "|" + Itau.WriteDetailsAllotment(CNB240);
+                                    File += "|" + Itau.WriteDetailsAllotment(CNB240, "0201IH");
                                 }
                                 //Close Header Allotment
-                                File += "|" + Itau.WriteTrailerAllotment(CNB240);
+                                File += "|" + Itau.WriteTrailerAllotment(CNB240, "0201IH");
                             }
                             CNB240.Registros = new Registro() {
                                 TotalQtdLotes = ClientesSacados.Count,

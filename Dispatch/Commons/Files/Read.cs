@@ -57,6 +57,8 @@ namespace Dispatch.Commons.Files
                 case IsFile.HeaderAllotment: {
                         Result.HeaderAllotment = new HeaderAllotment();
                         Result.HeaderAllotment.Banco = new Itau(false);
+                        Ocorrencias Ocorrencia = new Ocorrencias();
+
                         Result.HeaderAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
                         Result.HeaderAllotment.TipoInscricaoEmp = Convert.ToInt32(Line.RetriveOnLine(18, 18)); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                         Result.HeaderAllotment.Empresa.CNPJ = Line.RetriveOnLine(19, 32); // NÚMERO DO CNPJ/CPF DA EMPRESA
@@ -71,7 +73,7 @@ namespace Dispatch.Commons.Files
                         Result.HeaderAllotment.Empresa.Endereco.Cidade = Line.RetriveOnLine(193, 212).Trim(); // NOME DA CIDADE
                         Result.HeaderAllotment.Empresa.Endereco.CEP = Line.RetriveOnLine(213, 220).Trim(); // CEP
                         Result.HeaderAllotment.Empresa.Endereco.EstadoSigla = Line.RetriveOnLine(221, 222).Trim(); // SIGLA DO ESTADO 
-                        Result.HeaderAllotment.Ocorrencias = Line.RetriveOnLine(231, 240).Trim(); // CÓDIGO OCORRÊNCIAS
+                        Result.HeaderAllotment.Ocorrencias = Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)); // CÓDIGO OCORRÊNCIAS
 
                         break;
                     }
@@ -81,24 +83,27 @@ namespace Dispatch.Commons.Files
                         Cliente Cliente = new Cliente();
                         Cliente.ContaBancaria = new ContaBancaria();
                         Cliente.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+                        Ocorrencias Ocorrencia = new Ocorrencias();
 
                         Result.DetailsAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
                         Result.DetailsAllotment.SequencialDetalhe = Line.RetriveOnLine(9, 13); // Nº SEQUENCIAL REGISTRO NO LOTE
                         Result.DetailsAllotment.CodigoIM = Line.RetriveOnLine(15, 17);// 000 = inclusão de debito | 999 = exlusão de debito                        
                         Cliente.ContaBancaria.AgenciaBancaria.Agencia = Line.RetriveOnLine(25, 28); // Nº. AGÊNCIA DEBITADA
-                        Cliente.ContaBancaria.Conta = Line.RetriveOnLine(37, 41); //
-                        Cliente.ContaBancaria.Digito = Line.RetriveOnLine(43, 43); //
-                        Cliente.Nome = Line.RetriveOnLine(44, 73).Trim(); //
-                        Cliente.DataCobranca = Line.RetriveOnLine(94, 101); //
-                        Result.DetailsAllotment.Banco.Moeda = Line.RetriveOnLine(102, 104); //
-                        Cliente.ValorMoeda = Convert.ToSingle(Line.RetriveOnLine(105, 119));
-                        Cliente.ValorAgendado = Convert.ToSingle(Line.RetriveOnLine(120, 134));
-                        Result.DetailsAllotment.DocumentoBanco = Line.RetriveOnLine(135, 154).Trim();
-                        Result.DetailsAllotment.DataGeracao = Line.RetriveOnLine(155, 162);
-                        Result.DetailsAllotment.Empresa.Mora = (MoraTipo) Convert.ToInt32(Line.RetriveOnLine(178, 179)); //
-                        Result.DetailsAllotment.Empresa.Juros = Convert.ToSingle(Line.RetriveOnLine(180, 196)); //
-                        Result.DetailsAllotment.Empresa.IdentificadorExtrato = Line.RetriveOnLine(197, 212).Trim(); //
-                        Cliente.CPF = Line.RetriveOnLine(217, 230).Trim(); //
+                        Cliente.ContaBancaria.Conta = Line.RetriveOnLine(37, 41); // NR. DA CONTA DEBITADA
+                        Cliente.ContaBancaria.Digito = Line.RetriveOnLine(43, 43); // DIGITO VERIFICADOR DA AG/CONTA
+                        Cliente.Nome = Line.RetriveOnLine(44, 73).Trim(); // NOME DO DEBITADO
+                        Cliente.DataCobranca = Line.RetriveOnLine(94, 101); // DATA PARA O LANÇAMENTO DO DÉBITO
+                        Result.DetailsAllotment.Banco.Moeda = Line.RetriveOnLine(102, 104); // TIPO DA MOEDA
+                        Cliente.ValorMoeda = Convert.ToSingle(Line.RetriveOnLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF
+                        Cliente.ValorAgendado = Convert.ToSingle(Line.RetriveOnLine(120, 134)); // VALOR DO LANÇAMENTO PARA DÉBITO
+                        Result.DetailsAllotment.DocumentoBanco = Line.RetriveOnLine(135, 154).Trim(); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
+                        Result.DetailsAllotment.DataGeracao = Line.RetriveOnLine(155, 162); // DATA REAL DA EFETIVAÇÃO DO LANÇTO.
+                        Result.DetailsAllotment.Empresa.Mora = (MoraTipo) Convert.ToInt32(Line.RetriveOnLine(178, 179)); //TIPO DO ENCARGO POR DIA DE ATRASO
+                        Result.DetailsAllotment.Empresa.Juros = Convert.ToSingle(Line.RetriveOnLine(180, 196)); // VALOR DO ENCARGO P/ DIA DE ATRASO
+                        Result.DetailsAllotment.Empresa.IdentificadorExtrato = Line.RetriveOnLine(197, 212).Trim(); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
+                        Cliente.CPF = Line.RetriveOnLine(217, 230).Trim(); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
+                        Result.DetailsAllotment.Ocorrencias = Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)); // CÓDIGO OCORRÊNCIAS
+
                         Result.DetailsAllotment.Cliente.Add(Cliente);
 
                         break;
@@ -109,18 +114,27 @@ namespace Dispatch.Commons.Files
                         Cliente Cliente = new Cliente();
                         Cliente.ContaBancaria = new ContaBancaria();
                         Cliente.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+                        Ocorrencias Ocorrencia = new Ocorrencias();
 
                         Result.TrailerAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
-                        Result.TrailerAllotment.SequencialLote = Line.RetriveOnLine(4,7); //
+                        Result.TrailerAllotment.SequencialLote = Line.RetriveOnLine(4,7); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                         Result.TrailerAllotment.Registro.TotalQtdLotes = Convert.ToInt32(Line.RetriveOnLine(18, 23)); //QTDE REGISTROS DO LOTE
                         Result.TrailerAllotment.ValorDebitoTotal = Convert.ToSingle(Line.RetriveOnLine(24, 41)); //SOMA VALOR DOS DÉBITOS DO LOTE
                         Result.TrailerAllotment.ValorMoedaTotal = Convert.ToSingle(Line.RetriveOnLine(42, 59)); //SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
-                        Result.TrailerAllotment.ValorMoedaTotal = Convert.ToSingle(Line.RetriveOnLine(231, 240)); //CÓDIGOS OCORRÊNCIAS P/ RETORNO
+                        Result.TrailerAllotment.Ocorrencias = Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)); // CÓDIGO OCORRÊNCIAS
+
                         Result.TrailerAllotment.Cliente.Add(Cliente);
                         
                         break;
                     }
                 case IsFile.TrailerFile: {
+                        Result.TrailerFile = new TrailerFile();
+                        Result.TrailerFile.Banco = new Itau(false);
+
+                        Result.TrailerFile.Banco.Codigo = Line.RetriveOnLine(1, 3); // CÓDIGO BANCO NA COMPENSAÇÃO
+                        Result.TrailerFile.SequencialLote = Line.RetriveOnLine(4, 7); // LOTE IDENTIFICAÇÃO DE SERVIÇO 
+                        Result.TrailerFile.Registro.TotalQtdLotes = Convert.ToInt32(Line.RetriveOnLine(18, 23)); // QTDE LOTES DO ARQUIVO 
+                        Result.TrailerFile.Registro.TotalQtdRegs = Convert.ToInt32(Line.RetriveOnLine(24, 29)); // QTDE REGISTROS DO ARQUIVO
 
                         break;
                     }

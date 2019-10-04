@@ -59,7 +59,7 @@ namespace Library.Files {
                 return Result;
             }
 
-            public String WriteHeaderAllotment(RemessaCNAB240 Shipping) {
+            public String WriteHeaderAllotment(RemessaCNAB240 Shipping, String Ocorrencia) {
                 String Result;
                 String EmpresaNome = Shipping.EmpresaCedente.Nome;
 
@@ -99,7 +99,7 @@ namespace Library.Files {
                     File = File.WriteInLine(213, 220, Shipping.EmpresaCedente.Endereco.CEP.AddEmptyLine(213, 220)); // CEP
                     File = File.WriteInLine(221, 222, Shipping.EmpresaCedente.Endereco.EstadoSigla); // SIGLA DO ESTADO 
                     File = File.LeftEmptyLine(223, 230); // BRANCOS
-                    File = File.LeftEmptyLine(231, 240); // CÓDIGO OCORRÊNCIAS P/RETORNO -->Alterar<--
+                    File = File.WriteInLine(231, 240, Ocorrencia.AddEmptyLine(231, 240)); // CÓDIGO OCORRÊNCIAS P/RETORNO -->Alterar<--
 
                     if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
@@ -110,13 +110,8 @@ namespace Library.Files {
                 return Result;
             }
 
-            public String WriteDetailsAllotment(RemessaCNAB240 Shipping) {
+            public String WriteDetailsAllotment(RemessaCNAB240 Shipping, String Ocorrencia) {
                 String Result;
-                String EmpresaNome = Shipping.EmpresaCedente.Nome;
-
-                if (EmpresaNome.Length > 30) {
-                    EmpresaNome = EmpresaNome.Substring(0, 30);
-                }
 
                 var File = new String(' ', 240);
 
@@ -172,7 +167,7 @@ namespace Library.Files {
                     File = File.RightEmptyLine(197, 212); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
                     File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddZeroLeftLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
-                    File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO -->Alterar<--
+                    File = File.WriteInLine(231, 240, Ocorrencia.AddEmptyLine(231, 240)); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO -->Alterar<--
 
                     if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
@@ -184,13 +179,8 @@ namespace Library.Files {
                 return Result;
             }
 
-            public String WriteTrailerAllotment(RemessaCNAB240 Shipping) {
+            public String WriteTrailerAllotment(RemessaCNAB240 Shipping, String Ocorrencia) {
                 String Result;
-                String EmpresaNome = Shipping.EmpresaCedente.Nome;
-
-                if (EmpresaNome.Length > 30) {
-                    EmpresaNome = EmpresaNome.Substring(0, 30);
-                }
 
                 var File = new String(' ', 240);
 
@@ -204,7 +194,7 @@ namespace Library.Files {
                     File = File.WriteInLine(24, 41, Shipping.ClienteSacado.ValorTotal.FormatValuesInReal(16, 2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
                     File = File.WriteInLine(42, 59, Shipping.ClienteSacado.ValorMoedaTotal.FormatValuesInReal(13, 5).AddZeroLeftLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
-                    File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO -->Alterar<--
+                    File = File.WriteInLine(231, 240, Ocorrencia.AddEmptyLine(231, 240)); // CÓDIGOS OCORRÊNCIAS P/ RETORNO -->Alterar<--
 
                     if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
                     Result = File;
@@ -218,11 +208,6 @@ namespace Library.Files {
 
             public String WriteTrailerFile(RemessaCNAB240 Shipping) {
                 String Result;
-                String EmpresaNome = Shipping.EmpresaCedente.Nome;
-
-                if (EmpresaNome.Length > 30) {
-                    EmpresaNome = EmpresaNome.Substring(0, 30);
-                }
 
                 var File = new String(' ', 240);
 

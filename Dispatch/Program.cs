@@ -215,9 +215,6 @@ namespace Dispatch {
 
             RetornoCNAB240 Result = Read.Return(@"C:\Users\Suporte\Desktop\" + FileName);
 
-
-
-
         }
     }
 }
