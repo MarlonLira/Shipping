@@ -1,36 +1,105 @@
 ﻿using Library.Commons;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Library.Files.CNAB240.Retorno {
+namespace Library.Files.CNAB240.Retorno
+{
     public class RetornoCNAB240 {
-        public RetornoCNAB240(Empresa Empresa, Cliente Cliente, Int32 SequencialArquivo) {
-            this.ClienteSacado = Cliente;
-            this.EmpresaCedente = Empresa;
-            this.SequencialNsa = SequencialArquivo;
-        }
 
-        public RetornoCNAB240(Empresa Empresa) {
-            this.EmpresaCedente = Empresa;
-        }
-
-        public Empresa EmpresaCedente { get; set; }
-        public Registro Registros { get; set; }
-        public Cliente ClienteSacado { get; set; }
-        public int LoteServico { get; set; }
-        public string NomeBanco { get; set; }
-        public string CodigoRemessa { get; set; }
-        public DateTime DataGeracao { get; set; }
-        public DateTime HoraGeracao { get; set; }
-        public int SequencialNsa { get; set; }
-        public string VersaoLayout { get; set; }
-        public string Densidade { get; set; }
-        public string ReservadoBanco { get; set; }
-        public string ReservadoEmpresa { get; set; }
-        public string VersaoAplicativo { get; set; }
+        public HeaderFile HeaderFile { get; set; }
+        public HeaderAllotment HeaderAllotment { get; set; }
+        public DetailsAllotment DetailsAllotment { get; set; }
+        public TrailerAllotment TrailerAllotment { get; set; }
+        public TrailerFile TrailerFile { get; set; }
     }
-}
+
+    public class HeaderFile {
+        public Empresa Empresa { get; set; }
+        public dynamic Banco { get; set; }
+        public String CodigoRR { get; set; }
+        public String DataGeracao { get; set; }
+        public String HoraGeracao { get; set; }
+        public String VLayout { get; set; }
+        public String SequencialLote { get; set; }
+        public String SequencialDetalhe { get; set; }
+        public String SequencialArquivo { get; set; }
+        public Int32 TipoInscricaoEmp { get; set; }
+
+        public HeaderFile() {
+            this.Empresa = new Empresa();
+            this.Empresa.ContaBancaria = new ContaBancaria();
+            this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+        }
+    }
+
+    public class HeaderAllotment {
+        public Empresa Empresa { get; set; }
+        public dynamic Banco { get; set; }
+        public String Ocorrencias { get; set; }
+        public Int32 TipoInscricaoEmp { get; set; }
+
+        public HeaderAllotment() {
+            this.Empresa = new Empresa();
+            this.Empresa.ContaBancaria = new ContaBancaria();
+            this.Empresa.Endereco = new Endereco();
+            this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+        }
+    }
+
+    public class DetailsAllotment {
+        public List<Cliente> Cliente { get; set; }
+        public Empresa Empresa { get; set; }
+        public dynamic Banco { get; set; }
+        public String CodigoIM { get; set; }
+        public String DataGeracao { get; set; }
+        public String HoraGeracao { get; set; }
+        public String SequencialDetalhe { get; set; }
+        public String DocumentoBanco { get; set; }
+        public String Ocorrencias { get; set; }
+        public Int32 TipoInscricaoEmp { get; set; }
+
+        public DetailsAllotment() {
+            this.Empresa = new Empresa();
+            this.Empresa.ContaBancaria = new ContaBancaria();
+            this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+            this.Cliente = new List<Cliente>();
+        }
+    }
+    public class TrailerAllotment {
+        public List<Cliente> Cliente { get; set; }
+        public dynamic Banco { get; set; }
+        public Registro Registro { get; set; }
+        public Single ValorDebitoTotal { get; set; }
+        public Single ValorMoedaTotal { get; set; }
+        public String SequencialLote { get; set; }
+        public String Ocorrencias { get; set; }
+
+        public TrailerAllotment() {
+            this.Cliente = new List<Cliente>();
+            this.Registro = new Registro();
+        }
+    }
+    public class TrailerFile {
+        public List<Cliente> Cliente { get; set; }
+        public Empresa Empresa { get; set; }
+        public dynamic Banco { get; set; }
+        public String CodigoRR { get; set; }
+        public String DataGeracao { get; set; }
+        public String HoraGeracao { get; set; }
+        public Registro Registro { get; set; }
+        public String VLayout { get; set; }
+        public String SequencialLote { get; set; }
+        public String SequencialDetalhe { get; set; }
+        public String SequencialArquivo { get; set; }
+        public String[] Ocorrencias { get; set; } = new string[5];
+        public Int32 TipoInscricaoEmp { get; set; }
+
+        public TrailerFile() {
+            this.Empresa = new Empresa();
+            this.Empresa.ContaBancaria = new ContaBancaria();
+            this.Empresa.ContaBancaria.AgenciaBancaria = new AgenciaBancaria();
+            this.Cliente = new List<Cliente>();
+            this.Registro = new Registro();
+        }
+    }
 }

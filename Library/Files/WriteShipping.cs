@@ -2,8 +2,7 @@
 using Library.Arquivos.CNAB240.Remessa;
 using static Library.Commons.Empresa;
 
-namespace Library.Files
-{
+namespace Library.Files {
     public class WriteShipping {
 
         public class Itau {
@@ -94,7 +93,7 @@ namespace Library.Files
                     File = File.WriteInLine(73, 102, EmpresaNome.AddEmptyLine(73, 102)); // NOME DA EMPRESA
                     File = File.RightEmptyLine(103, 142); // BRANCOS
                     File = File.WriteInLine(143, 172, Shipping.EmpresaCedente.Endereco.Nome.AddEmptyLine(143, 172)); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
-                    File = File.WriteInLine(173, 177, Shipping.EmpresaCedente.Endereco.Numero.AddEmptyLine(173, 177)); //  NÚMERO DO LOCAL
+                    File = File.WriteInLine(173, 177, Shipping.EmpresaCedente.Endereco.Numero.AddZeroLeftLine(173, 177)); //  NÚMERO DO LOCAL
                     File = File.WriteInLine(178, 192, Shipping.EmpresaCedente.Endereco.Tipo.AddEmptyLine(178, 192)); //  CASA, APTO, SALA, ETC... 
                     File = File.WriteInLine(193, 212, Shipping.EmpresaCedente.Endereco.Cidade.AddEmptyLine(193, 212)); // NOME DA CIDADE
                     File = File.WriteInLine(213, 220, Shipping.EmpresaCedente.Endereco.CEP.AddEmptyLine(213, 220)); // CEP
@@ -111,7 +110,7 @@ namespace Library.Files
                 return Result;
             }
 
-            public String WriteHeaderDetails(RemessaCNAB240 Shipping) {
+            public String WriteDetailsAllotment(RemessaCNAB240 Shipping) {
                 String Result;
                 var File = new String(' ', 240);
 
@@ -133,9 +132,9 @@ namespace Library.Files
                     File = File.RightEmptyLine(42, 42); // COMPLEMENTO DE REGISTROS
                     File = File.WriteInLine(43, 43, Shipping.ClienteSacado.ContaBancaria.Digito); // DIGITO VERIFICADOR DA AG/CONTA
                     File = File.WriteInLine(44, 73, Shipping.ClienteSacado.Nome.AddEmptyLine(44, 73)); // NOME DO DEBITADO
-                    File = File.LeftEmptyLine(74, 88); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
+                    File = File.WriteInLine(74, 88, Shipping.ClienteSacado.NDocto.AddEmptyLine(74, 88)); // NR. DO DOCUM. ATRIBUÍDO P/EMPRESA 
                     File = File.RightEmptyLine(89, 93); // COMPLENTO DE REGISTROS | BRANCOS
-                    File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.ToShortDateString().Replace("/", "")) ; // DATA PARA O LANÇAMENTO DO DÉBITO 
+                    File = File.WriteInLine(94, 101, Shipping.ClienteSacado.DataCobranca.Replace("/", "")); // DATA PARA O LANÇAMENTO DO DÉBITO 
                     File = File.WriteInLine(102, 104, BancoItau.Moeda); // TIPO DA MOEDA
                     File = File.WriteInLine(105, 119, Shipping.ClienteSacado.ValorMoeda.FormatValuesInReal(10, 5)); // QUANTIDADE DA MOEDA OU IOF | IOF
                     File = File.WriteInLine(120, 134, Shipping.ClienteSacado.ValorAgendado.FormatValuesInReal(13, 2)); // VALOR DO LANÇAMENTO PARA DÉBITO
@@ -151,12 +150,12 @@ namespace Library.Files
                             }
                         case MoraTipo.JurosSimples: {
                                 File = File.WriteInLine(178, 179, "01"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
-                                File = File.WriteInLine(180, 196, Shipping.EmpresaCedente.Juros.FormatValuesInReal(12,5)); // VALOR DO ENCARGO P/ DIA DE ATRASO
+                                File = File.WriteInLine(180, 196, Shipping.EmpresaCedente.Juros.FormatValuesInReal(12, 5)); // VALOR DO ENCARGO P/ DIA DE ATRASO
                                 break;
                             }
                         case MoraTipo.IDA: {
                                 File = File.WriteInLine(178, 179, "03"); // TIPO DO ENCARGO POR DIA DE ATRASO | 00 = isento | 01 = juros simples | 03 = IDA (Importância por dia de atraso)
-                                File = File.WriteInLine(180, 196, Shipping.EmpresaCedente.ValorIDA.FormatValuesInReal(15,2)); // VALOR DO ENCARGO P/ DIA DE ATRASO
+                                File = File.WriteInLine(180, 196, Shipping.EmpresaCedente.ValorIDA.FormatValuesInReal(15, 2)); // VALOR DO ENCARGO P/ DIA DE ATRASO
                                 break;
                             }
 
@@ -164,9 +163,9 @@ namespace Library.Files
                             throw new Exception("Falta informar o Mora.");
                     }
 
-                    File = File.WriteInLine(197, 212, ("Deb Autor " + Shipping.EmpresaCedente.IdentificadorExtrato).AddEmptyLine(197, 212)); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C 
+                    File = File.LeftEmptyLine(197, 212); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C 
                     File = File.RightEmptyLine(213, 216); // COMPLEMENTO DE REGISTRO | BRANCO
-                    File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddEmptyLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
+                    File = File.WriteInLine(217, 230, Shipping.ClienteSacado.CPF.AddZeroLeftLine(217, 230)); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                     File = File.RightEmptyLine(231, 240); // CÓDIGO DAS OCORRÊNCIAS P/ RETORNO | BRANCOS
 
                     if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
@@ -195,9 +194,9 @@ namespace Library.Files
                     File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4, 7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                     File = File.WriteInLine(8, 8, "5"); // REGISTRO DETALHE DE LOTE
                     File = File.RightEmptyLine(9, 17); // COMPLEMENTO | BRANCOS
-                    File = File.WriteInLine(18, 23, Shipping.ClienteSacado.QtdRegsLote.AddZeroLeftLine(18,23)); // QTDE REGISTROS DO LOTE
-                    File = File.WriteInLine(24, 41, Shipping.ClienteSacado.ValorTotal.FormatValuesInReal(16,2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
-                    File = File.WriteInLine(42, 59, Shipping.ClienteSacado.ValorMoedaTotal.FormatValuesInReal(13,5).AddZeroLeftLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
+                    File = File.WriteInLine(18, 23, Shipping.ClienteSacado.QtdRegsLote.AddZeroLeftLine(18, 23)); // QTDE REGISTROS DO LOTE
+                    File = File.WriteInLine(24, 41, Shipping.ClienteSacado.ValorTotal.FormatValuesInReal(16, 2).AddZeroLeftLine(24, 41)); // SOMA VALOR DOS DÉBITOS DO LOTE
+                    File = File.WriteInLine(42, 59, Shipping.ClienteSacado.ValorMoedaTotal.FormatValuesInReal(13, 5).AddZeroLeftLine(42, 59)); // SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
                     File = File.RightEmptyLine(60, 230); // COMPLEMENTO DE REGISTRO | BRANCO
                     File = File.RightEmptyLine(231, 240); // CÓDIGOS OCORRÊNCIAS P/ RETORNO | BRANCO
 
@@ -222,8 +221,8 @@ namespace Library.Files
                     File = File.WriteInLine(4, 7, "9999"); // LOTE IDENTIFICAÇÃO DE SERVIÇO 
                     File = File.WriteInLine(8, 8, "9"); // REGISTRO TRAILER DE ARQUIVO 
                     File = File.LeftEmptyLine(9, 17); //COMPLEMENTO DE REGISTRO - BRANCOS
-                    File = File.WriteInLine(18, 23, Shipping.Registros.TotalQtdLotes.AddZeroLeftLine(18,23)); // QTDE LOTES DO ARQUIVO
-                    File = File.WriteInLine(24, 29, Shipping.Registros.TotalQtdRegs.AddZeroLeftLine(24,29)); // QTDE REGISTROS DO ARQUIVO
+                    File = File.WriteInLine(18, 23, Shipping.Registros.TotalQtdLotes.AddZeroLeftLine(18, 23)); // QTDE LOTES DO ARQUIVO
+                    File = File.WriteInLine(24, 29, Shipping.Registros.TotalQtdRegs.AddZeroLeftLine(24, 29)); // QTDE REGISTROS DO ARQUIVO
                     File = File.LeftEmptyLine(30, 240); // COMPLEMENTO DE REGISTRO
 
                     if (File.Length > 240) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
@@ -259,7 +258,7 @@ public static class Write {
         ContentEdit = ContentEdit.Remove(Start, SizeOfLine);
         // 2º insere
         ContentEdit = ContentEdit.Insert(Start, StringValue);
-        
+
         return ContentEdit;
     }
 
@@ -272,7 +271,7 @@ public static class Write {
         Content = Content.Remove(Start, SizeOfLine);
         // 2º insere
         Content = Content.Insert(Start, string.Empty.PadRight(SizeOfLine, ' '));
-        
+
         return Content;
     }
 

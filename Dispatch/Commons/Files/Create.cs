@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Dispatch.Commons.Shipping
+namespace Dispatch.Commons.Files
 {
     public static class Create
     {
@@ -40,11 +40,12 @@ namespace Dispatch.Commons.Shipping
                                     CNB240.Registros.SequencialDetalhe++;
                                     TotalRegCount++;
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
-                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
+                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data.ToShortDateString();
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
+                                    CNB240.ClienteSacado.NDocto = Cobranca.NDocto;
 
                                     //Details
-                                    File += "|" + Itau.WriteHeaderDetails(CNB240);
+                                    File += "|" + Itau.WriteDetailsAllotment(CNB240);
                                 }
                                 //Close Header Allotment
                                 File += "|" + Itau.WriteTrailerAllotment(CNB240);
@@ -110,20 +111,20 @@ namespace Dispatch.Commons.Shipping
                                 //CNB240.Registros = new Registro();
                                 CNB240.Registros.SequencialLote++;
                                 //Init Header Allotment
-                                File += "|" + Itau.WriteHeaderAllotment(CNB240);
+                                File += "|" + Itau.WriteHeaderAllotment(CNB240, "0201IH");
                                 foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
                                     Cobranca.Verificar();
                                     CNB240.Registros.SequencialDetalhe++;
                                     TotalRegCount++;
                                     CNB240.ClienteSacado.ValorAgendado = Cobranca.Valor;
-                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data;
+                                    CNB240.ClienteSacado.DataCobranca = Cobranca.Data.ToShortDateString();
                                     CNB240.ClienteSacado.ValorMoeda = (Cobranca.Valor * Cobranca.PctIOF);
 
                                     //Details
-                                    File += "|" + Itau.WriteHeaderDetails(CNB240);
+                                    File += "|" + Itau.WriteDetailsAllotment(CNB240, "0201IH");
                                 }
                                 //Close Header Allotment
-                                File += "|" + Itau.WriteTrailerAllotment(CNB240);
+                                File += "|" + Itau.WriteTrailerAllotment(CNB240, "0201IH");
                             }
                             CNB240.Registros = new Registro() {
                                 TotalQtdLotes = ClientesSacados.Count,
@@ -165,7 +166,7 @@ namespace Dispatch.Commons.Shipping
             return Result;
         }
 
-        public static void TxtFile(StringBuilder Text, Banco Banco) {
+        public static String TxtFile(StringBuilder Text, Banco Banco, Boolean IsRemessa = true) {
             String Path;
             String Date;
             String FileName;
@@ -174,7 +175,11 @@ namespace Dispatch.Commons.Shipping
             try {
                 Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 Date = DateTime.Now.ToString("d").Replace("/", "");
-                FileName = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", Banco.Codigo, "-", Banco.Nome, "_", Date, DateTime.Now.Ticks, @"_HEADER", ".txt");
+                if(IsRemessa)
+                    FileName = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", Banco.Codigo, "-", Banco.Nome, "_", Date, DateTime.Now.Ticks, @"_HEADER", ".txt");
+                else
+                    FileName = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", Banco.Codigo, "-", Banco.Nome, "_", Date, DateTime.Now.Ticks, @"_RETURN", ".txt");
+
                 File = new StreamWriter(Path + @"\" + FileName, true);
                 File.Write(Text);
                 Console.WriteLine("Arquivo foi gerado com sucesso, verifique a area de trabalho!");
@@ -184,7 +189,7 @@ namespace Dispatch.Commons.Shipping
             } catch {
                 throw;
             }
-
+            return FileName;
         }
     }
 }

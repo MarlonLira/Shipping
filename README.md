@@ -17,36 +17,29 @@ Este pacote consiste em um SDK em C# para a geração de arquivos de remessa par
 
 ```C#
 
-/* Lista da entidade Cliente
+/* 
+ * Lista da entidade Cliente
  */
 List<Cliente> Clientes = new List<Cliente>() {
 new Cliente() {
     CPF = "09266777450",
     Nome = "Dona Maria",
     CobrancaAgendada = new List<Cobranca>() {
-        new Cobranca { Descricao = "Taxa" , Valor = 19.99f, Data = Convert.ToDateTime("25/09/2019"), PctIOF = 0.1f },
-        new Cobranca { Descricao = "Parcela" , Valor = 114f, Data = Convert.ToDateTime("25/10/2019"), PctIOF = 0.1f }
-    },
-    Endereco = new Endereco() {
-        CEP = "541253680",
-        Cidade = "Recife",
-        Nome = "Dinopolis Arruda",
-        EstadoSigla = "PE",
-        Numero = 1025,
-        Tipo = "Rua"
+        new Cobranca { Descricao = "Taxa" , Valor = 19.99f, Data = Convert.ToDateTime("25/09/2019"), PctIOF = 0.1f, NDocto = "080340000019900" },
+        new Cobranca { Descricao = "Parcela" , Valor = 114f, Data = Convert.ToDateTime("25/10/2019"), PctIOF = 0.1f, NDocto = "080340000019901" }
     },
     ContaBancaria = new ContaBancaria() {
         Conta = "78586",
         Digito = "7",
         AgenciaBancaria = new AgenciaBancaria() {
-            Agencia = "9633",
-            Digito = "3"
+            Agencia = "9633"
         }
     }
   }
 }
 
-/* Entidade Empresa
+/*
+ * Entidade Empresa
  */
  
  var Empresa = new Empresa() {
@@ -56,14 +49,12 @@ new Cliente() {
     Digito = "9",
     Juros = 0.5f,
     Mora = MoraTipo.JurosSimples,
-    RetencaoIOF = IOF.Com,
     ContaBancaria = ContaBancaria = new ContaBancaria() {
         Conta = "68650",
         Digito = "6",
         AgenciaBancaria = new AgenciaBancaria()
         {
-            Agencia = "9782",
-            Digito = "2"
+            Agencia = "9782"
         }
     },
     Endereco = new Endereco() {
@@ -76,10 +67,12 @@ new Cliente() {
     }
 };
             
-/* Método responsavel por gerar o arquivo de remessa, espera como parametro a entidade empresa,
+/* 
+ * Método (Create.Shipping([Entidade empresa populada], [Lista de clientes], (Bank)[codigo do banco], [sequencial do arquivo]))
+ * responsavel por gerar o arquivo de remessa, espera como parametro a entidade empresa,
  *  uma lista da entidade Cliente e o codigo do banco que será utilizado. O método retorna uma StringBuilder.
  */
-var Result = Create.Shipping(Empresa, Clientes, (Bank)341);
+var Result = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
 
 ```
 ## Em Construção...

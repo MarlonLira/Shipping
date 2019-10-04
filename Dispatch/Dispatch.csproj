@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\Banks\Bancos.cs" />
-    <Compile Include="Commons\Shipping\Create.cs" />
-    <Compile Include="Commons\Shipping\ReadReturn.cs" />
+    <Compile Include="Commons\Files\Create.cs" />
+    <Compile Include="Commons\Files\Read.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

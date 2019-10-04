@@ -8,6 +8,8 @@ namespace Library.Commons
         public Single Valor { get; set; }
         public Single PctIOF { get; set; }
         public DateTime Data { get; set; }
+        public DateTime DataLanc { get; set; }
+        public String NDocto { get; set; }
 
 
         public void Verificar() {

@@ -1,4 +1,6 @@
-﻿namespace Library.Banks {
+﻿using System;
+
+namespace Library.Banks {
     public class Itau : Banco
     {
         public Itau() {
@@ -7,6 +9,9 @@
             Nome = "BANCO ITAU";
             LocalPagamento = "Pagável em qualquer banco até o vencimento.";
             Moeda = "REA";
+        }
+
+        public Itau(Boolean IsComplete) {
         }
     }
 }
