@@ -210,11 +210,10 @@ namespace Dispatch {
             Create.TxtFile(StringB, Banco);
 
 
-            //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
-            //String FileName = Create.TxtFile(StringB2, Banco, false); */
+            StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
+            String FileName = Create.TxtFile(StringB2, Banco, false);
 
-            // RetornoCNAB240 Result = Read.Return(@"C:\Users\Suporte\Desktop\" + FileName);
-            //String a = ""; ???
+            RetornoCNAB240 Result = Read.Return(@"C:\Users\Suporte\Desktop\" + FileName);
 
 
 
