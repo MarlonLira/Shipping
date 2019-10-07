@@ -19,11 +19,11 @@ namespace Library.Files.CNAB240.Retorno
     public class Allotment
     {
         public HeaderAllotment HeaderAllotment { get; set; }
-        public DetailsAllotment DetailsAllotment { get; set; }
+        public List<DetailsAllotment> DetailsAllotment { get; set; }
         public TrailerAllotment TrailerAllotment { get; set; }
         public Allotment() {
             HeaderAllotment = new HeaderAllotment();
-            DetailsAllotment = new DetailsAllotment();
+            DetailsAllotment = new List<DetailsAllotment>();
             TrailerAllotment = new TrailerAllotment();
         }
     }
@@ -34,8 +34,6 @@ namespace Library.Files.CNAB240.Retorno
         public String DataGeracao { get; set; }
         public String HoraGeracao { get; set; }
         public String VLayout { get; set; }
-        public String SequencialLote { get; set; }
-        public String SequencialDetalhe { get; set; }
         public String SequencialArquivo { get; set; }
         public Int32 TipoInscricaoEmp { get; set; }
 
@@ -62,13 +60,10 @@ namespace Library.Files.CNAB240.Retorno
         public Empresa Empresa { get; set; }
         public dynamic Banco { get; set; }
         public String CodigoIM { get; set; }
-        public String DataGeracao { get; set; }
-        public String HoraGeracao { get; set; }
         public String SequencialDetalhe { get; set; }
         public String DocumentoBanco { get; set; }
+        public String DataLancto { get; set; }
         public List<String> Ocorrencias { get; set; }
-        public Int32 TipoInscricaoEmp { get; set; }
-
         public DetailsAllotment() {
             this.Empresa = new Empresa();
             this.Empresa.ContaBancaria = new ContaBancaria();
@@ -93,11 +88,9 @@ namespace Library.Files.CNAB240.Retorno
         }
     }
     public class TrailerFile {
-        
         public dynamic Banco { get; set; }
         public Registro Registro { get; set; }
         public String SequencialLote { get; set; }
-        public String[] Ocorrencias { get; set; } = new string[5];
 
         public TrailerFile() {
             this.Registro = new Registro();

@@ -111,7 +111,7 @@ namespace Dispatch.Commons.Files
                                 //CNB240.Registros = new Registro();
                                 CNB240.Registros.SequencialLote++;
                                 //Init Header Allotment
-                                File += "|" + Itau.WriteHeaderAllotment(CNB240, "0201IH");
+                                File += "|" + Itau.WriteHeaderAllotment(CNB240, "000102");
                                 foreach (Cobranca Cobranca in FoundClient.CobrancaAgendada) {
                                     Cobranca.Verificar();
                                     CNB240.Registros.SequencialDetalhe++;

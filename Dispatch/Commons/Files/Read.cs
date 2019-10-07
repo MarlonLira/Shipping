@@ -2,8 +2,8 @@
 using Library.Commons;
 using Library.Files.CNAB240.Retorno;
 using System;
-using static Library.Commons.Empresa;
 using System.Collections.Generic;
+using static Library.Commons.Empresa;
 
 namespace Dispatch.Commons.Files
 {
@@ -50,8 +50,8 @@ namespace Dispatch.Commons.Files
                         Result.HeaderFile.Empresa.Nome = Line.RetriveOnLine(73, 102); // NOME DA EMPRESA
                         Result.HeaderFile.Banco.Nome = Line.RetriveOnLine(103, 132).Trim(); // NOME DO BANCO
                         Result.HeaderFile.CodigoRR = Line.RetriveOnLine(143, 143); //  CÓDIGO REMESSA = 1/RETORNO = 2
-                        Result.HeaderFile.DataGeracao = Line.RetriveOnLine(144, 151); //  DATA DE GERAÇÃO DO ARQUIVO
-                        Result.HeaderFile.HoraGeracao = Line.RetriveOnLine(152, 157); // HORA DE GERAÇÃO DO ARQUIVO 
+                        Result.HeaderFile.DataGeracao = Line.RetriveOnLine(144, 151).FormatDate(); //  DATA DE GERAÇÃO DO ARQUIVO
+                        Result.HeaderFile.HoraGeracao = Line.RetriveOnLine(152, 157).FormatHour(); // HORA DE GERAÇÃO DO ARQUIVO 
                         Result.HeaderFile.SequencialArquivo = Line.RetriveOnLine(158, 163); // NR. SEQUENCIAL DO ARQUIVO 
                         Result.HeaderFile.VLayout = Line.RetriveOnLine(164, 166); // NR. DA VERSÃO DO LAYOUT
 
@@ -94,18 +94,18 @@ namespace Dispatch.Commons.Files
                         DetailsAllotment.Cliente.ContaBancaria.Conta = Line.RetriveOnLine(37, 41); // NR. DA CONTA DEBITADA
                         DetailsAllotment.Cliente.ContaBancaria.Digito = Line.RetriveOnLine(43, 43); // DIGITO VERIFICADOR DA AG/CONTA
                         DetailsAllotment.Cliente.Nome = Line.RetriveOnLine(44, 73).Trim(); // NOME DO DEBITADO
-                        DetailsAllotment.Cliente.DataCobranca = Line.RetriveOnLine(94, 101); // DATA PARA O LANÇAMENTO DO DÉBITO
+                        DetailsAllotment.Cliente.DataCobranca = Line.RetriveOnLine(94, 101).FormatDate(); // DATA PARA O LANÇAMENTO DO DÉBITO
                         DetailsAllotment.Banco.Moeda = Line.RetriveOnLine(102, 104); // TIPO DA MOEDA
-                        DetailsAllotment.Cliente.ValorMoeda = Convert.ToSingle(Line.RetriveOnLine(105, 119)); // QUANTIDADE DA MOEDA OU IOF
-                        DetailsAllotment.Cliente.ValorAgendado = Convert.ToSingle(Line.RetriveOnLine(120, 134)); // VALOR DO LANÇAMENTO PARA DÉBITO
+                        DetailsAllotment.Cliente.ValorMoeda = Line.RetriveOnLine(105, 119).FormatToMoney(5); // QUANTIDADE DA MOEDA OU IOF
+                        DetailsAllotment.Cliente.ValorAgendado = Line.RetriveOnLine(120, 134).FormatToMoney(2); // VALOR DO LANÇAMENTO PARA DÉBITO
                         DetailsAllotment.DocumentoBanco = Line.RetriveOnLine(135, 154).Trim(); // NR. DO DOCUM. ATRIBUÍDO PELO BANCO
-                        DetailsAllotment.DataGeracao = Line.RetriveOnLine(155, 162); // DATA REAL DA EFETIVAÇÃO DO LANÇTO.
+                        DetailsAllotment.DataLancto = Line.RetriveOnLine(155, 162).FormatDate(); // DATA REAL DA EFETIVAÇÃO DO LANÇTO.
                         DetailsAllotment.Empresa.Mora = (MoraTipo) Convert.ToInt32(Line.RetriveOnLine(178, 179)); //TIPO DO ENCARGO POR DIA DE ATRASO
                         DetailsAllotment.Empresa.Juros = Convert.ToSingle(Line.RetriveOnLine(180, 196)); // VALOR DO ENCARGO P/ DIA DE ATRASO
                         DetailsAllotment.Empresa.IdentificadorExtrato = Line.RetriveOnLine(197, 212).Trim(); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
                         DetailsAllotment.Cliente.CPF = Line.RetriveOnLine(217, 230).Trim(); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                         DetailsAllotment.Ocorrencias =  new List<string>() { Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)) }; // CÓDIGO OCORRÊNCIAS
-                        Result.Allotment[Count].DetailsAllotment = DetailsAllotment;
+                        Result.Allotment[Count].DetailsAllotment.Add(DetailsAllotment);
 
                         break;
                     }
@@ -117,8 +117,8 @@ namespace Dispatch.Commons.Files
                         TrailerAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
                         TrailerAllotment.SequencialLote = Line.RetriveOnLine(4,7); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                         TrailerAllotment.Registro.TotalQtdLotes = Convert.ToInt32(Line.RetriveOnLine(18, 23)); //QTDE REGISTROS DO LOTE
-                        TrailerAllotment.ValorDebitoTotal = Convert.ToSingle(Line.RetriveOnLine(24, 41)); //SOMA VALOR DOS DÉBITOS DO LOTE
-                        TrailerAllotment.ValorMoedaTotal = Convert.ToSingle(Line.RetriveOnLine(42, 59)); //SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
+                        TrailerAllotment.ValorDebitoTotal = Line.RetriveOnLine(24, 41).FormatToMoney(2); //SOMA VALOR DOS DÉBITOS DO LOTE
+                        TrailerAllotment.ValorMoedaTotal = Line.RetriveOnLine(42, 59).FormatToMoney(5); //SOMATÓRIA DA QTDE DE MOEDAS DO LOTE
                         TrailerAllotment.Ocorrencias = Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)); // CÓDIGO OCORRÊNCIAS
                         Result.Allotment[Count].TrailerAllotment = TrailerAllotment;
 
