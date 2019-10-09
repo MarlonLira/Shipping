@@ -27,7 +27,6 @@ namespace Dispatch.Commons.Files
             } catch {
                 throw;
             }
-
             return Return;
         }
 
@@ -41,7 +40,7 @@ namespace Dispatch.Commons.Files
                 case IsFile.HeaderFile: {
                         Result.HeaderFile.Banco = new Itau(false);
                         Result.HeaderFile.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
-                        Result.HeaderFile.TipoInscricaoEmp = Convert.ToInt32(Line.RetriveOnLine(18, 18)); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
+                        Result.HeaderFile.TipoInscricaoEmp = String.IsNullOrEmpty(Line.RetriveOnLine(18, 18).Trim())? 0 : Convert.ToInt32(Line.RetriveOnLine(18, 18)); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                         Result.HeaderFile.Empresa.CNPJ = Line.RetriveOnLine(19, 32); // NÚMERO DO CNPJ/CPF DA EMPRESA
                         Result.HeaderFile.Empresa.Convenio = Line.RetriveOnLine(33, 45).Trim(); // CÓDIGO DO CONVÊNIO NO BANCO
                         Result.HeaderFile.Empresa.ContaBancaria.AgenciaBancaria.Agencia = Line.RetriveOnLine(54, 57); // AGENCIA REFERENTE CONVÊNIO ASSINADO 
@@ -63,7 +62,7 @@ namespace Dispatch.Commons.Files
                         Ocorrencias Ocorrencia = new Ocorrencias();
 
                         HeaderAllotment.Banco.Codigo = Line.RetriveOnLine(1, 3); // CODIGO BANCARIO
-                        HeaderAllotment.TipoInscricaoEmp = Convert.ToInt32(Line.RetriveOnLine(18, 18)); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
+                        HeaderAllotment.TipoInscricaoEmp = String.IsNullOrEmpty(Line.RetriveOnLine(18, 18).Trim()) ? 0 : Convert.ToInt32(Line.RetriveOnLine(18, 18)); // TIPO DE INSCRIÇÃO DA EMPRESA | CPF = '1' | CNPJ =  '2'
                         HeaderAllotment.Empresa.CNPJ = Line.RetriveOnLine(19, 32); // NÚMERO DO CNPJ/CPF DA EMPRESA
                         HeaderAllotment.Empresa.Convenio = Line.RetriveOnLine(33, 45).Trim(); // CÓDIGO DO CONVÊNIO NO BANCO
                         HeaderAllotment.Empresa.ContaBancaria.AgenciaBancaria.Agencia = Line.RetriveOnLine(54, 57); // AGENCIA REFERENTE CONVÊNIO ASSINADO 
@@ -71,7 +70,7 @@ namespace Dispatch.Commons.Files
                         HeaderAllotment.Empresa.ContaBancaria.Digito = Line.RetriveOnLine(72, 72); // DAC (Dígito de Auto Conferência) DA AGÊNCIA/ CONTA.
                         HeaderAllotment.Empresa.Nome = Line.RetriveOnLine(73, 102); // NOME DA EMPRESA
                         HeaderAllotment.Empresa.Endereco.Nome = Line.RetriveOnLine(143, 172).Trim(); // ENDEREÇO EMPRESA NOME DA RUA, AV, PÇA, ETC...
-                        HeaderAllotment.Empresa.Endereco.Numero = Convert.ToInt32(Line.RetriveOnLine(173, 177)); //  NÚMERO DO LOCAL
+                        HeaderAllotment.Empresa.Endereco.Numero = String.IsNullOrEmpty(Line.RetriveOnLine(173, 177).Trim()) ? 0 : Convert.ToInt32(Line.RetriveOnLine(173, 177)); //  NÚMERO DO LOCAL
                         HeaderAllotment.Empresa.Endereco.Tipo = Line.RetriveOnLine(178, 192).Trim(); //  CASA, APTO, SALA, ETC... 
                         HeaderAllotment.Empresa.Endereco.Cidade = Line.RetriveOnLine(193, 212).Trim(); // NOME DA CIDADE
                         HeaderAllotment.Empresa.Endereco.CEP = Line.RetriveOnLine(213, 220).Trim(); // CEP
@@ -103,7 +102,7 @@ namespace Dispatch.Commons.Files
                         DetailsAllotment.Empresa.Mora = (MoraTipo) Convert.ToInt32(Line.RetriveOnLine(178, 179)); //TIPO DO ENCARGO POR DIA DE ATRASO
                         DetailsAllotment.Empresa.Juros = Convert.ToSingle(Line.RetriveOnLine(180, 196)); // VALOR DO ENCARGO P/ DIA DE ATRASO
                         DetailsAllotment.Empresa.IdentificadorExtrato = Line.RetriveOnLine(197, 212).Trim(); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
-                        DetailsAllotment.Cliente.CPF = Line.RetriveOnLine(217, 230).Trim(); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
+                        DetailsAllotment.Cliente.CPF = Line.RetriveOnLine(217, 230).RemoveZeroLeftLine(11).Trim(); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
                         DetailsAllotment.Ocorrencias =  new List<string>() { Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)) }; // CÓDIGO OCORRÊNCIAS
                         Result.Allotment[Count].DetailsAllotment.Add(DetailsAllotment);
 
@@ -170,9 +169,7 @@ namespace Dispatch.Commons.Files
 
                             break;
                         }
-
                 }
-
             }
             return Result;
         }

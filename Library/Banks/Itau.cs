@@ -6,7 +6,7 @@ namespace Library.Banks {
         public Itau() {
             Codigo = "341";
             Digito = "7";
-            Nome = "BANCO ITAU";
+            Nome = "BANCO ITAU S.A";
             LocalPagamento = "Pagável em qualquer banco até o vencimento.";
             Moeda = "REA";
         }
