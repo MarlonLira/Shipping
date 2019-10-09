@@ -314,7 +314,7 @@ namespace Library.Files
 
                     try {
 
-                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
+                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 150 caracteres!"); }
                         Result = File;
 
                     } catch {
