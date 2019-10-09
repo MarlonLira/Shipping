@@ -11,6 +11,11 @@ Este pacote consiste em um SDK em C# para a geração de arquivos de remessa par
 # Instalação
 - Via Nuget
 
+## Compatibilidade
+
+    - <b>341-7 | Banco Itaú - (CNAB 240)</b>
+        - [x] Debito em Conta 		(*Envio de remessa homologado com o banco em: 09-10-2019*)
+        
 ## Exemplo de implementação
 
 > Exemplo do código de geração do arquivo de remessa CNAB 240 pelo banco Itau.
