@@ -1,11 +1,16 @@
 ﻿using Library.Arquivos.CNAB240.Remessa;
+using Library.Files.CNAB150.Remessa;
 using System;
 using static Library.Commons.Empresa;
 
-namespace Library.Files {
-    public class WriteReturn {
+namespace Library.Files
+{
+    public class WriteReturn
+    {
 
-        public class Itau {
+        #region Itau
+        public class Itau
+        {
 
             Banks.Itau BancoItau = new Banks.Itau();
             String DataAtual = DateTime.UtcNow.AddHours(-3).ToShortDateString();
@@ -72,7 +77,7 @@ namespace Library.Files {
                 try {
 
                     File = File.WriteInLine(1, 3, BancoItau.Codigo); // CODIGO BANCARIO
-                    File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4,7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
+                    File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4, 7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                     File = File.WriteInLine(8, 8, "1"); // REGISTRO DO HEADER DO LOTE
                     File = File.WriteInLine(9, 9, "D"); // TIPO DA OPERAÇÃO
                     File = File.WriteInLine(10, 11, "05"); // FORMA DE LANÇAMENTO
@@ -118,9 +123,9 @@ namespace Library.Files {
                 try {
 
                     File = File.WriteInLine(1, 3, BancoItau.Codigo); // CÓDIGO BANCO NA COMPENSAÇÃO
-                    File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4,7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
+                    File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4, 7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                     File = File.WriteInLine(8, 8, "3"); // REGISTRO DETALHE DE LOTE
-                    File = File.WriteInLine(9, 13, Shipping.Registros.SequencialDetalhe.AddZeroLeftLine(9,13)); // Nº SEQUENCIAL REGISTRO NO LOTE
+                    File = File.WriteInLine(9, 13, Shipping.Registros.SequencialDetalhe.AddZeroLeftLine(9, 13)); // Nº SEQUENCIAL REGISTRO NO LOTE
                     File = File.WriteInLine(14, 14, "A"); // CÓDIGO SEGMENTO REG. DETALHE 
                     File = File.WriteInLine(15, 17, "000"); // CÓDIGO DA INSTRUÇÃO PARA MOVIMENTO | 000 = inclusão de debito | 999 = exlusão de debito
                     File = File.WriteInLine(18, 20, "000"); // CÓDIGO DA CÂMARA DE COMPENSAÇÃO
@@ -187,7 +192,7 @@ namespace Library.Files {
                 try {
 
                     File = File.WriteInLine(1, 3, BancoItau.Codigo); // CÓDIGO BANCO NA COMPENSAÇÃO
-                    File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4,7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
+                    File = File.WriteInLine(4, 7, Shipping.Registros.SequencialLote.AddZeroLeftLine(4, 7)); // LOTE IDENTIFICAÇÃO DE SERVIÇO
                     File = File.WriteInLine(8, 8, "5"); // REGISTRO DETALHE DE LOTE
                     File = File.RightEmptyLine(9, 17); // COMPLEMENTO | BRANCOS
                     File = File.WriteInLine(18, 23, Shipping.ClienteSacado.QtdRegsLote.AddZeroLeftLine(18, 23)); // QTDE REGISTROS DO LOTE
@@ -232,5 +237,111 @@ namespace Library.Files {
             }
 
         }
+
+        #endregion
+
+        #region Caixa
+        public class Caixa
+        {
+            public class Itau
+            {
+
+                Banks.Caixa BancoCaixa = new Banks.Caixa();
+                String DataAtual = DateTime.UtcNow.AddHours(-3).ToShortDateString();
+                String HoraAtual = DateTime.UtcNow.AddHours(-3).ToLongTimeString();
+
+                public String WriteHeaderFile(RemessaCNAB150 Shipping) {
+                    String Result;
+                    String EmpresaNome = Shipping.EmpresaCedente.Nome;
+
+                    if (EmpresaNome.Length > 30) {
+                        EmpresaNome = EmpresaNome.Substring(0, 30);
+                    }
+
+                    var File = new String(' ', 150);
+
+                    try {
+
+                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 150 caracteres!"); }
+                        Result = File;
+
+                    } catch {
+                        throw;
+                    }
+                    return Result;
+                }
+
+                public String WriteHeaderAllotment(RemessaCNAB150 Shipping, String Ocorrencia) {
+                    String Result;
+                    String EmpresaNome = Shipping.EmpresaCedente.Nome;
+
+                    if (EmpresaNome.Length > 30) {
+                        EmpresaNome = EmpresaNome.Substring(0, 30);
+                    }
+
+                    var File = new String(' ', 150);
+
+                    try {
+                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 150 caracteres!"); }
+                        Result = File;
+
+                    } catch {
+                        throw;
+                    }
+                    return Result;
+                }
+
+                public String WriteDetailsAllotment(RemessaCNAB150 Shipping, String Ocorrencia) {
+                    String Result;
+
+                    var File = new String(' ', 150);
+
+                    try {
+                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 150 caracteres!"); }
+                        Result = File;
+
+                    } catch {
+                        throw;
+                    }
+
+                    return Result;
+                }
+
+                public String WriteTrailerAllotment(RemessaCNAB150 Shipping, String Ocorrencia) {
+                    String Result;
+
+                    var File = new String(' ', 150);
+
+                    try {
+
+                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 240 caracteres!"); }
+                        Result = File;
+
+                    } catch {
+                        throw;
+                    }
+
+                    return Result;
+                }
+
+                public String WriteTrailerFile(RemessaCNAB150 Shipping) {
+                    String Result;
+
+                    var File = new String(' ', 150);
+
+                    try {
+                        if (File.Length > 150) { throw new Exception("O tamanho do arquivo excede 150 caracteres!"); }
+                        Result = File;
+
+                    } catch {
+                        throw;
+                    }
+
+                    return Result;
+                }
+            }
+        }
+
+        #endregion
     }
 }
