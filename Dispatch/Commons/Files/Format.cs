@@ -35,5 +35,13 @@ namespace Dispatch.Commons.Files
             return Result;
         }
 
+        public static String RemoveZeroLeftLine(this String Value, Int32 Length) {
+            String Result = "";
+
+            Result = Value.Substring((Value.Length - Length), Length);
+
+            return Result;
+        }
+
     }
 }

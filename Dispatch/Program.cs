@@ -16,28 +16,27 @@ namespace Dispatch {
 
             var Empresa = new Empresa()
             {
-                CNPJ = "31892890000117",
-                Nome = "CENTRO DE ATIV E C F S LTDA",
-                Convenio = "4998108312126",
-                Juros = 0.2f,
-                IdentificadorExtrato = "HIX024",
+                CNPJ = "27035977000109",
+                Nome = "ACADEMIA BRILHANTE EIREKI",
+                Convenio = "4997308312118",
+                Juros = 0.02f,
+                IdentificadorExtrato = "HI10",
                 Mora = MoraTipo.Isento,
                 ContaBancaria = new ContaBancaria()
                 {
-                    Conta = "32803",
-                    Digito = "2",
+                    Conta = "32789",
+                    Digito = "3",
                     AgenciaBancaria = new AgenciaBancaria()
                     {
-                        Agencia = "9248",
-                        Digito = "2"
+                        Agencia = "9248"
                     }
                 },
                 Endereco = new Endereco()
                 {
-                    Nome = "Rua Zeferino Agra, Arruda",
-                    CEP = "52120180",
+                    Nome = "Rua Pinhal, Boa Viagem",
+                    CEP = "51021470",
                     Cidade = "Recife",
-                    Numero = 519,
+                    Numero = 181,
                     EstadoSigla = "PE",
                     Tipo = "Academia"
                 }
@@ -192,30 +191,27 @@ namespace Dispatch {
                     CPF = "02826059408",
                      Nome = "ALEXSANDRA V C S MEDEIROS",
                      CobrancaAgendada = new List<Cobranca>() {
-                         new Cobranca { Descricao = "CB - Teste" , Valor = 15f, Data = Convert.ToDateTime("03/10/2019"), NDocto = "080340000019900"},
+                         new Cobranca { Descricao = "CB - Teste" , Valor = 15f, Data = Convert.ToDateTime("14/10/2019"), NDocto = "080440000019900"},
                      },
                      ContaBancaria = new ContaBancaria() {
                          Conta = "09740",
                          Digito = "6",
                          AgenciaBancaria = new AgenciaBancaria() {
-                             Agencia = "5633",
-                             Digito = "6"
+                             Agencia = "5633"
                          }
                      }
                 }
             };
 
-            Clientes.Add(Cliente2);
 
-            /*
             StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
-            Create.TxtFile(StringB, Banco);*/
+            Create.TxtFile(StringB, Banco);
 
-            StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
-            String FileName = Create.TxtFile(StringB2, Banco, false);
+            //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
+            //String FileName = Create.TxtFile(StringB2, Banco, false);
 
-            RetornoCNAB240 Result = Read.Return(FileName);
-            String a = "";
+            //RetornoCNAB240 Result = Read.Return(@"C:\Users\suporte\Desktop\Repo\DS09109A.txt");
+            Console.ReadKey();
 
         }
     }
