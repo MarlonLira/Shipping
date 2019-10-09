@@ -53,6 +53,8 @@
     <Compile Include="Commons\Endereco.cs" />
     <Compile Include="Commons\Ocorrencias.cs" />
     <Compile Include="Commons\Registro.cs" />
+    <Compile Include="Files\CNAB150\Remessa\RemessaCNAB150.cs" />
+    <Compile Include="Files\CNAB150\Retorno\RetornoCNAB150.cs" />
     <Compile Include="Files\CNAB240\Remessa\RemessaCNAB240.cs" />
     <Compile Include="Banks\Banco.cs" />
     <Compile Include="Banks\Itau.cs" />

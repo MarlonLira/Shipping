@@ -204,13 +204,13 @@ namespace Dispatch {
             };
 
 
-            StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
-            Create.TxtFile(StringB, Banco);
+            //StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
+            //Create.TxtFile(StringB, Banco);
 
             //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
             //String FileName = Create.TxtFile(StringB2, Banco, false);
 
-            //RetornoCNAB240 Result = Read.Return(@"C:\Users\suporte\Desktop\Repo\DS09109A.txt");
+            RetornoCNAB240 Result = Read.Return(@"C:\Users\suporte\Desktop\Repo\DS09109A.txt");
             Console.ReadKey();
 
         }

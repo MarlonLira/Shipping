@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace Library.Banks {
+namespace Library.Banks
+{
     public class Itau : Banco
     {
         public Itau() {
@@ -11,7 +12,6 @@ namespace Library.Banks {
             Moeda = "REA";
         }
 
-        public Itau(Boolean IsComplete) {
-        }
+        public Itau(Boolean IsComplete) {}
     }
 }
