@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library.Files.CNAB150.Remessa
-{
-    class RemessaCNAB150
-    {
-=======
 ﻿using Library.Commons;
 using System;
 
@@ -31,6 +21,6 @@ namespace Library.Files.CNAB150.Remessa
         public Empresa EmpresaCedente { get; set; }
         public Registro Registros { get; set; }
         public Cliente ClienteSacado { get; set; }
->>>>>>> 033f699ac13220b0f95171174182be7644f7ccf3
+
     }
 }
