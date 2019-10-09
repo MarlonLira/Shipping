@@ -1,4 +1,6 @@
-﻿namespace Library.Banks
+﻿using System;
+
+namespace Library.Banks
 {
     class Brasil : Banco
     {
@@ -9,5 +11,7 @@
             LocalPagamento = "Pagável em qualquer banco até o vencimento.";
             Moeda = "REA";
         }
+
+        public Brasil(Boolean IsComplete) { }
     }
 }

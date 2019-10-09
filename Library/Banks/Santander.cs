@@ -1,4 +1,6 @@
-﻿namespace Library.Banks
+﻿using System;
+
+namespace Library.Banks
 {
     class Santander : Banco
     {
@@ -9,5 +11,7 @@
             LocalPagamento = "Pagar preferencialmente no banco santander";
             Moeda = "REA";
         }
+
+        public Santander(Boolean IsComplete) {}
     }
 }

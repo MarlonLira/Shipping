@@ -1,4 +1,6 @@
-﻿namespace Library.Banks
+﻿using System;
+
+namespace Library.Banks
 {
     class Caixa : Banco
     {
@@ -8,6 +10,9 @@
             Nome = "Caixa Econômica Federal";
             LocalPagamento = "Pagável preferencialmente nas agências da Caixa ou Lotéricas.";
             Moeda = "REA";
+        }
+
+        public Caixa(Boolean IsComplete) {
         }
     }
 }

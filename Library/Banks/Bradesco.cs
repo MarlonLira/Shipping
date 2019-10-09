@@ -1,4 +1,6 @@
-﻿namespace Library.Banks
+﻿using System;
+
+namespace Library.Banks
 {
     class Bradesco : Banco
     {
@@ -9,5 +11,7 @@
             LocalPagamento = "Pagável preferencialmente nas Agências Bradesco.";
             Moeda = "REA";
         }
+
+        public Bradesco(Boolean IsComplete) {}
     }
 }
