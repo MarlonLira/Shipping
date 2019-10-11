@@ -11,6 +11,45 @@ Este pacote consiste em um SDK em C# para a geração de arquivos de remessa par
 # Instalação
 - Via Nuget
 
+## Compatibilidade
+
+- <b>Bancos</b>
+    - <b>341-7 | Banco Itaú - (CNAB 240)</b>
+        - Debito em Conta
+            - [x] Envio 		(*Homologado com o banco em: 09-10-2019*)
+            - [x] Retorno 		(*Homologado com o banco em: 09-10-2019*)
+        - Boleto
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+    - <b>104-0 | Caixa Econômica Federal - (CNAB 150)</b>
+        - Debito em Conta
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+        - Boleto
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+    - <b>237-2 | Banco Bradesco - (CNAB 400)</b>
+        - Debito em Conta
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+        - Boleto
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+    - <b>001-9 | Banco do Brasil - (CNAB 400)</b>
+         - Debito em Conta
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+        - Boleto
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+    - <b>033-7 | Banco Santander - (CNAB 400)</b>
+        - Debito em Conta
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+        - Boleto
+            - [ ] Envio 		(*Homologado com o banco em:*)
+            - [ ] Retorno 		(*Homologado com o banco em:*)
+    
 ## Exemplo de implementação
 
 > Exemplo do código de geração do arquivo de remessa CNAB 240 pelo banco Itau.

@@ -14,7 +14,7 @@ namespace Dispatch {
 
             Itau Banco = new Itau();
 
-            var Empresa = new Empresa()
+            var Empresa1 = new Empresa()
             {
                 CNPJ = "27035977000109",
                 Nome = "ACADEMIA BRILHANTE EIREKI",
@@ -37,6 +37,98 @@ namespace Dispatch {
                     CEP = "51021470",
                     Cidade = "Recife",
                     Numero = 181,
+                    EstadoSigla = "PE",
+                    Tipo = "Academia"
+                }
+            };
+
+            var Empresa2 = new Empresa() {
+                CNPJ = "3189289000206",
+                Nome = "CENTRO DE ATIV E C F S LTDA",
+                Convenio = "4998108312126",
+                Juros = 0.02f,
+                Mora = MoraTipo.Isento,
+                ContaBancaria = new ContaBancaria() {
+                    Conta = "32789",
+                    Digito = "3",
+                    AgenciaBancaria = new AgenciaBancaria() {
+                        Agencia = "9248"
+                    }
+                },
+                Endereco = new Endereco() {
+                    Nome = "Rua Barão de Itamaraca, Espinheiro",
+                    CEP = "52020070",
+                    Cidade = "Recife",
+                    Numero = 54,
+                    EstadoSigla = "PE",
+                    Tipo = "Academia"
+                }
+            };
+
+            var Empresa3 = new Empresa() {
+                CNPJ = "3189289000206",
+                Nome = "CENTRO DE ATIV E C F S LTDA",
+                Convenio = "4998108312126",
+                Juros = 0.02f,
+                Mora = MoraTipo.Isento,
+                ContaBancaria = new ContaBancaria() {
+                    Conta = "32789",
+                    Digito = "3",
+                    AgenciaBancaria = new AgenciaBancaria() {
+                        Agencia = "9248"
+                    }
+                },
+                Endereco = new Endereco() {
+                    Nome = "Rua Barão de Itamaraca, Espinheiro",
+                    CEP = "52020070",
+                    Cidade = "Recife",
+                    Numero = 54,
+                    EstadoSigla = "PE",
+                    Tipo = "Academia"
+                }
+            };
+
+            var Empresa4 = new Empresa() {
+                CNPJ = "3189289000206",
+                Nome = "CENTRO DE ATIV E C F S LTDA",
+                Convenio = "4998108312126",
+                Juros = 0.02f,
+                Mora = MoraTipo.Isento,
+                ContaBancaria = new ContaBancaria() {
+                    Conta = "32789",
+                    Digito = "3",
+                    AgenciaBancaria = new AgenciaBancaria() {
+                        Agencia = "9248"
+                    }
+                },
+                Endereco = new Endereco() {
+                    Nome = "Rua Barão de Itamaraca, Espinheiro",
+                    CEP = "52020070",
+                    Cidade = "Recife",
+                    Numero = 54,
+                    EstadoSigla = "PE",
+                    Tipo = "Academia"
+                }
+            };
+
+            var Empresa5 = new Empresa() {
+                CNPJ = "3189289000206",
+                Nome = "CENTRO DE ATIV E C F S LTDA",
+                Convenio = "4998108312126",
+                Juros = 0.02f,
+                Mora = MoraTipo.Isento,
+                ContaBancaria = new ContaBancaria() {
+                    Conta = "32789",
+                    Digito = "3",
+                    AgenciaBancaria = new AgenciaBancaria() {
+                        Agencia = "9248"
+                    }
+                },
+                Endereco = new Endereco() {
+                    Nome = "Rua Barão de Itamaraca, Espinheiro",
+                    CEP = "52020070",
+                    Cidade = "Recife",
+                    Numero = 54,
                     EstadoSigla = "PE",
                     Tipo = "Academia"
                 }
@@ -191,7 +283,7 @@ namespace Dispatch {
                     CPF = "02826059408",
                      Nome = "ALEXSANDRA V C S MEDEIROS",
                      CobrancaAgendada = new List<Cobranca>() {
-                         new Cobranca { Descricao = "CB - Teste" , Valor = 15f, Data = Convert.ToDateTime("14/10/2019"), NDocto = "080440000019900"},
+                         new Cobranca { Descricao = "CB - Teste" , Valor = 15f, Data = Convert.ToDateTime("18/10/2019"), NDocto = "080440000019900"},
                      },
                      ContaBancaria = new ContaBancaria() {
                          Conta = "09740",
@@ -204,13 +296,13 @@ namespace Dispatch {
             };
 
 
-            //StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 1);
+            //StringBuilder StringB = Create.Shipping(Empresa, Clientes, (Bank)341, 2);
             //Create.TxtFile(StringB, Banco);
 
             //StringBuilder StringB2 = Create.Return(Empresa, Clientes, (Bank)341, 1);
             //String FileName = Create.TxtFile(StringB2, Banco, false);
 
-            RetornoCNAB240 Result = Read.Return(@"C:\Users\suporte\Desktop\Repo\DS09109A.txt");
+            RetornoCNAB240 Result = Read.Return(@"C:\Users\suporte\Desktop\Repo\DS11109A.txt");
             Console.ReadKey();
 
         }

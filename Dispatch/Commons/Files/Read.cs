@@ -103,7 +103,7 @@ namespace Dispatch.Commons.Files
                         DetailsAllotment.Empresa.Juros = Convert.ToSingle(Line.RetriveOnLine(180, 196)); // VALOR DO ENCARGO P/ DIA DE ATRASO
                         DetailsAllotment.Empresa.IdentificadorExtrato = Line.RetriveOnLine(197, 212).Trim(); // INFORMAÇÃO COMPL. P/ HISTÓRICO C/C
                         DetailsAllotment.Cliente.CPF = Line.RetriveOnLine(217, 230).RemoveZeroLeftLine(11).Trim(); // Nº DE INSCRIÇÃO DO DEBITADO (CPF/CNPJ)
-                        DetailsAllotment.Ocorrencias =  new List<string>() { Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)) }; // CÓDIGO OCORRÊNCIAS
+                        DetailsAllotment.Ocorrencias =  Ocorrencia.ReturnOccurrence(Line.RetriveOnLine(231, 240)); // CÓDIGO OCORRÊNCIAS
                         Result.Allotment[Count].DetailsAllotment.Add(DetailsAllotment);
 
                         break;

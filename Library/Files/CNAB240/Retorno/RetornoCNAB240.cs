@@ -63,7 +63,7 @@ namespace Library.Files.CNAB240.Retorno
         public String SequencialDetalhe { get; set; }
         public String DocumentoBanco { get; set; }
         public String DataLancto { get; set; }
-        public List<String> Ocorrencias { get; set; }
+        public String Ocorrencias { get; set; }
         public DetailsAllotment() {
             this.Empresa = new Empresa();
             this.Empresa.ContaBancaria = new ContaBancaria();

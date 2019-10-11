@@ -13,17 +13,17 @@ namespace Library.Commons {
             Texto = Ocorrencias + Texto;
 
             Ocorrencias = Texto.Substring(0, 10);
-            String[] Teste = new String[5];
+            String[] OccurrencePart = new String[5];
 
-            Teste[0] = Ocorrencias.Substring(0, 2);
-            Teste[1] = Ocorrencias.Substring(2, 2);
-            Teste[2] = Ocorrencias.Substring(4, 2);
-            Teste[3] = Ocorrencias.Substring(6, 2);
-            Teste[4] = Ocorrencias.Substring(8, 2);
+            OccurrencePart[0] = Ocorrencias.Substring(0, 2);
+            OccurrencePart[1] = Ocorrencias.Substring(2, 2);
+            OccurrencePart[2] = Ocorrencias.Substring(4, 2);
+            OccurrencePart[3] = Ocorrencias.Substring(6, 2);
+            OccurrencePart[4] = Ocorrencias.Substring(8, 2);
 
             String Occurrence = "";
 
-            foreach (String Ocorrencia in Teste) {
+            foreach (String Ocorrencia in OccurrencePart) {
                 if (!String.IsNullOrEmpty(Ocorrencia)) {
                     switch (Ocorrencia) {
                         case "00":
@@ -112,6 +112,10 @@ namespace Library.Commons {
 
                         case "AS":
                             Occurrence += "PARCELA VINCULADA|";
+                            break;
+
+                        case "BD":
+                            Occurrence += "CONFIRMAÇÃO DE AGENDAMENTO";
                             break;
 
                         case "IA":
